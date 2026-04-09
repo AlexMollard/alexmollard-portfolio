@@ -6,10 +6,9 @@ summary: OpenGL renderer implementing a physically based rendering pipeline with
 role: Solo graphics programmer.
 youtube_url: https://www.youtube.com/watch?v=Qj1FK8n7WgY
 media_images:
-  - /media/imported/legacy-6.jpg
-  - /media/imported/legacy-7.png
-  - /media/imported/legacy-8.png
-  - /media/imported/legacy-9.png
+  - /media/imported/pbr-renderer-1.jpg
+  - /media/imported/pbr-renderer-2.png
+  - /media/imported/pbr-renderer-3.png
 engine: Custom Renderer
 api: OpenGL
 features:

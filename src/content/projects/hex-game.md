@@ -4,8 +4,7 @@ date: 2021-10-01
 category: Hobby
 summary: Procedural hex-grid terrain project using Perlin-noise-driven height, rivers, and humidity-based biome classification.
 role: Solo developer implementing generation systems and simulation rules.
-media_images:
-  - /media/imported/legacy-5.jpg
+media_images: []
 engine: Custom Prototype
 api: Other
 features:

@@ -1,11 +1,13 @@
----
+﻿---
 title: Rugby 25
 date: 2025-02-13
 category: Professional
 summary: Rugby 25 extends Big Ant's sports simulation lineup with modern platforms and updated gameplay systems.
 role: Software developer in production sports title delivery.
 media_images:
-  - /media/rugby-25-shot.svg
+  - /media/imported/rugby-25-1.jpg
+  - /media/imported/rugby-25-2.jpg
+  - /media/imported/rugby-25-3.jpg
 engine: Proprietary Studio Engine
 api: Other
 features:
