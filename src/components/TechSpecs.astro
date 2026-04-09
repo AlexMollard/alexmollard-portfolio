@@ -1,0 +1,45 @@
+---
+interface Props {
+	title?: string;
+	engine: string;
+	api: string;
+	features: string[];
+	performanceMetrics?: string[];
+}
+
+const {
+	title = 'Tech Specs',
+	engine,
+	api,
+	features,
+	performanceMetrics = []
+} = Astro.props as Props;
+---
+
+<aside class="soft-panel border-1 border-copper/40 bg-cream/45 p-5 md:p-6" aria-label={title}>
+	<h3 class="mono mb-5 text-[11px] uppercase tracking-[0.14em] text-ash/80">{title}</h3>
+	<dl class="space-y-3 text-sm text-ash">
+		<div class="grid grid-cols-[7rem_1fr] gap-3">
+			<dt class="mono text-[11px] uppercase tracking-[0.14em] text-ash/70">Engine</dt>
+			<dd>{engine}</dd>
+		</div>
+		<div class="grid grid-cols-[7rem_1fr] gap-3">
+			<dt class="mono text-[11px] uppercase tracking-[0.14em] text-ash/70">API</dt>
+			<dd>{api}</dd>
+		</div>
+		<div class="grid grid-cols-[7rem_1fr] gap-3">
+			<dt class="mono text-[11px] uppercase tracking-[0.14em] text-ash/70">Features</dt>
+			<dd class="leading-relaxed">{features.join(' • ')}</dd>
+		</div>
+		{performanceMetrics.length > 0 && (
+			<div class="grid grid-cols-[7rem_1fr] gap-3">
+				<dt class="mono text-[11px] uppercase tracking-[0.14em] text-ash/70">Perf</dt>
+				<dd class="space-y-1 leading-relaxed">
+					{performanceMetrics.map((metric) => (
+						<p>{metric}</p>
+					))}
+				</dd>
+			</div>
+		)}
+	</dl>
+</aside>

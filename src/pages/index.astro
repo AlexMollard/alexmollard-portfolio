@@ -1,11 +1,420 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import { getCollection } from 'astro:content';
+import ProjectMedia from '../components/ProjectMedia.astro';
+import TechSpecs from '../components/TechSpecs.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const inferDomain = (project: (typeof projects)[number]) => {
+	const corpus = `${project.data.title} ${project.data.summary} ${project.data.features.join(' ')}`.toLowerCase();
+	if (corpus.includes('network') || corpus.includes('enet') || corpus.includes('udp')) return 'Networking';
+	if (corpus.includes('audio') || corpus.includes('openal')) return 'Tools';
+	if (corpus.includes('vulkan') || corpus.includes('render') || corpus.includes('pbr') || corpus.includes('shader')) return 'Graphics';
+	if (corpus.includes('engine')) return 'Engine';
+	if (corpus.includes('noise') || corpus.includes('fluid') || corpus.includes('marching')) return 'Research';
+	return 'Gameplay';
+};
+
+const atlasProjects = projects.map((project) => ({
+	project,
+	domain: inferDomain(project),
+	year: project.data.date.getFullYear()
+}));
+
+const spotlight = atlasProjects.find((item) => item.project.data.featured) ?? atlasProjects[0];
+const domains = [...new Set(atlasProjects.map((item) => item.domain))];
+const categories = [...new Set(atlasProjects.map((item) => item.project.data.category))];
+const apis = [...new Set(atlasProjects.map((item) => item.project.data.api))];
+const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) => b - a);
+const heroImagePool = [...new Set(projects.flatMap((project) => project.data.media_images ?? []))];
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+	title="Alex Mollard | Graphics Engineer"
+	description="Portfolio focused on rendering systems, PBR workflows, and low-level graphics engineering."
+>
+	<header class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
+		<section class="hero-stage h-[100svh] w-[100dvw]" data-hero-pool={JSON.stringify(heroImagePool)}>
+			<div class="hero-slide hero-slide-1" style="background-image: url('/media/pbr-frame-01.svg');"></div>
+			<div class="hero-slide hero-slide-2" style="background-image: url('/media/pbr-frame-02.svg');"></div>
+			<div class="hero-slide hero-slide-3" style="background-image: url('/media/hero-shift-03.svg');"></div>
+			<div class="hero-tint"></div>
+			<div class="hero-noise"></div>
+
+			<div class="relative z-10 grid h-[100svh] w-full grid-cols-1 lg:grid-cols-[30rem_1fr]">
+				<aside class="w-full border-r border-copper/50 bg-[#15110f]/84 p-6 text-[#f1e1cf] backdrop-blur-md md:p-8 lg:h-full lg:p-10">
+					<div class="flex h-full flex-col justify-between">
+						<div>
+					<p class="mono text-[11px] uppercase tracking-[0.18em] text-[#d8bca1]/90">Graphics Engineering Portfolio</p>
+					<h1 class="mt-3 text-4xl font-semibold leading-[0.94] tracking-tight text-[#f7eadb] md:text-6xl">Alex Mollard</h1>
+					<p class="mt-4 text-sm leading-relaxed text-[#ead8c4]/92 md:text-base">
+						I build game tech where render quality, deterministic systems, and frame-time discipline all matter.
+					</p>
+					<div class="mt-5 space-y-3">
+						<p class="mono text-[11px] uppercase tracking-[0.14em] text-[#d8bca1]/90">Current Focus</p>
+						<p class="text-sm leading-relaxed text-[#ead8c4]/92">C++ and Vulkan graphics programming, rendering systems, and practical engine architecture.</p>
+					</div>
+					<div class="mt-5 space-y-2">
+						<p class="mono text-[11px] uppercase tracking-[0.14em] text-[#d8bca1]/90">Professional Titles</p>
+						<ul class="space-y-1 text-sm leading-relaxed text-[#ead8c4]/92">
+							<li>Software Developer - Big Ant Studios (2022-Present)</li>
+							<li>C++ and Vulkan Graphics Programmer</li>
+							<li>Game Developer</li>
+						</ul>
+					</div>
+						</div>
+					<div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+						<a href="mailto:alexmollard@protonmail.com" class="group soft-panel border-1 border-[#b97845]/80 bg-[#8f4f2a] px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#f7eadb] transition hover:-translate-y-0.5 hover:bg-[#a86235] hover:border-[#cf8a56]">
+							<span class="flex items-center justify-between">
+								<span>Contact</span>
+								<span class="mono text-[11px] opacity-80 transition group-hover:opacity-100">01</span>
+							</span>
+						</a>
+						<a href="#projects" class="group soft-panel border-1 border-[#d8bca1]/55 bg-[#201711]/45 px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#f0dfca] transition hover:-translate-y-0.5 hover:border-[#efb37d]/70 hover:bg-[#2a1f17]/65">
+							<span class="flex items-center justify-between">
+								<span>Projects</span>
+								<span class="mono text-[11px] opacity-80 transition group-hover:opacity-100">02</span>
+							</span>
+						</a>
+					</div>
+					</div>
+				</aside>
+				<div class="hidden lg:block"></div>
+			</div>
+		</section>
+	</header>
+
+	<main id="projects" class="relative left-1/2 -mx-[50dvw] mt-12 w-[100dvw] px-6 md:px-10 lg:px-14">
+		<div class="mx-auto max-w-[104rem] space-y-8">
+			<section class="soft-panel reveal-in border-1 border-copper/45 bg-panel/92 p-5 shadow-[0_10px_32px_rgba(0,0,0,0.28)] md:p-7">
+				<div class="flex flex-wrap items-center justify-between gap-4">
+					<div>
+						<h2 class="text-2xl font-semibold">Project Atlas</h2>
+						<p class="mt-1 text-sm text-ash/85">Explore projects by domain, API, category, and timeline without endless scrolling.</p>
+					</div>
+					<p id="atlas-result-count" class="mono text-[11px] uppercase tracking-[0.14em] text-ash/80">0 visible projects</p>
+				</div>
+			</section>
+
+			{spotlight && (
+				<section class="soft-panel reveal-in border-1 border-copper/45 bg-gradient-to-br from-cream/20 to-panel/80 p-5 md:p-6">
+					<div class="flex flex-wrap items-center justify-between gap-3">
+						<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Atlas Spotlight</p>
+						<div class="flex items-center gap-2">
+							<span class="atlas-chip atlas-chip-active">{spotlight.domain}</span>
+							<span class="atlas-chip">{spotlight.year}</span>
+						</div>
+					</div>
+					<div class="mt-4 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+						<div class="space-y-4">
+							<div class="soft-panel overflow-hidden border-1 border-copper/35 bg-panel/60 p-3">
+								<ProjectMedia title={spotlight.project.data.title} youtubeUrl={spotlight.project.data.youtube_url} images={spotlight.project.data.media_images} />
+							</div>
+							<div class="soft-panel border-1 border-copper/35 bg-panel/70 p-4">
+								<p class="mono text-[10px] uppercase tracking-[0.14em] text-ash/75">Performance Notes</p>
+								<ul class="mt-2 space-y-1 text-sm text-ash/90">
+									{spotlight.project.data.performance_metrics.slice(0, 3).map((metric) => <li>- {metric}</li>)}
+								</ul>
+							</div>
+						</div>
+						<div class="soft-panel border-1 border-copper/35 bg-panel/80 p-5">
+							<h3 class="text-3xl font-semibold tracking-tight text-ink md:text-4xl">{spotlight.project.data.title}</h3>
+							<p class="mt-3 text-sm leading-relaxed text-ash/90">{spotlight.project.data.summary}</p>
+							<div class="mt-4 flex flex-wrap items-center gap-2">
+								<span class="atlas-chip">{spotlight.project.data.api}</span>
+								<span class="atlas-chip">{spotlight.project.data.category}</span>
+							</div>
+							{spotlight.project.data.role && (
+								<p class="mt-4 text-sm leading-relaxed text-ash/88"><span class="font-semibold text-ink">Role:</span> {spotlight.project.data.role}</p>
+							)}
+							<div class="mt-5 space-y-2">
+								<p class="mono text-[10px] uppercase tracking-[0.14em] text-ash/75">Core Stack Highlights</p>
+								<ul class="space-y-1 text-sm text-ash/90">
+									{spotlight.project.data.features.slice(0, 4).map((feature) => <li>- {feature}</li>)}
+								</ul>
+							</div>
+							{spotlight.project.data.external_url && (
+								<p class="mt-5">
+									<a href={spotlight.project.data.external_url} target="_blank" rel="noreferrer" class="mono text-[12px] font-medium uppercase tracking-[0.14em] underline decoration-copper/70 underline-offset-4 hover:text-signal">Open Project</a>
+								</p>
+							)}
+						</div>
+					</div>
+				</section>
+			)}
+
+			<section class="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+				<aside class="soft-panel sticky top-6 h-fit border-1 border-copper/45 bg-panel/90 p-4 md:p-5">
+					<div class="space-y-4">
+						<div>
+							<label for="atlas-search" class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Search</label>
+							<input id="atlas-search" type="text" placeholder="title, feature, summary" class="mt-2 w-full border-1 border-copper/45 bg-cream/18 px-3 py-2 text-sm text-ink placeholder:text-ash/70 focus:border-signal focus:outline-none" />
+						</div>
+
+						<div>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Sort</p>
+							<select id="atlas-sort" class="atlas-select mt-2 w-full border-1 border-copper/45 bg-cream/18 px-3 py-2 text-sm text-ink focus:border-signal focus:outline-none">
+								<option value="newest">Newest</option>
+								<option value="oldest">Oldest</option>
+								<option value="title">Title A-Z</option>
+							</select>
+						</div>
+
+						<div>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Domain</p>
+							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="domain">
+								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
+								{domains.map((domain) => <button class="atlas-chip" data-filter={domain} type="button">{domain}</button>)}
+							</div>
+						</div>
+
+						<div>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Type</p>
+							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="category">
+								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
+								{categories.map((category) => <button class="atlas-chip" data-filter={category} type="button">{category}</button>)}
+							</div>
+						</div>
+
+						<div>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">API</p>
+							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="api">
+								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
+								{apis.map((api) => <button class="atlas-chip" data-filter={api} type="button">{api}</button>)}
+							</div>
+						</div>
+
+						<div>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Timeline</p>
+							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="year">
+								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
+								{years.map((year) => <button class="atlas-chip" data-filter={String(year)} type="button">{year}</button>)}
+							</div>
+						</div>
+
+						<button id="atlas-reset" type="button" class="atlas-chip w-full">Reset Filters</button>
+					</div>
+				</aside>
+
+				<div class="space-y-5">
+					<div id="atlas-grid" class="grid gap-5 xl:grid-cols-2">
+						{atlasProjects.map(({ project, domain, year }) => {
+							const previewImage = project.data.media_images?.[0];
+
+							return (
+								<article
+									class="atlas-card soft-panel card-pop overflow-hidden border-1 border-copper/35 bg-cream/16"
+									data-title={project.data.title.toLowerCase()}
+									data-summary={project.data.summary.toLowerCase()}
+									data-features={project.data.features.join(' ').toLowerCase()}
+									data-domain={domain}
+									data-category={project.data.category}
+									data-api={project.data.api}
+									data-year={String(year)}
+									data-ts={String(project.data.date.getTime())}
+								>
+									{previewImage && (
+										<div class="relative h-44 border-b border-copper/35">
+											<img src={previewImage} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading="lazy" />
+											<div class="absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-transparent"></div>
+										</div>
+									)}
+									<div class="space-y-3 p-5">
+										<div class="flex flex-wrap items-center gap-2">
+											<span class="atlas-chip">{domain}</span>
+											<span class="atlas-chip">{project.data.api}</span>
+											<span class="atlas-chip">{project.data.category}</span>
+											<span class="atlas-chip">{year}</span>
+										</div>
+										<h3 class="text-2xl font-semibold leading-tight text-ink">{project.data.title}</h3>
+										<p class="text-sm leading-relaxed text-ash/88">{project.data.summary}</p>
+										<div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
+											<p class="text-sm leading-relaxed text-ash/82">{project.data.features.slice(0, 3).join(' • ')}</p>
+											{project.data.external_url && (
+												<a href={project.data.external_url} target="_blank" rel="noreferrer" class="mono text-[12px] font-medium uppercase tracking-[0.14em] underline decoration-copper/70 underline-offset-4 hover:text-signal">
+													Open
+												</a>
+											)}
+										</div>
+									</div>
+								</article>
+							);
+						})}
+					</div>
+
+					<div class="flex items-center justify-between gap-4">
+						<p id="atlas-empty" class="hidden text-sm text-ash/80">No projects match the current filter set.</p>
+						<button id="atlas-load-more" type="button" class="atlas-chip">Load More</button>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<script is:inline>
+			(() => {
+				const heroStage = document.querySelector('[data-hero-pool]');
+				const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+				const defaultHeroPool = ['/media/pbr-frame-01.svg', '/media/pbr-frame-02.svg', '/media/hero-shift-03.svg'];
+				let heroPool = defaultHeroPool;
+
+				if (heroStage) {
+					try {
+						const parsed = JSON.parse(heroStage.getAttribute('data-hero-pool') || '[]');
+						if (Array.isArray(parsed) && parsed.length > 0) {
+							heroPool = [...new Set(parsed.concat(defaultHeroPool))];
+						}
+					} catch {
+						heroPool = defaultHeroPool;
+					}
+				}
+
+				if (heroSlides.length) {
+					const shuffled = [...heroPool].sort(() => Math.random() - 0.5);
+					heroSlides.forEach((slide, index) => {
+						const image = shuffled[index % shuffled.length];
+						slide.style.backgroundImage = `url('${image}')`;
+					});
+				}
+
+				const cards = Array.from(document.querySelectorAll('.atlas-card'));
+				const searchInput = document.getElementById('atlas-search');
+				const sortSelect = document.getElementById('atlas-sort');
+				const resultCount = document.getElementById('atlas-result-count');
+				const emptyState = document.getElementById('atlas-empty');
+				const loadMoreButton = document.getElementById('atlas-load-more');
+				const resetButton = document.getElementById('atlas-reset');
+				const groups = Array.from(document.querySelectorAll('[data-filter-group]'));
+
+				if (!cards.length || !searchInput || !sortSelect || !resultCount || !emptyState || !loadMoreButton || !resetButton) return;
+
+				const state = {
+					search: '',
+					domain: 'all',
+					category: 'all',
+					api: 'all',
+					year: 'all',
+					sort: 'newest',
+					limit: 6
+				};
+
+				const params = new URLSearchParams(window.location.search);
+				(['domain', 'category', 'api', 'year', 'sort', 'search']).forEach((key) => {
+					const value = params.get(key);
+					if (value) state[key] = value;
+				});
+
+				searchInput.value = state.search;
+				sortSelect.value = state.sort;
+
+				const setActiveChip = (groupName, value) => {
+					const group = groups.find((node) => node.getAttribute('data-filter-group') === groupName);
+					if (!group) return;
+					group.querySelectorAll('.atlas-chip').forEach((chip) => {
+						const isActive = chip.getAttribute('data-filter') === value;
+						chip.classList.toggle('atlas-chip-active', isActive);
+					});
+				};
+
+				const updateURL = () => {
+					const nextParams = new URLSearchParams();
+					if (state.search) nextParams.set('search', state.search);
+					if (state.domain !== 'all') nextParams.set('domain', state.domain);
+					if (state.category !== 'all') nextParams.set('category', state.category);
+					if (state.api !== 'all') nextParams.set('api', state.api);
+					if (state.year !== 'all') nextParams.set('year', state.year);
+					if (state.sort !== 'newest') nextParams.set('sort', state.sort);
+					const query = nextParams.toString();
+					window.history.replaceState({}, '', query ? `?${query}` : window.location.pathname);
+				};
+
+				const apply = () => {
+					const search = state.search.trim().toLowerCase();
+					const filtered = cards.filter((card) => {
+						const haystack = `${card.dataset.title} ${card.dataset.summary} ${card.dataset.features}`;
+						const matchesSearch = !search || haystack.includes(search);
+						const matchesDomain = state.domain === 'all' || card.dataset.domain === state.domain;
+						const matchesCategory = state.category === 'all' || card.dataset.category === state.category;
+						const matchesApi = state.api === 'all' || card.dataset.api === state.api;
+						const matchesYear = state.year === 'all' || card.dataset.year === state.year;
+						return matchesSearch && matchesDomain && matchesCategory && matchesApi && matchesYear;
+					});
+
+					filtered.sort((a, b) => {
+						if (state.sort === 'title') return (a.dataset.title || '').localeCompare(b.dataset.title || '');
+						const delta = Number(b.dataset.ts || 0) - Number(a.dataset.ts || 0);
+						return state.sort === 'oldest' ? -delta : delta;
+					});
+
+					cards.forEach((card) => card.classList.add('atlas-card-hidden'));
+					filtered.forEach((card, index) => {
+						card.classList.toggle('atlas-card-hidden', index >= state.limit);
+					});
+
+					const visibleCount = Math.min(state.limit, filtered.length);
+					resultCount.textContent = `${visibleCount} visible project${visibleCount === 1 ? '' : 's'}`;
+					emptyState.classList.toggle('hidden', filtered.length > 0);
+					loadMoreButton.classList.toggle('hidden', filtered.length <= state.limit);
+
+					const grid = document.getElementById('atlas-grid');
+					if (grid) {
+						filtered.forEach((card) => grid.appendChild(card));
+					}
+
+					updateURL();
+				};
+
+				groups.forEach((group) => {
+					const key = group.getAttribute('data-filter-group');
+					if (!key) return;
+					setActiveChip(key, state[key]);
+					group.querySelectorAll('.atlas-chip').forEach((chip) => {
+						chip.addEventListener('click', () => {
+							state[key] = chip.getAttribute('data-filter') || 'all';
+							state.limit = 6;
+							setActiveChip(key, state[key]);
+							apply();
+						});
+					});
+				});
+
+				searchInput.addEventListener('input', (event) => {
+					state.search = event.target.value;
+					state.limit = 6;
+					apply();
+				});
+
+				sortSelect.addEventListener('change', (event) => {
+					state.sort = event.target.value;
+					apply();
+				});
+
+				loadMoreButton.addEventListener('click', () => {
+					state.limit += 6;
+					apply();
+				});
+
+				resetButton.addEventListener('click', () => {
+					state.search = '';
+					state.domain = 'all';
+					state.category = 'all';
+					state.api = 'all';
+					state.year = 'all';
+					state.sort = 'newest';
+					state.limit = 6;
+					searchInput.value = '';
+					sortSelect.value = 'newest';
+					setActiveChip('domain', 'all');
+					setActiveChip('category', 'all');
+					setActiveChip('api', 'all');
+					setActiveChip('year', 'all');
+					apply();
+				});
+
+				apply();
+			})();
+		</script>
+	</main>
 </Layout>
