@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import ProjectMedia from '../components/ProjectMedia.astro';
 import TechSpecs from '../components/TechSpecs.astro';
 import Layout from '../layouts/Layout.astro';
@@ -18,13 +18,19 @@ const inferDomain = (project: (typeof projects)[number]) => {
 	return 'Gameplay';
 };
 
-const atlasProjects = projects.map((project) => ({
-	project,
-	domain: inferDomain(project),
-	year: project.data.date.getFullYear()
-}));
+const atlasProjects = await Promise.all(
+	projects.map(async (project) => {
+		const { Content } = await render(project);
 
-const spotlight = atlasProjects.find((item) => item.project.data.featured) ?? atlasProjects[0];
+		return {
+			project,
+			domain: inferDomain(project),
+			year: project.data.date.getFullYear(),
+			Content
+		};
+	})
+);
+
 const domains = [...new Set(atlasProjects.map((item) => item.domain))];
 const categories = [...new Set(atlasProjects.map((item) => item.project.data.category))];
 const apis = [...new Set(atlasProjects.map((item) => item.project.data.api))];
@@ -88,66 +94,9 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 	</header>
 
 	<main id="projects" class="relative left-1/2 -mx-[50dvw] mt-12 w-[100dvw] px-6 md:px-10 lg:px-14">
-		<div class="mx-auto max-w-[104rem] space-y-8">
-			<section class="soft-panel reveal-in border-1 border-copper/45 bg-panel/92 p-5 shadow-[0_10px_32px_rgba(0,0,0,0.28)] md:p-7">
-				<div class="flex flex-wrap items-center justify-between gap-4">
-					<div>
-						<h2 class="text-2xl font-semibold">Project Atlas</h2>
-						<p class="mt-1 text-sm text-ash/85">Explore projects by domain, API, category, and timeline without endless scrolling.</p>
-					</div>
-					<p id="atlas-result-count" class="mono text-[11px] uppercase tracking-[0.14em] text-ash/80">0 visible projects</p>
-				</div>
-			</section>
-
-			{spotlight && (
-				<section class="soft-panel reveal-in border-1 border-copper/45 bg-gradient-to-br from-cream/20 to-panel/80 p-5 md:p-6">
-					<div class="flex flex-wrap items-center justify-between gap-3">
-						<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Atlas Spotlight</p>
-						<div class="flex items-center gap-2">
-							<span class="atlas-chip atlas-chip-active">{spotlight.domain}</span>
-							<span class="atlas-chip">{spotlight.year}</span>
-						</div>
-					</div>
-					<div class="mt-4 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-						<div class="space-y-4">
-							<div class="soft-panel overflow-hidden border-1 border-copper/35 bg-panel/60 p-3">
-								<ProjectMedia title={spotlight.project.data.title} youtubeUrl={spotlight.project.data.youtube_url} images={spotlight.project.data.media_images} />
-							</div>
-							<div class="soft-panel border-1 border-copper/35 bg-panel/70 p-4">
-								<p class="mono text-[10px] uppercase tracking-[0.14em] text-ash/75">Performance Notes</p>
-								<ul class="mt-2 space-y-1 text-sm text-ash/90">
-									{spotlight.project.data.performance_metrics.slice(0, 3).map((metric) => <li>- {metric}</li>)}
-								</ul>
-							</div>
-						</div>
-						<div class="soft-panel border-1 border-copper/35 bg-panel/80 p-5">
-							<h3 class="text-3xl font-semibold tracking-tight text-ink md:text-4xl">{spotlight.project.data.title}</h3>
-							<p class="mt-3 text-sm leading-relaxed text-ash/90">{spotlight.project.data.summary}</p>
-							<div class="mt-4 flex flex-wrap items-center gap-2">
-								<span class="atlas-chip">{spotlight.project.data.api}</span>
-								<span class="atlas-chip">{spotlight.project.data.category}</span>
-							</div>
-							{spotlight.project.data.role && (
-								<p class="mt-4 text-sm leading-relaxed text-ash/88"><span class="font-semibold text-ink">Role:</span> {spotlight.project.data.role}</p>
-							)}
-							<div class="mt-5 space-y-2">
-								<p class="mono text-[10px] uppercase tracking-[0.14em] text-ash/75">Core Stack Highlights</p>
-								<ul class="space-y-1 text-sm text-ash/90">
-									{spotlight.project.data.features.slice(0, 4).map((feature) => <li>- {feature}</li>)}
-								</ul>
-							</div>
-							{spotlight.project.data.external_url && (
-								<p class="mt-5">
-									<a href={spotlight.project.data.external_url} target="_blank" rel="noreferrer" class="mono text-[12px] font-medium uppercase tracking-[0.14em] underline decoration-copper/70 underline-offset-4 hover:text-signal">Open Project</a>
-								</p>
-							)}
-						</div>
-					</div>
-				</section>
-			)}
-
+		<div class="mx-auto max-w-[104rem]">
 			<section class="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
-				<aside class="soft-panel sticky top-6 h-fit border-1 border-copper/45 bg-panel/90 p-4 md:p-5">
+				<aside class="soft-panel lg:sticky lg:top-6 h-fit border-1 border-copper/45 bg-panel/90 p-4 md:p-5">
 					<div class="space-y-4">
 						<div>
 							<label for="atlas-search" class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Search</label>
@@ -201,7 +150,7 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 
 				<div class="space-y-5">
 					<div id="atlas-grid" class="grid gap-5 xl:grid-cols-2">
-						{atlasProjects.map(({ project, domain, year }) => {
+						{atlasProjects.map(({ project, domain, year, Content }) => {
 							const previewImage = project.data.media_images?.[0];
 
 							return (
@@ -233,13 +182,65 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 										<p class="text-sm leading-relaxed text-ash/88">{project.data.summary}</p>
 										<div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
 											<p class="text-sm leading-relaxed text-ash/82">{project.data.features.slice(0, 3).join(' • ')}</p>
-											{project.data.external_url && (
-												<a href={project.data.external_url} target="_blank" rel="noreferrer" class="mono text-[12px] font-medium uppercase tracking-[0.14em] underline decoration-copper/70 underline-offset-4 hover:text-signal">
-													Open
-												</a>
-											)}
+											<div class="flex items-center justify-end gap-2">
+												<button
+													type="button"
+													class="atlas-expand-toggle atlas-chip"
+													aria-expanded="false"
+												>
+													More Info
+												</button>
+											</div>
 										</div>
 									</div>
+
+									<template class="atlas-island-template">
+										<div class="space-y-4">
+											<div class="flex flex-wrap items-start justify-between gap-3">
+												<div>
+													<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Project Detail</p>
+													<h3 class="mt-1 text-3xl font-semibold leading-tight text-ink">{project.data.title}</h3>
+												</div>
+												<div class="flex flex-wrap items-center gap-2">
+													<span class="atlas-chip">{domain}</span>
+													<span class="atlas-chip">{project.data.api}</span>
+													<span class="atlas-chip">{project.data.category}</span>
+													<span class="atlas-chip">{year}</span>
+												</div>
+											</div>
+
+											<div class="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
+												<div class="space-y-4">
+													<div class="atlas-expanded-body soft-panel border-1 border-copper/30 bg-panel/65 p-4 text-sm leading-relaxed text-ash/90">
+														<Content />
+													</div>
+													{project.data.role && (
+														<div class="soft-panel border-1 border-copper/30 bg-panel/65 p-4 text-sm leading-relaxed text-ash/88">
+															<p><span class="font-semibold text-ink">Role:</span> {project.data.role}</p>
+														</div>
+													)}
+													<TechSpecs
+														title="Project Specs"
+														engine={project.data.engine}
+														api={project.data.api}
+														features={project.data.features}
+														performanceMetrics={project.data.performance_metrics}
+													/>
+												</div>
+												<div class="soft-panel border-1 border-copper/30 bg-panel/65 p-3">
+													<ProjectMedia title={project.data.title} youtubeUrl={project.data.youtube_url} images={project.data.media_images} />
+												</div>
+											</div>
+
+											{project.data.external_url && (
+												<p>
+													<a href={project.data.external_url} target="_blank" rel="noreferrer" class="mono text-[12px] font-medium uppercase tracking-[0.14em] underline decoration-copper/70 underline-offset-4 hover:text-signal">
+														Open Project Link
+													</a>
+												</p>
+											)}
+										</div>
+									</template>
 								</article>
 							);
 						})}
@@ -251,6 +252,20 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 					</div>
 				</div>
 			</section>
+
+			<div id="atlas-island-overlay" class="atlas-island-overlay hidden" aria-hidden="true">
+				<div class="atlas-island-shell soft-panel border-1 border-copper/45 bg-panel/96">
+					<div class="flex items-center justify-between gap-3 border-b border-copper/35 px-4 py-3 md:px-5">
+						<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/80">Project Island</p>
+						<button id="atlas-island-close" type="button" class="atlas-chip">Close</button>
+					</div>
+					<div id="atlas-island-content" class="max-h-[78dvh] overflow-y-auto p-4 md:p-5"></div>
+				</div>
+				<div id="atlas-image-preview" class="atlas-image-preview hidden" aria-hidden="true">
+					<button id="atlas-image-preview-close" type="button" class="atlas-chip atlas-image-preview-close">Close Preview</button>
+					<img id="atlas-image-preview-img" src="" alt="Project media preview" class="atlas-image-preview-img" />
+				</div>
+			</div>
 		</div>
 
 		<script is:inline>
@@ -282,13 +297,19 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 				const cards = Array.from(document.querySelectorAll('.atlas-card'));
 				const searchInput = document.getElementById('atlas-search');
 				const sortSelect = document.getElementById('atlas-sort');
-				const resultCount = document.getElementById('atlas-result-count');
 				const emptyState = document.getElementById('atlas-empty');
 				const loadMoreButton = document.getElementById('atlas-load-more');
 				const resetButton = document.getElementById('atlas-reset');
 				const groups = Array.from(document.querySelectorAll('[data-filter-group]'));
+				const expandToggles = Array.from(document.querySelectorAll('.atlas-expand-toggle'));
+				const islandOverlay = document.getElementById('atlas-island-overlay');
+				const islandContent = document.getElementById('atlas-island-content');
+				const islandClose = document.getElementById('atlas-island-close');
+				const imagePreview = document.getElementById('atlas-image-preview');
+				const imagePreviewImg = document.getElementById('atlas-image-preview-img');
+				const imagePreviewClose = document.getElementById('atlas-image-preview-close');
 
-				if (!cards.length || !searchInput || !sortSelect || !resultCount || !emptyState || !loadMoreButton || !resetButton) return;
+				if (!cards.length || !searchInput || !sortSelect || !emptyState || !loadMoreButton || !resetButton) return;
 
 				const state = {
 					search: '',
@@ -353,8 +374,6 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 						card.classList.toggle('atlas-card-hidden', index >= state.limit);
 					});
 
-					const visibleCount = Math.min(state.limit, filtered.length);
-					resultCount.textContent = `${visibleCount} visible project${visibleCount === 1 ? '' : 's'}`;
 					emptyState.classList.toggle('hidden', filtered.length > 0);
 					loadMoreButton.classList.toggle('hidden', filtered.length <= state.limit);
 
@@ -364,7 +383,99 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 					}
 
 					updateURL();
+					setupInfiniteScroll();
 				};
+
+				const closeIsland = () => {
+					if (!islandOverlay || !islandContent) return;
+					if (imagePreview && imagePreviewImg) {
+						imagePreview.classList.add('hidden');
+						imagePreview.setAttribute('aria-hidden', 'true');
+						imagePreviewImg.setAttribute('src', '');
+					}
+					islandOverlay.classList.add('hidden');
+					islandOverlay.setAttribute('aria-hidden', 'true');
+					islandContent.innerHTML = '';
+					document.body.classList.remove('atlas-island-open');
+					expandToggles.forEach((toggle) => {
+						toggle.setAttribute('aria-expanded', 'false');
+						toggle.textContent = 'More Info';
+					});
+				};
+
+				const closeImagePreview = () => {
+					if (!imagePreview || !imagePreviewImg) return;
+					imagePreview.classList.add('hidden');
+					imagePreview.setAttribute('aria-hidden', 'true');
+					imagePreviewImg.setAttribute('src', '');
+				};
+
+				expandToggles.forEach((toggle) => {
+					toggle.addEventListener('click', () => {
+						if (!islandOverlay || !islandContent) return;
+						const card = toggle.closest('.atlas-card');
+						if (!card) return;
+						const template = card.querySelector('.atlas-island-template');
+						if (!template) return;
+
+						expandToggles.forEach((chip) => {
+							chip.setAttribute('aria-expanded', 'false');
+							chip.textContent = 'More Info';
+						});
+
+						islandContent.innerHTML = '';
+						islandContent.appendChild(template.content.cloneNode(true));
+						islandOverlay.classList.remove('hidden');
+						islandOverlay.setAttribute('aria-hidden', 'false');
+						document.body.classList.add('atlas-island-open');
+
+						toggle.setAttribute('aria-expanded', 'true');
+						toggle.textContent = 'Opened';
+					});
+				});
+
+				if (islandClose) {
+					islandClose.addEventListener('click', closeIsland);
+				}
+
+				if (islandContent && imagePreview && imagePreviewImg) {
+					islandContent.addEventListener('click', (event) => {
+						const target = event.target;
+						if (!(target instanceof HTMLImageElement)) return;
+						const source = target.getAttribute('src');
+						if (!source) return;
+
+						imagePreviewImg.setAttribute('src', source);
+						imagePreviewImg.setAttribute('alt', target.getAttribute('alt') || 'Project media preview');
+						imagePreview.classList.remove('hidden');
+						imagePreview.setAttribute('aria-hidden', 'false');
+					});
+				}
+
+				if (imagePreviewClose) {
+					imagePreviewClose.addEventListener('click', closeImagePreview);
+				}
+
+				if (imagePreview) {
+					imagePreview.addEventListener('click', (event) => {
+						if (event.target === imagePreview) closeImagePreview();
+					});
+				}
+
+				if (islandOverlay) {
+					islandOverlay.addEventListener('click', (event) => {
+						if (event.target === islandOverlay) closeIsland();
+					});
+				}
+
+				document.addEventListener('keydown', (event) => {
+					if (event.key !== 'Escape') return;
+					if (imagePreview && !imagePreview.classList.contains('hidden')) {
+						closeImagePreview();
+						return;
+					}
+					closeIsland();
+				});
 
 				groups.forEach((group) => {
 					const key = group.getAttribute('data-filter-group');
@@ -412,6 +523,33 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 					setActiveChip('year', 'all');
 					apply();
 				});
+
+				// Infinite scroll: detect when user scrolls near the end
+				const setupInfiniteScroll = () => {
+					const grid = document.getElementById('atlas-grid');
+					if (!grid) return;
+
+					// Remove old sentinel if exists
+					const oldSentinel = document.getElementById('atlas-scroll-sentinel');
+					if (oldSentinel) oldSentinel.remove();
+
+					// Create sentinel element
+					const sentinel = document.createElement('div');
+					sentinel.id = 'atlas-scroll-sentinel';
+					grid.parentNode?.insertBefore(sentinel, grid.nextSibling);
+
+					// Setup observer
+					const observer = new IntersectionObserver((entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting && !loadMoreButton.classList.contains('hidden')) {
+								state.limit += 6;
+								apply();
+							}
+						});
+					}, { rootMargin: '200px' });
+
+					observer.observe(sentinel);
+				};
 
 				apply();
 			})();
