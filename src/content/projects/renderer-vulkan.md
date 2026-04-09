@@ -3,8 +3,7 @@ title: Render Graph PBR Renderer
 summary: A real-time renderer built around a dependency-driven render graph with clustered lighting and physically based shading.
 date: 2026-04-01
 category: Big Project
-media_images:
-  - /media/rendergraph-shot.svg
+media_images: []
 engine: Custom ECS Engine
 api: Vulkan
 features:
