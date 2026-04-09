@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+@theme {
+	--color-vanilla: #171310;
+	--color-cream: #2b211b;
+	--color-olive: #6f7652;
+	--color-copper: #b06f3c;
+	--color-ash: #ccb89f;
+	--color-signal: #e0a264;
+	--color-panel: #221a15;
+	--color-ink: #f2dfca;
+	--border-width-1: 1px;
+}
+
+html {
+	background: var(--color-vanilla);
+	overflow-x: clip;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	overflow-x: clip;
+	background:
+		radial-gradient(circle at 8% 10%, color-mix(in oklab, var(--color-copper) 22%, transparent) 0%, transparent 42%),
+		radial-gradient(circle at 92% 0%, color-mix(in oklab, var(--color-olive) 22%, transparent) 0%, transparent 36%),
+		linear-gradient(180deg, color-mix(in oklab, var(--color-vanilla) 88%, black) 0%, var(--color-vanilla) 66%, color-mix(in oklab, var(--color-cream) 40%, black) 100%);
+	color: var(--color-ink);
+	font-family: "Space Grotesk", "Avenir Next", sans-serif;
+	letter-spacing: 0.002em;
+}
+
+a {
+	color: var(--color-signal);
+}
+
+h1,
+h2,
+h3 {
+	font-family: "Space Grotesk", "Avenir Next", sans-serif;
+	letter-spacing: -0.02em;
+}
+
+.mono {
+	font-family: "IBM Plex Mono", "Consolas", monospace;
+}
+
+.surface-grid {
+	position: relative;
+	overflow: visible;
+}
+
+.surface-grid::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(color-mix(in oklab, var(--color-copper) 26%, transparent) 1px, transparent 1px),
+		linear-gradient(90deg, color-mix(in oklab, var(--color-copper) 18%, transparent) 1px, transparent 1px);
+	background-size: 40px 40px;
+	opacity: 0.14;
+	pointer-events: none;
+	mask-image: linear-gradient(to bottom, black 12%, transparent 78%);
+}
+
+.reveal-in {
+	animation: riseIn 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.soft-panel {
+	border-radius: 6px;
+}
+
+.chip {
+	border-radius: 4px;
+}
+
+.card-pop {
+	transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.card-pop:hover {
+	transform: translateY(-3px);
+	border-color: color-mix(in oklab, var(--color-signal) 45%, var(--color-copper));
+	box-shadow: 0 14px 38px color-mix(in oklab, var(--color-copper) 16%, transparent);
+}
+
+.hero-stage {
+	position: relative;
+	overflow: hidden;
+	background: color-mix(in oklab, var(--color-vanilla) 85%, black);
+}
+
+.hero-slide {
+	position: absolute;
+	inset: 0;
+	background-size: cover;
+	background-position: center;
+	opacity: 0;
+	animation: heroCycle 18s linear infinite;
+	transform: scale(1.06);
+}
+
+.hero-slide-1 {
+	animation-delay: 0s;
+}
+
+.hero-slide-2 {
+	animation-delay: 6s;
+}
+
+.hero-slide-3 {
+	animation-delay: 12s;
+}
+
+.hero-tint {
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(110deg, color-mix(in oklab, var(--color-vanilla) 82%, transparent) 0%, color-mix(in oklab, var(--color-vanilla) 44%, transparent) 48%, transparent 80%),
+		linear-gradient(to top, color-mix(in oklab, var(--color-vanilla) 58%, transparent) 0%, transparent 56%);
+}
+
+.hero-noise {
+	position: absolute;
+	inset: 0;
+	opacity: 0.09;
+	background-image:
+		radial-gradient(circle at 20% 25%, color-mix(in oklab, var(--color-cream) 35%, transparent) 0 2px, transparent 3px),
+		radial-gradient(circle at 80% 70%, color-mix(in oklab, var(--color-olive) 35%, transparent) 0 2px, transparent 3px);
+	background-size: 70px 70px, 80px 80px;
+	pointer-events: none;
+}
+
+.atlas-chip {
+	border: 1px solid color-mix(in oklab, var(--color-copper) 55%, transparent);
+	background: color-mix(in oklab, var(--color-cream) 14%, transparent);
+	color: color-mix(in oklab, var(--color-ash) 90%, white);
+	border-radius: 4px;
+	padding: 0.45rem 0.6rem;
+	font-size: 11px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.atlas-chip:hover {
+	border-color: color-mix(in oklab, var(--color-signal) 55%, var(--color-copper));
+	color: var(--color-ink);
+}
+
+.atlas-chip-active {
+	border-color: color-mix(in oklab, var(--color-signal) 65%, var(--color-copper));
+	background: color-mix(in oklab, var(--color-signal) 28%, transparent);
+	color: var(--color-ink);
+}
+
+.atlas-card-hidden {
+	display: none;
+}
+
+.atlas-select {
+	color: #f2dfca;
+	background-color: color-mix(in oklab, var(--color-cream) 28%, transparent);
+	color-scheme: dark;
+}
+
+.atlas-select option {
+	background-color: #1b1511;
+	color: #f2dfca;
+}
+
+@keyframes riseIn {
+	from {
+		opacity: 0;
+		transform: translateY(18px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes heroCycle {
+	0% {
+		opacity: 0;
+		transform: scale(1.07);
+	}
+	7% {
+		opacity: 1;
+	}
+	30% {
+		opacity: 1;
+		transform: scale(1.02);
+	}
+	38% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.07);
+	}
+}

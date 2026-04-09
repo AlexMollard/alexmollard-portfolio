@@ -1,0 +1,63 @@
+---
+interface Props {
+	title: string;
+	youtubeUrl?: string;
+	images?: string[];
+}
+
+const { title, youtubeUrl, images = [] } = Astro.props as Props;
+
+const getYoutubeEmbedUrl = (url?: string) => {
+	if (!url) return undefined;
+
+	try {
+		const parsed = new URL(url);
+		if (parsed.hostname.includes('youtu.be')) {
+			const id = parsed.pathname.replace('/', '');
+			return id ? `https://www.youtube.com/embed/${id}` : undefined;
+		}
+		if (parsed.hostname.includes('youtube.com')) {
+			const id = parsed.searchParams.get('v');
+			return id ? `https://www.youtube.com/embed/${id}` : undefined;
+		}
+	} catch {
+		return undefined;
+	}
+
+	return undefined;
+};
+
+const embedUrl = getYoutubeEmbedUrl(youtubeUrl);
+---
+
+<div class="space-y-4">
+	{embedUrl && (
+		<div class="soft-panel overflow-hidden border-1 border-copper/40 bg-cream/45">
+			<div class="aspect-video w-full">
+				<iframe
+					src={embedUrl}
+					title={`${title} video`}
+					class="h-full w-full"
+					loading="lazy"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen
+				></iframe>
+			</div>
+		</div>
+	)}
+
+	{images.length > 0 && (
+		<div class="grid gap-3 sm:grid-cols-2">
+			{images.map((image, index) => (
+				<figure class="soft-panel overflow-hidden border-1 border-copper/35 bg-panel">
+					<img
+						src={image}
+						alt={`${title} screenshot ${index + 1}`}
+						loading="lazy"
+						class="h-40 w-full object-cover md:h-44"
+					/>
+				</figure>
+			))}
+		</div>
+	)}
+</div>
