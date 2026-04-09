@@ -1,23 +1,30 @@
 ---
 title: EnetPlayGround
-date: 2025-03-14
+date: 2025-03-13
 category: Hobby
-summary: Networking sandbox for experimenting with ENet protocol, reliable UDP messaging, and multiplayer architecture.
+summary: Networking sandbox for experimenting with ENet protocol, reliable UDP communication, and scalable client-server architecture patterns.
 role: Networking systems programmer.
 media_images:
-  - /media/enet-playground-shot.svg
-engine: C++ Networking Sandbox
+  - /media/hobbies/enet-playground/server.png
+  - /media/hobbies/enet-playground/login.png
+  - /media/hobbies/enet-playground/client.png
+engine: C++ Networking Framework
 api: Other
 features:
-  - Client-server architecture
-  - Reliable UDP with ENet
-  - Multiplayer message flow testing
-  - MySQL integration experiments
+  - Multi-client connection management
+  - Reliable packet delivery implementation
+  - Broadcast messaging infrastructure
+  - MySQL database integration
+  - Plugin architecture support
+  - Client state synchronization
+  - Position visualization
+  - Comprehensive logging system
 performance_metrics:
   - Deterministic network test scenarios
-  - Reliable packet flow validation in local multiplayer loops
-external_url: https://github.com/AlexMollard
+  - Multi-threading server optimization
+  - Tested with 5+ local and remote clients
+external_url: https://github.com/AlexMollard/EnetPlayGround
 featured: true
 ---
 
-Built to isolate and understand multiplayer transport behavior before integrating networking into larger game projects.
+Experimental networking platform for investigating ENet protocol, multiplayer architecture patterns, and network performance limitations in game development contexts.

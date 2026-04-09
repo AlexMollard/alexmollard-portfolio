@@ -1,23 +1,26 @@
 ---
 title: Fly
-date: 2025-04-22
+date: 2025-08-27
 category: Hobby
-summary: Modern C++ audio player using OpenAL and ImGui with real-time visualization and spatial audio controls.
-role: Systems and tools developer.
+summary: Modern audio player with real-time visualization, spatial audio control, and advanced audio processing using OpenAL-Soft and ImGui.
+role: C++ audio systems developer.
 media_images:
-  - /media/fly-shot.svg
-engine: Native C++ App
+  - /media/hobbies/Fly/empty.png
+  - /media/hobbies/Fly/full.png
+engine: Native C++ WinApp
 api: Other
 features:
-  - OpenAL integration
-  - ImGui desktop tooling
-  - Real-time audio visualizers
-  - Spatial audio controls
+  - Multi-format audio support (MP3, WAV, FLAC)
+  - Real-time FFT-based visualization
+  - Spatial 3D audio positioning
+  - Advanced audio effects (Bass, Treble, Pitch, Normalization)
+  - Playlist management
+  - Presets (Chipmunk mode, Slowed mode)
 performance_metrics:
-  - Responsive real-time waveform and spectrum rendering
-  - Efficient audio processing and control updates
-external_url: https://github.com/AlexMollard
+  - Real-time waveform and spectrum rendering
+  - Responsive audio control and streaming
+external_url: https://github.com/AlexMollard/Fly
 featured: true
 ---
 
-A systems-focused side project that combines tooling UX with low-level audio processing.
+A systems-focused audio player combining ImGui UI with low-level OpenAL audio processing for real-time visualization and spatial audio control.
