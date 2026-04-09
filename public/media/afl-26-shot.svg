@@ -1,0 +1,6 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#171310"/>
+  <circle cx="420" cy="310" r="190" fill="#6f7652" fill-opacity="0.45"/>
+  <circle cx="820" cy="360" r="210" fill="#b06f3c" fill-opacity="0.38"/>
+  <text x="80" y="620" font-family="Arial, sans-serif" font-size="38" fill="#f2dfca">AFL 26 - Project Preview</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#171310"/>
+  <rect x="150" y="120" width="900" height="430" fill="#2b211b"/>
+  <path d="M180 460 L1020 220" stroke="#e0a264" stroke-width="10"/>
+  <text x="80" y="620" font-family="Arial, sans-serif" font-size="38" fill="#f2dfca">TIEBREAK+ - Project Preview</text>
+</svg>
