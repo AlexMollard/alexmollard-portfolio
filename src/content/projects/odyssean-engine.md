@@ -16,7 +16,7 @@ features:
 performance_metrics:
   - Cross-API renderer architecture experiments
   - Flexible subsystem integration for rapid prototyping
-external_url: https://github.com/AlexMollard
+external_url: https://github.com/AlexMollard/Odyssean-Engine
 featured: true
 ---
 

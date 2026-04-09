@@ -1,23 +1,24 @@
 ---
 title: Fluid & Noise Simulations
-date: 2024-11-07
+date: 2024-03-23
 category: Hobby
-summary: Simulation experiments using Cellular Automata and Perlin Noise for fluid behavior, heightmaps, and biome generation.
-role: Gameplay and simulation prototyper.
+summary: Two C++ cellular automata experiments — a 2D liquid physics simulator and a noise-driven procedural world generator.
+role: Simulation and procedural systems programmer.
 media_images:
-  - /media/fluid-noise-shot.svg
-engine: Simulation Prototypes
+  - /media/hobbies/noise-cellular-automata/world-gen.gif
+  - /media/hobbies/noise-cellular-automata/global-warming.gif
+engine: C++ Simulation
 api: OpenGL
 features:
-  - Cellular automata simulation loops
-  - Perlin noise terrain generation
-  - Heightmap and biome derivation
-  - Real-time parameter iteration
+  - 2D liquid physics via cellular automata
+  - Procedural world generation with noise
+  - Real-time simulation stepping
+  - Cellular automata rule systems
 performance_metrics:
-  - Stable simulation stepping in real time
-  - Fast iteration cycle for tuning generated worlds
-external_url: https://github.com/AlexMollard
+  - Stable real-time fluid simulation
+  - Procedural world generation visualised as animated GIF
+external_url: https://github.com/AlexMollard/Fluid-Simulation
 featured: true
 ---
 
-A research-heavy set of prototypes focused on procedural behavior and simulation-driven content generation.
+Two standalone C++ simulation experiments: a 2D liquid physics engine inspired by cellular automaton techniques, and a noise-driven procedural world generator visualised in real time.

@@ -1,25 +1,26 @@
 ---
-title: SlimeProject (SlimeEngine)
-date: 2025-11-10
-category: Big Project
-summary: Personal graphics framework and learning playground built with Vulkan 1.3, focused on modern renderer architecture.
-role: C++ and Vulkan graphics programmer.
+title: SlimeCube
+date: 2022-07-30
+category: Hobby
+summary: User-friendly OpenGL graphics engine for loading complex meshes and simulating Physically Based Rendering material lighting.
+role: C++ graphics engine developer.
 media_images:
   - /media/imported/slime-cube-1.png
   - /media/imported/slime-cube-2.png
   - /media/imported/slime-cube-3.png
-engine: SlimeEngine (Custom)
-api: Vulkan
+engine: SlimeCube (Custom)
+api: OpenGL
 features:
-  - Vulkan 1.3 renderer
+  - Complex mesh loading
   - Physically Based Rendering (PBR)
-  - Bindless resource experiments
-  - Modular engine architecture
+  - ImGui integration
+  - Cross-platform support (CMake)
+  - Model material simulation
 performance_metrics:
-  - Real-time renderer playground for rapid feature iteration
-  - Modular architecture to isolate graphics systems cleanly
-external_url: https://www.alexmollard.dev/slimecube
+  - Real-time PBR material rendering
+  - Efficient mesh loading and processing
+external_url: https://github.com/AlexMollard/SlimeCube
 featured: true
 ---
 
-Built as an experimental ground to iterate on modern graphics architecture decisions while staying production-minded in code quality.
+User-friendly graphics engine designed for loading and rendering complex 3D models with PBR material simulation using OpenGL.
