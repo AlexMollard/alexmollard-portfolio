@@ -8,9 +8,6 @@ media_images:
   - /media/imported/tiebreak-steam-1.jpg
   - /media/imported/tiebreak-steam-2.jpg
   - /media/imported/tiebreak-steam-3.jpg
-  - /media/imported/tiebreak-plus-1.jpg
-  - /media/imported/tiebreak-plus-2.jpg
-  - /media/imported/tiebreak-plus-3.jpg
 engine: Proprietary Studio Engine
 api: Other
 features:

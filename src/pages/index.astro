@@ -411,7 +411,8 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 				};
 
 				expandToggles.forEach((toggle) => {
-					toggle.addEventListener('click', () => {
+					toggle.addEventListener('click', (e) => {
+						e.stopPropagation();
 						if (!islandOverlay || !islandContent) return;
 						const card = toggle.closest('.atlas-card');
 						if (!card) return;
@@ -431,6 +432,15 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 
 						toggle.setAttribute('aria-expanded', 'true');
 						toggle.textContent = 'Opened';
+					});
+				});
+
+				document.querySelectorAll('.atlas-card').forEach((card) => {
+					card.style.cursor = 'pointer';
+					card.addEventListener('click', (e) => {
+						if (e.target.closest('a')) return;
+						const toggle = card.querySelector('.atlas-expand-toggle');
+						if (toggle) toggle.click();
 					});
 				});
 
