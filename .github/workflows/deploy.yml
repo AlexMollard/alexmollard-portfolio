@@ -35,6 +35,9 @@ jobs:
         run: npm ci
 
       - name: Build site
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://alexmollard.github.io' }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/AlexMollard' }}
         run: npm run build
 
       - name: Upload artifact
