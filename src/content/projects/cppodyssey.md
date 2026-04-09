@@ -1,23 +1,23 @@
 ---
 title: CppOdyssey
 date: 2025-01-20
-category: Big Project
-summary: C++ learning and documentation resource spanning fundamentals through advanced Vulkan engine architecture.
+category: Hobby
+summary: A Jekyll-based documentation website covering C++ development — from project setup and fundamentals through to advanced topics like building Vulkan game engines.
 role: Technical writer and systems educator.
 media_images:
-  - /media/cppodyssey-shot.svg
-engine: Documentation Platform
+  - /media/hobbies/cpp-odyssey/home.png
+  - /media/hobbies/cpp-odyssey/vulkan-devices.png
+  - /media/hobbies/cpp-odyssey/vulkan-code-structure.png
+engine: Jekyll + GitHub Pages
 api: Other
 features:
-  - Structured C++ learning paths
-  - Vulkan architecture notes
-  - Engine design breakdowns
-  - Practical reference examples
-performance_metrics:
-  - Centralized documentation for recurring engine patterns
-  - Improved onboarding for complex C++/graphics topics
-external_url: https://github.com/AlexMollard
+  - C++ project setup guides
+  - Step-by-step Vulkan tutorials
+  - Code examples with commentary
+  - Hosted on GitHub Pages with just-the-docs theme
+performance_metrics: []
+external_url: https://alexmollard.github.io/CppOdyssey/
 featured: true
 ---
 
-A long-form reference project aimed at turning complex systems concepts into reusable practical guidance.
+A self-hosted documentation site for learning C++ development, built with Jekyll and the just-the-docs theme. Covers everything from environment setup to writing Vulkan game engines.
