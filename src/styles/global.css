@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-	--color-vanilla: #171310;
-	--color-cream: #2b211b;
-	--color-olive: #6f7652;
-	--color-copper: #b06f3c;
-	--color-ash: #ccb89f;
-	--color-signal: #e0a264;
-	--color-panel: #221a15;
-	--color-ink: #f2dfca;
+	--color-vanilla: #26211e;
+	--color-cream: #3a322d;
+	--color-olive: #9a9b83;
+	--color-copper: #a87655;
+	--color-ash: #d8cfc1;
+	--color-signal: #bd8f69;
+	--color-panel: #433931;
+	--color-ink: #f2ece2;
 	--border-width-1: 1px;
 }
 
@@ -23,23 +23,26 @@ html {
 body {
 	overflow-x: clip;
 	background:
-		radial-gradient(circle at 8% 10%, color-mix(in oklab, var(--color-copper) 22%, transparent) 0%, transparent 42%),
-		radial-gradient(circle at 92% 0%, color-mix(in oklab, var(--color-olive) 22%, transparent) 0%, transparent 36%),
-		linear-gradient(180deg, color-mix(in oklab, var(--color-vanilla) 88%, black) 0%, var(--color-vanilla) 66%, color-mix(in oklab, var(--color-cream) 40%, black) 100%);
+		radial-gradient(1200px 480px at -8% -10%, color-mix(in oklab, var(--color-copper) 22%, transparent) 0%, transparent 66%),
+		radial-gradient(900px 420px at 104% 0%, color-mix(in oklab, var(--color-olive) 18%, transparent) 0%, transparent 70%),
+		radial-gradient(1.5px 1.5px at 20% 30%, color-mix(in oklab, var(--color-ink) 7%, transparent) 0 1px, transparent 2px),
+		linear-gradient(180deg, color-mix(in oklab, var(--color-vanilla) 86%, black) 0%, var(--color-vanilla) 58%, color-mix(in oklab, var(--color-cream) 32%, black) 100%);
 	color: var(--color-ink);
-	font-family: "Space Grotesk", "Avenir Next", sans-serif;
-	letter-spacing: 0.002em;
+	font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+	letter-spacing: 0.001em;
 }
 
 a {
-	color: var(--color-signal);
+	color: color-mix(in oklab, var(--color-copper) 70%, var(--color-ink));
+	text-decoration-thickness: 1.5px;
+	text-underline-offset: 3px;
 }
 
 h1,
 h2,
 h3 {
-	font-family: "Space Grotesk", "Avenir Next", sans-serif;
-	letter-spacing: -0.02em;
+	font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+	letter-spacing: -0.008em;
 }
 
 .mono {
@@ -56,12 +59,13 @@ h3 {
 	position: absolute;
 	inset: 0;
 	background-image:
-		linear-gradient(color-mix(in oklab, var(--color-copper) 26%, transparent) 1px, transparent 1px),
-		linear-gradient(90deg, color-mix(in oklab, var(--color-copper) 18%, transparent) 1px, transparent 1px);
-	background-size: 40px 40px;
-	opacity: 0.14;
+		radial-gradient(circle at 14% 18%, color-mix(in oklab, var(--color-ink) 14%, transparent) 0 1.3px, transparent 2px),
+		radial-gradient(circle at 78% 72%, color-mix(in oklab, var(--color-copper) 16%, transparent) 0 1.1px, transparent 2px),
+		linear-gradient(12deg, color-mix(in oklab, var(--color-cream) 16%, transparent) 0%, transparent 32%);
+	background-size: 90px 90px, 110px 110px, 100% 100%;
+	opacity: 0.2;
 	pointer-events: none;
-	mask-image: linear-gradient(to bottom, black 12%, transparent 78%);
+	mask-image: linear-gradient(to bottom, black 8%, transparent 84%);
 }
 
 .reveal-in {
@@ -69,11 +73,11 @@ h3 {
 }
 
 .soft-panel {
-	border-radius: 6px;
+	border-radius: 12px;
 }
 
 .chip {
-	border-radius: 4px;
+	border-radius: 999px;
 }
 
 .card-pop {
@@ -81,15 +85,17 @@ h3 {
 }
 
 .card-pop:hover {
-	transform: translateY(-3px);
+	transform: translateY(-2px);
 	border-color: color-mix(in oklab, var(--color-signal) 45%, var(--color-copper));
-	box-shadow: 0 14px 38px color-mix(in oklab, var(--color-copper) 16%, transparent);
+	box-shadow: 0 16px 34px color-mix(in oklab, var(--color-copper) 18%, transparent);
 }
 
 .hero-stage {
 	position: relative;
 	overflow: hidden;
-	background: color-mix(in oklab, var(--color-vanilla) 85%, black);
+	background:
+		radial-gradient(140% 100% at 0% 0%, color-mix(in oklab, var(--color-copper) 14%, transparent) 0%, transparent 62%),
+		color-mix(in oklab, var(--color-vanilla) 88%, black);
 }
 
 .hero-slide {
@@ -118,30 +124,31 @@ h3 {
 	position: absolute;
 	inset: 0;
 	background:
-		linear-gradient(110deg, color-mix(in oklab, var(--color-vanilla) 82%, transparent) 0%, color-mix(in oklab, var(--color-vanilla) 44%, transparent) 48%, transparent 80%),
+		linear-gradient(130deg, color-mix(in oklab, var(--color-vanilla) 78%, transparent) 0%, color-mix(in oklab, var(--color-vanilla) 40%, transparent) 50%, transparent 84%),
 		linear-gradient(to top, color-mix(in oklab, var(--color-vanilla) 58%, transparent) 0%, transparent 56%);
 }
 
 .hero-noise {
 	position: absolute;
 	inset: 0;
-	opacity: 0.09;
+	opacity: 0.12;
 	background-image:
-		radial-gradient(circle at 20% 25%, color-mix(in oklab, var(--color-cream) 35%, transparent) 0 2px, transparent 3px),
-		radial-gradient(circle at 80% 70%, color-mix(in oklab, var(--color-olive) 35%, transparent) 0 2px, transparent 3px);
-	background-size: 70px 70px, 80px 80px;
+		radial-gradient(circle at 20% 25%, color-mix(in oklab, var(--color-cream) 34%, transparent) 0 2px, transparent 3px),
+		radial-gradient(circle at 80% 70%, color-mix(in oklab, var(--color-olive) 30%, transparent) 0 2px, transparent 3px),
+		radial-gradient(circle at 40% 85%, color-mix(in oklab, var(--color-ink) 14%, transparent) 0 1px, transparent 2px);
+	background-size: 68px 68px, 82px 82px, 52px 52px;
 	pointer-events: none;
 }
 
 .atlas-chip {
 	border: 1px solid color-mix(in oklab, var(--color-copper) 55%, transparent);
-	background: color-mix(in oklab, var(--color-cream) 14%, transparent);
+	background: color-mix(in oklab, var(--color-cream) 24%, transparent);
 	color: color-mix(in oklab, var(--color-ash) 90%, white);
-	border-radius: 4px;
+	border-radius: 999px;
 	padding: 0.45rem 0.6rem;
-	font-size: 11px;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
+	font-size: 12px;
+	letter-spacing: 0.03em;
+	text-transform: none;
 	transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease;
 }
 
@@ -242,14 +249,14 @@ body.atlas-island-open {
 }
 
 .atlas-select {
-	color: #f2dfca;
-	background-color: color-mix(in oklab, var(--color-cream) 28%, transparent);
+	color: var(--color-ink);
+	background-color: color-mix(in oklab, var(--color-cream) 36%, transparent);
 	color-scheme: dark;
 }
 
 .atlas-select option {
-	background-color: #1b1511;
-	color: #f2dfca;
+	background-color: color-mix(in oklab, var(--color-vanilla) 72%, black);
+	color: var(--color-ink);
 }
 
 @keyframes riseIn {
