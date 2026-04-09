@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { withBase } from '../utils/withBase';
 
 interface Props {
 	title?: string;
@@ -10,6 +11,9 @@ const {
 	title = 'Alex Mollard | Graphics Engineer',
 	description = 'Portfolio focused on rendering systems, real-time graphics, and engine architecture.'
 } = Astro.props as Props;
+
+const iconSvgHref = withBase('/favicon.svg', import.meta.env.BASE_URL);
+const iconIcoHref = withBase('/favicon.ico', import.meta.env.BASE_URL);
 ---
 
 <!doctype html>
@@ -20,8 +24,8 @@ const {
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href={iconSvgHref} />
+		<link rel="icon" href={iconIcoHref} />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<title>{title}</title>

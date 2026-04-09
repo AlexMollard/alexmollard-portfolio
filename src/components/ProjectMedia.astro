@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../utils/withBase';
+
 interface Props {
 	title: string;
 	youtubeUrl?: string;
@@ -28,6 +30,7 @@ const getYoutubeEmbedUrl = (url?: string) => {
 };
 
 const embedUrl = getYoutubeEmbedUrl(youtubeUrl);
+const resolvedImages = images.map((image) => withBase(image, import.meta.env.BASE_URL));
 ---
 
 <div class="space-y-4">
@@ -46,9 +49,9 @@ const embedUrl = getYoutubeEmbedUrl(youtubeUrl);
 		</div>
 	)}
 
-	{images.length > 0 && (
+	{resolvedImages.length > 0 && (
 		<div class="grid gap-3 sm:grid-cols-2">
-			{images.map((image, index) => (
+			{resolvedImages.map((image, index) => (
 				<figure class="soft-panel overflow-hidden border-1 border-copper/35 bg-panel">
 					<img
 						src={image}
