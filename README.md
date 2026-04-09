@@ -1,46 +1,62 @@
-# Astro Starter Kit: Basics
+# Alex Mollard — Portfolio
 
-```sh
-npm create astro@latest -- --template basics
-```
+Personal portfolio site built with [Astro](https://astro.build), showcasing game development, rendering engine, and software engineering projects.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Live at: [alexmollard.dev](https://www.alexmollard.dev)
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Project Structure
 
 ```text
 /
 ├── public/
+│   ├── media/                  # Placeholder SVGs for projects without screenshots
+│   │   └── imported/           # Localized project screenshots (downloaded from old site)
 │   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+├── scripts/
+│   └── localize-media.ps1      # Script to download and re-path remote media
+├── src/
+│   ├── components/
+│   │   ├── ProjectMedia.astro  # YouTube embed + image grid renderer
+│   │   └── TechSpecs.astro     # Tech stack / specs table for a project
+│   ├── content/
+│   │   └── projects/           # One .md file per project (21 total)
+│   ├── layouts/
+│   │   └── Layout.astro        # Base HTML layout
+│   ├── pages/
+│   │   └── index.astro         # Portfolio home page
+│   ├── styles/
+│   │   └── global.css
+│   └── content.config.ts       # Zod schema for the projects content collection
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Content Schema
 
-## 🧞 Commands
+Each project file in `src/content/projects/` uses YAML frontmatter validated by Zod:
 
-All commands are run from the root of the project, from a terminal:
+| Field                 | Type                                              | Required |
+| :-------------------- | :------------------------------------------------ | :------- |
+| `title`               | string                                            | Yes      |
+| `summary`             | string                                            | Yes      |
+| `date`                | date                                              | Yes      |
+| `category`            | `Professional` / `Big Project` / `Hobby`          | Yes      |
+| `role`                | string                                            | No       |
+| `youtube_url`         | string (URL)                                      | No       |
+| `media_images`        | string[]                                          | No       |
+| `engine`              | string                                            | No       |
+| `api`                 | `Vulkan` / `OpenGL` / `DirectX` / `Metal` / `WebGPU` / `Other` | No |
+| `features`            | string[]                                          | No       |
+| `performance_metrics` | string[]                                          | No       |
+| `external_url`        | string (URL)                                      | No       |
+| `featured`            | boolean                                           | No       |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Commands
 
-## 👀 Want to learn more?
+All commands are run from the root of the project:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Command           | Action                                     |
+| :---------------- | :----------------------------------------- |
+| `npm install`     | Install dependencies                       |
+| `npm run dev`     | Start local dev server at `localhost:4321` |
+| `npm run build`   | Build production site to `./dist/`         |
+| `npm run preview` | Preview production build locally           |
