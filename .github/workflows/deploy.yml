@@ -13,6 +13,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DENO_PROJECT_NAME: ${{ vars.DENO_PROJECT || secrets.DENO_PROJECT }}
     steps:
       - name: Clone repository
         uses: actions/checkout@v6
@@ -31,9 +33,16 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL || 'https://alexmollard.dev' }}
         run: npm run build
 
+      - name: Validate Deno project setting
+        run: |
+          if [ -z "${DENO_PROJECT_NAME}" ]; then
+            echo "Missing Deno project name. Set repository variable DENO_PROJECT (or secret DENO_PROJECT)."
+            exit 1
+          fi
+
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: ${{ vars.DENO_PROJECT }}
+          project: ${{ env.DENO_PROJECT_NAME }}
           entrypoint: jsr:@std/http/file-server
           root: dist
