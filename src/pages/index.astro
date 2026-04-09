@@ -43,15 +43,15 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 	description="Portfolio focused on rendering systems, PBR workflows, and low-level graphics engineering."
 >
 	<header class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
-		<section class="hero-stage h-[100svh] w-[100dvw]" data-hero-pool={JSON.stringify(heroImagePool)}>
+		<section class="hero-stage min-h-[100svh] w-[100dvw] lg:h-[100svh]" data-hero-pool={JSON.stringify(heroImagePool)}>
 			<div class="hero-slide hero-slide-1" style="background-image: url('/media/pbr-frame-01.svg');"></div>
 			<div class="hero-slide hero-slide-2" style="background-image: url('/media/pbr-frame-02.svg');"></div>
 			<div class="hero-slide hero-slide-3" style="background-image: url('/media/hero-shift-03.svg');"></div>
 			<div class="hero-tint"></div>
 			<div class="hero-noise"></div>
 
-			<div class="relative z-10 grid h-[100svh] w-full grid-cols-1 lg:grid-cols-[30rem_1fr]">
-				<aside class="w-full border-r border-copper/50 bg-[#15110f]/84 p-6 text-[#f1e1cf] backdrop-blur-md md:p-8 lg:h-full lg:p-10">
+			<div class="relative z-10 grid min-h-[100svh] w-full grid-cols-1 items-end p-4 sm:p-6 lg:h-[100svh] lg:grid-cols-[30rem_1fr] lg:items-stretch lg:p-0">
+				<aside class="w-full self-end rounded-md border border-copper/50 bg-[#15110f]/78 p-6 text-[#f1e1cf] backdrop-blur-md md:p-8 lg:h-full lg:self-auto lg:rounded-none lg:border-y-0 lg:border-l-0 lg:border-r lg:bg-[#15110f]/84 lg:p-10">
 					<div class="flex h-full flex-col justify-between">
 						<div>
 					<p class="mono text-[11px] uppercase tracking-[0.18em] text-[#d8bca1]/90">Graphics Engineering Portfolio</p>
@@ -95,7 +95,14 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 		<div class="mx-auto max-w-[104rem]">
 			<section class="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
 				<aside class="soft-panel lg:sticky lg:top-6 h-fit border-1 border-copper/45 bg-panel/90 p-4 md:p-5">
-					<div class="space-y-4">
+					<div class="flex items-center justify-between gap-3 lg:hidden">
+						<div>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Project Atlas</p>
+							<p class="mt-1 text-sm text-ash/82">Filters and sorting</p>
+						</div>
+						<button id="atlas-filters-toggle" type="button" class="atlas-chip shrink-0" aria-expanded="false" aria-controls="atlas-filters-panel">Show Filters</button>
+					</div>
+					<div id="atlas-filters-panel" class="mt-4 hidden space-y-4 lg:mt-0 lg:block">
 						<div>
 							<label for="atlas-search" class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Search</label>
 							<input id="atlas-search" type="text" placeholder="title, feature, summary" class="mt-2 w-full border-1 border-copper/45 bg-cream/18 px-3 py-2 text-sm text-ink placeholder:text-ash/70 focus:border-signal focus:outline-none" />
@@ -298,6 +305,8 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 				const emptyState = document.getElementById('atlas-empty');
 				const loadMoreButton = document.getElementById('atlas-load-more');
 				const resetButton = document.getElementById('atlas-reset');
+				const filtersToggle = document.getElementById('atlas-filters-toggle');
+				const filtersPanel = document.getElementById('atlas-filters-panel');
 				const groups = Array.from(document.querySelectorAll('[data-filter-group]'));
 				const expandToggles = Array.from(document.querySelectorAll('.atlas-expand-toggle'));
 				const islandOverlay = document.getElementById('atlas-island-overlay');
@@ -327,6 +336,25 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 
 				searchInput.value = state.search;
 				sortSelect.value = state.sort;
+
+				const syncFiltersVisibility = () => {
+					if (!filtersToggle || !filtersPanel) return;
+					const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+					const isOpen = isDesktop || !filtersPanel.classList.contains('hidden');
+					filtersToggle.setAttribute('aria-expanded', String(isOpen));
+					filtersToggle.textContent = isOpen ? 'Hide Filters' : 'Show Filters';
+				};
+
+				if (filtersToggle && filtersPanel) {
+					filtersToggle.addEventListener('click', () => {
+						if (window.matchMedia('(min-width: 1024px)').matches) return;
+						filtersPanel.classList.toggle('hidden');
+						syncFiltersVisibility();
+					});
+
+					window.addEventListener('resize', syncFiltersVisibility);
+					syncFiltersVisibility();
+				}
 
 				const setActiveChip = (groupName, value) => {
 					const group = groups.find((node) => node.getAttribute('data-filter-group') === groupName);
