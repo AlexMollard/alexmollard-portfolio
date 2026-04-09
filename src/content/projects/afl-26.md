@@ -1,11 +1,13 @@
----
+﻿---
 title: AFL 26
 date: 2025-05-08
 category: Professional
 summary: AFL 26 continues Big Ant's AFL series with updated squads, features, and multi-platform rollout.
 role: Software developer on sports title systems and production integration.
 media_images:
-  - /media/afl-26-shot.svg
+  - /media/imported/afl-26-1.jpg
+  - /media/imported/afl-26-2.jpg
+  - /media/imported/afl-26-3.jpg
 engine: Proprietary Studio Engine
 api: Other
 features:

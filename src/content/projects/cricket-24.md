@@ -1,11 +1,13 @@
----
+﻿---
 title: CRICKET 24
 date: 2023-10-05
 category: Professional
 summary: Cricket 24 is the culmination of years of cricket game development, including teams and tournaments from around the globe.
 role: Software developer contributing to gameplay and technical features in a commercial codebase.
 media_images:
-  - /media/imported/cricket-24-1.jpg
+  - /media/imported/cricket-24-steam-1.jpg
+  - /media/imported/cricket-24-steam-2.jpg
+  - /media/imported/cricket-24-steam-3.jpg
 engine: Proprietary Studio Engine
 api: Other
 features:

@@ -1,11 +1,13 @@
----
+﻿---
 title: Cricket 22
 date: 2022-04-28
 category: Professional
 summary: Cricket 22 marked a key modern-era cricket release with broad platform support and ongoing sports feature delivery.
 role: Software developer in commercial sports game production.
 media_images:
-  - /media/cricket-22-shot.svg
+  - /media/imported/cricket-22-1.jpg
+  - /media/imported/cricket-22-2.jpg
+  - /media/imported/cricket-22-3.jpg
 engine: Proprietary Studio Engine
 api: Other
 features:

@@ -6,10 +6,9 @@ summary: Experimental OpenGL 2D game framework focused on physics, sprite render
 role: Solo developer building gameplay and rendering systems.
 youtube_url: https://www.youtube.com/watch?v=IAcaVST1S9A
 media_images:
-  - /media/imported/2d-game-1.jpg
+  - /media/imported/2d-game.gif
   - /media/imported/2d-game-2.png
   - /media/imported/2d-game-3.png
-  - /media/imported/2d-game-4.png
 engine: Custom 2D Engine
 api: OpenGL
 features:

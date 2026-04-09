@@ -1,11 +1,13 @@
----
+﻿---
 title: Cricket 26
 date: 2025-10-01
 category: Professional
 summary: Cricket 26 advances Big Ant's cricket franchise with updated content and modern platform support.
 role: Software developer contributing to gameplay and production systems.
 media_images:
-  - /media/cricket-26-shot.svg
+  - /media/imported/cricket-26-1.jpg
+  - /media/imported/cricket-26-2.jpg
+  - /media/imported/cricket-26-3.jpg
 engine: Proprietary Studio Engine
 api: Other
 features:

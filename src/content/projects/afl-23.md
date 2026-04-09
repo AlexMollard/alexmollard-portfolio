@@ -1,11 +1,13 @@
----
+﻿---
 title: AFL 23
 date: 2023-05-04
 category: Professional
 summary: A modern AFL title emphasizing atmosphere, realism, and accessible gameplay for local and online players.
 role: Software developer contributing to gameplay and supporting systems.
 media_images:
-  - /media/imported/afl-23-1.jpg
+  - /media/imported/afl-23-steam-1.jpg
+  - /media/imported/afl-23-steam-2.jpg
+  - /media/imported/afl-23-steam-3.jpg
 engine: Proprietary Studio Engine
 api: Other
 features:

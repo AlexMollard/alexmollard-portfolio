@@ -6,10 +6,8 @@ summary: Technical research project exploring procedural terrain and mesh genera
 role: Graphics and systems programmer focused on procedural generation.
 youtube_url: https://www.youtube.com/watch?v=Ki7QGZDyZ9Q
 media_images:
-  - /media/imported/legacy-1.gif
-  - /media/imported/legacy-2.jpg
-  - /media/imported/legacy-3.png
-  - /media/imported/legacy-4.png
+  - /media/imported/frozen-depths-1.png
+  - /media/imported/frozen-depths-3.png
 engine: Custom Student Engine
 api: OpenGL
 features:
