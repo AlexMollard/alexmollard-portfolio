@@ -5,15 +5,27 @@ import { withBase } from '../utils/withBase';
 interface Props {
 	title?: string;
 	description?: string;
+	image?: string;
+	type?: 'website' | 'article';
+	noindex?: boolean;
 }
 
 const {
 	title = 'Alex Mollard | Graphics Engineer',
-	description = 'Portfolio focused on rendering systems, real-time graphics, and engine architecture.'
+	description = 'Graphics engineer building rendering, networking, and gameplay systems for shipped games and personal engine experiments.',
+	image = 'media/hobbies/slime-project/screenshot1.png',
+	type = 'website',
+	noindex = false
 } = Astro.props as Props;
 
 const iconSvgHref = withBase('/favicon.svg', import.meta.env.BASE_URL);
 const iconIcoHref = withBase('/favicon.ico', import.meta.env.BASE_URL);
+const canonicalURL = Astro.url.toString();
+const siteName = 'Alex Mollard';
+const resolvedImage = image.startsWith('http://') || image.startsWith('https://')
+	? image
+	: new URL(withBase(image, import.meta.env.BASE_URL), Astro.url).toString();
+const robots = noindex ? 'noindex, nofollow' : 'index, follow';
 ---
 
 <!doctype html>
@@ -27,7 +39,24 @@ const iconIcoHref = withBase('/favicon.ico', import.meta.env.BASE_URL);
 		<link rel="icon" type="image/svg+xml" href={iconSvgHref} />
 		<link rel="icon" href={iconIcoHref} />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="robots" content={robots} />
+		<meta name="author" content="Alex Mollard" />
+		<meta name="theme-color" content="#15110f" />
 		<meta name="description" content={description} />
+
+		<meta property="og:type" content={type} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:image" content={resolvedImage} />
+		<meta property="og:image:alt" content="Preview image from Alex Mollard's portfolio" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={resolvedImage} />
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen bg-vanilla text-ash">
