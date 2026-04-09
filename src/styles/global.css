@@ -160,6 +160,87 @@ h3 {
 	display: none;
 }
 
+.atlas-expand-toggle {
+	min-width: 7.8rem;
+	text-align: center;
+}
+
+body.atlas-island-open {
+	overflow: hidden;
+}
+
+.atlas-island-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 70;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+	background: color-mix(in oklab, var(--color-vanilla) 26%, transparent);
+	backdrop-filter: blur(10px) saturate(110%);
+	animation: atlasExpandIn 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.atlas-island-overlay:not(.hidden) {
+	display: flex;
+}
+
+.atlas-island-shell {
+	width: min(72rem, 100%);
+	max-height: 90dvh;
+	box-shadow: 0 24px 64px color-mix(in oklab, var(--color-copper) 26%, transparent);
+}
+
+.atlas-island-content img,
+#atlas-island-content img {
+	cursor: zoom-in;
+}
+
+.atlas-image-preview {
+	position: fixed;
+	inset: 0;
+	z-index: 85;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: clamp(0.8rem, 2vw, 1.6rem);
+	background: color-mix(in oklab, var(--color-vanilla) 46%, transparent);
+	backdrop-filter: blur(6px);
+	animation: atlasExpandIn 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.atlas-image-preview.hidden {
+	display: none;
+}
+
+.atlas-image-preview-img {
+	max-width: min(94vw, 1200px);
+	max-height: 86vh;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	border-radius: 8px;
+	border: 1px solid color-mix(in oklab, var(--color-copper) 48%, transparent);
+	box-shadow: 0 24px 60px color-mix(in oklab, black 45%, transparent);
+	background: color-mix(in oklab, var(--color-vanilla) 72%, black);
+}
+
+.atlas-image-preview-close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+}
+
+.atlas-expanded-body p + p {
+	margin-top: 0.85rem;
+}
+
+.atlas-expanded-body a {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
 .atlas-select {
 	color: #f2dfca;
 	background-color: color-mix(in oklab, var(--color-cream) 28%, transparent);
@@ -200,5 +281,16 @@ h3 {
 	100% {
 		opacity: 0;
 		transform: scale(1.07);
+	}
+}
+
+@keyframes atlasExpandIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px) scale(0.992);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
 	}
 }
