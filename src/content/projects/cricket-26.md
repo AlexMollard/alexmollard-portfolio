@@ -2,8 +2,8 @@
 title: Cricket 26
 date: 2025-10-01
 category: Professional
-summary: Cricket 26 is the latest entry in Big Ant's long-running cricket franchise, bringing updated squads, competitions, and gameplay refinements to PC, PlayStation, and Xbox.
-role: Focused primarily on in-house tooling to support the wider programming team and drove TRC certification work throughout the project lifecycle.
+summary: Cricket 26 is the latest entry in Big Ant's long-running cricket franchise, bringing updated squads, competitions, and gameplay refinements to PC, PlayStation, and Xbox, alongside a new fully integrated websocket networking client.
+role: Built in-house tooling, drove TRC certification work, and fully implemented the client-side websocket stack including cross-platform TLS handshake support.
 media_images:
   - /media/imported/cricket-26-1.jpg
   - /media/imported/cricket-26-2.jpg
@@ -13,13 +13,14 @@ api: Other
 features:
   - Cricket franchise systems support
   - Multi-platform release workflow
-  - Gameplay and UI polish
-  - Production bug resolution
+  - Client-side websocket implementation
+  - Cross-platform TLS handshake implementation
 performance_metrics:
   - Ongoing annualized release cadence support
   - Stable performance and quality targets in production
+  - Reliable secure websocket connectivity across all target platforms
 external_url: https://www.bigant.com/
 featured: false
 ---
 
-My Cricket 26 work was primarily tooling-focused. I spent the majority of this project cycle building and improving in-house tooling to support other programmers on the team, alongside ongoing TRC certification work to meet platform requirements.
+My Cricket 26 work centered on in-house tooling and platform readiness, but the major recent milestone was fully implementing the client-side websocket layer for the title. I also implemented proper TLS handshakes across all target platforms to ensure secure and consistent network connectivity in production. Alongside that networking work, I continued driving TRC certification and internal tool improvements for the wider team.
