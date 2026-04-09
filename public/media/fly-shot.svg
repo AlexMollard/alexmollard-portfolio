@@ -1,6 +1,0 @@
-<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="675" fill="#171310"/>
-  <rect x="130" y="120" width="940" height="430" fill="#2b211b"/>
-  <polyline points="170,470 250,380 330,430 410,290 490,340 570,260 650,300 730,230 810,320 890,260 970,360 1050,290" fill="none" stroke="#e0a264" stroke-width="8"/>
-  <text x="80" y="620" font-family="Arial, sans-serif" font-size="36" fill="#f2dfca">Fly - Audio Visualization & OpenAL</text>
-</svg>
