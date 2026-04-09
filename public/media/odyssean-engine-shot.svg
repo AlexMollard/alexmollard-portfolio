@@ -1,0 +1,8 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="#171310"/>
+  <rect x="120" y="120" width="960" height="435" fill="#2b211b"/>
+  <rect x="180" y="180" width="280" height="130" fill="#6f7652" fill-opacity="0.45"/>
+  <rect x="520" y="180" width="500" height="130" fill="#b06f3c" fill-opacity="0.42"/>
+  <rect x="180" y="350" width="840" height="150" fill="#ccb89f" fill-opacity="0.22"/>
+  <text x="80" y="620" font-family="Arial, sans-serif" font-size="36" fill="#f2dfca">Odyssean-Engine - OpenGL / Vulkan</text>
+</svg>

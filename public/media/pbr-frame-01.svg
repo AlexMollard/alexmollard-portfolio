@@ -1,0 +1,12 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0ead2"/>
+      <stop offset="100%" stop-color="#adc178"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g1)"/>
+  <circle cx="220" cy="220" r="120" fill="#a98467" fill-opacity="0.65"/>
+  <circle cx="760" cy="350" r="190" fill="#6c584c" fill-opacity="0.35"/>
+  <text x="72" y="600" font-family="Arial, sans-serif" font-size="36" fill="#6c584c">PBR Renderer - Frame 01</text>
+</svg>
