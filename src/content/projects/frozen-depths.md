@@ -1,6 +1,6 @@
 ---
 title: Frozen Depths
-date: 2022-12-01
+date: 2021-12-01
 category: Hobby
 summary: Technical research project exploring procedural terrain and mesh generation with the Marching Cubes algorithm.
 role: Graphics and systems programmer focused on procedural generation.
