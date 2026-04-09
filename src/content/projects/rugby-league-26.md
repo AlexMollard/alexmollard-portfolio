@@ -2,8 +2,8 @@
 title: Rugby League 26
 date: 2025-10-01
 category: Professional
-summary: Rugby League 26 continues Big Ant's rugby lineup for modern console and PC audiences.
-role: Software developer in team-based commercial sports development.
+summary: Step onto the pitch in the most authentic Rugby League experience ever — chase club glory, build a custom Pro Team, or rise through the ranks with a self-made superstar. Rugby League 26 puts you at the heart of the action.
+role: Cross-title integration, in-house tooling support, client-server integration, and TRC certification work across the project lifecycle.
 media_images:
   - /media/imported/rugby-league-26-1.jpg
   - /media/imported/rugby-league-26-2.jpg
@@ -22,4 +22,4 @@ external_url: https://www.bigant.com/
 featured: false
 ---
 
-Part of Big Ant's post-2022 professional release slate.
+My work followed the same pattern as other titles in this period — cross-title code integration, tooling support, client-server integration, and TRC certification work to clear platform requirements.
