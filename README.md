@@ -63,14 +63,14 @@ All commands are run from the root of the project:
 
 ## Deploy To Deno Deploy
 
-This repo includes a GitHub Actions workflow at `.github/workflows/deploy.yml` that builds the Astro site and uploads the static `dist/` folder to Deno Deploy whenever `master` is updated.
+This repo is configured for Deno Deploy automatic Git integration (no GitHub Actions required).
 
 ### One-Time Deno Setup
 
 1. Push this repository to GitHub.
-2. In [Deno Deploy](https://dash.deno.com/), create a new project from this repository using **GitHub Action** mode.
-3. In your GitHub repository settings, add a repository variable named `DENO_PROJECT` and set it to your Deno Deploy project name.
-4. Optional: add a repository variable named `SITE_URL` if you want a deploy target other than `https://alexmollard.dev`.
+2. In [Deno Deploy](https://dash.deno.com/), create or open the project linked to this repository.
+3. Enable automatic deploys from your chosen branch (currently `master`).
+4. Set `alexmollard.dev` as the production domain in the Deno Deploy project settings.
 
 ### Custom Domain
 

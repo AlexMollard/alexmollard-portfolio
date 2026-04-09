@@ -3,7 +3,6 @@ import { getCollection, render } from 'astro:content';
 import ProjectMedia from '../components/ProjectMedia.astro';
 import TechSpecs from '../components/TechSpecs.astro';
 import Layout from '../layouts/Layout.astro';
-import { withBase } from '../utils/withBase';
 
 const projects = (await getCollection('projects')).sort(
 	(a, b) => b.data.date.getTime() - a.data.date.getTime()
@@ -36,14 +35,7 @@ const domains = [...new Set(atlasProjects.map((item) => item.domain))];
 const categories = [...new Set(atlasProjects.map((item) => item.project.data.category))];
 const apis = [...new Set(atlasProjects.map((item) => item.project.data.api))];
 const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) => b - a);
-const heroBackgrounds = [
-	'/media/pbr-frame-01.svg',
-	'/media/pbr-frame-02.svg',
-	'/media/hero-shift-03.svg'
-].map((path) => withBase(path, import.meta.env.BASE_URL));
-const heroImagePool = [...new Set(projects.flatMap((project) => project.data.media_images ?? []))].map((image) =>
-	withBase(image, import.meta.env.BASE_URL)
-);
+const heroImagePool = [...new Set(projects.flatMap((project) => project.data.media_images ?? []))];
 ---
 
 <Layout
@@ -52,9 +44,9 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 >
 	<header class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
 		<section class="hero-stage h-[100svh] w-[100dvw]" data-hero-pool={JSON.stringify(heroImagePool)}>
-			<div class="hero-slide hero-slide-1" style={`background-image: url('${heroBackgrounds[0]}');`}></div>
-			<div class="hero-slide hero-slide-2" style={`background-image: url('${heroBackgrounds[1]}');`}></div>
-			<div class="hero-slide hero-slide-3" style={`background-image: url('${heroBackgrounds[2]}');`}></div>
+			<div class="hero-slide hero-slide-1" style="background-image: url('/media/pbr-frame-01.svg');"></div>
+			<div class="hero-slide hero-slide-2" style="background-image: url('/media/pbr-frame-02.svg');"></div>
+			<div class="hero-slide hero-slide-3" style="background-image: url('/media/hero-shift-03.svg');"></div>
 			<div class="hero-tint"></div>
 			<div class="hero-noise"></div>
 
@@ -159,9 +151,7 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 				<div class="space-y-5">
 					<div id="atlas-grid" class="grid gap-5 xl:grid-cols-2">
 						{atlasProjects.map(({ project, domain, year, Content }) => {
-							const previewImage = project.data.media_images?.[0]
-								? withBase(project.data.media_images[0], import.meta.env.BASE_URL)
-								: undefined;
+							const previewImage = project.data.media_images?.[0];
 
 							return (
 								<article
@@ -282,7 +272,7 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 			(() => {
 				const heroStage = document.querySelector('[data-hero-pool]');
 				const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
-				const defaultHeroPool = {JSON.stringify(heroBackgrounds)};
+				const defaultHeroPool = ['/media/pbr-frame-01.svg', '/media/pbr-frame-02.svg', '/media/hero-shift-03.svg'];
 				let heroPool = defaultHeroPool;
 
 				if (heroStage) {
