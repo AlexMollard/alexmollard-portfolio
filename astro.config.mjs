@@ -8,6 +8,7 @@ const site = process.env.SITE_URL ?? 'https://alexmollard.dev';
 // https://astro.build/config
 export default defineConfig({
 	site,
+	output: 'static',
   vite: {
     plugins: [tailwindcss()]
   }
