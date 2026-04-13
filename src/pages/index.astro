@@ -44,9 +44,9 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 >
 	<header class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
 		<section class="hero-stage min-h-[100svh] w-[100dvw] lg:h-[100svh]" data-hero-pool={JSON.stringify(heroImagePool)}>
-			<div class="hero-slide hero-slide-1" style="background-image: url('/media/pbr-frame-01.svg');"></div>
-			<div class="hero-slide hero-slide-2" style="background-image: url('/media/pbr-frame-02.svg');"></div>
-			<div class="hero-slide hero-slide-3" style="background-image: url('/media/hero-shift-03.svg');"></div>
+			<div class="hero-slide hero-slide-1" style="background-image: url('/media/pbr-frame-01.png');"></div>
+			<div class="hero-slide hero-slide-2" style="background-image: url('/media/pbr-frame-02.png');"></div>
+			<div class="hero-slide hero-slide-3" style="background-image: url('/media/hero-shift-03.png');"></div>
 			<div class="hero-tint"></div>
 			<div class="hero-noise"></div>
 
@@ -277,7 +277,7 @@ const heroImagePool = [...new Set(projects.flatMap((project) => project.data.med
 			(() => {
 				const heroStage = document.querySelector('[data-hero-pool]');
 				const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
-				const defaultHeroPool = ['/media/pbr-frame-01.svg', '/media/pbr-frame-02.svg', '/media/hero-shift-03.svg'];
+				const defaultHeroPool = ['/media/pbr-frame-01.png', '/media/pbr-frame-02.png', '/media/hero-shift-03.png'];
 				let heroPool = defaultHeroPool;
 
 				if (heroStage) {
