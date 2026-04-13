@@ -1,16 +1,22 @@
 /**
- * Losslessly optimizes PNG and JPG assets in public/media.
+ * Losslessly optimizes PNG, JPG, and GIF assets in public/media.
  *
  * PNG  → re-compressed at max zlib level, metadata stripped (truly lossless)
  * JPG  → metadata stripped + recompressed with mozjpeg at quality 90 (visually lossless)
- * GIF  → skipped (requires a separate tool like gifsicle)
+ * GIF  → re-compressed with gifsicle -O3 (lossless)
  * WebP → skipped (already well-compressed)
  */
 
 import sharp from 'sharp';
-import { readdir, stat, readFile, writeFile } from 'node:fs/promises';
-import { join, extname, relative } from 'node:path';
+import gifsicle from 'gifsicle';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { readdir, stat, readFile, writeFile, rename, unlink, copyFile } from 'node:fs/promises';
+import { join, extname, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { randomBytes } from 'node:crypto';
+
+const execFileAsync = promisify(execFile);
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const MEDIA_DIR = join(ROOT, 'public', 'media');
@@ -40,8 +46,36 @@ const ext = (f) => extname(f).toLowerCase();
 
 for await (const filePath of walk(MEDIA_DIR)) {
 	const e = ext(filePath);
+	if (e === '.gif') {
+		const { size: before } = await stat(filePath);
+		const tmp = join(dirname(filePath), `_tmp-${randomBytes(6).toString('hex')}.gif`);
+		try {
+			await execFileAsync(gifsicle, ['--optimize=3', '--output', tmp, filePath]);
+			const after = (await stat(tmp)).size;
+			const saved = before - after;
+			const rel = relative(ROOT, filePath);
+			totalBefore += before;
+			if (saved > 0) {
+				await rename(tmp, filePath);
+				totalAfter += after;
+				processed++;
+				const pct = ((saved / before) * 100).toFixed(1);
+				console.log(`  ✓  ${rel}  ${formatBytes(before)} → ${formatBytes(after)}  (−${pct}%)`);
+			} else {
+				await unlink(tmp);
+				totalAfter += before;
+				processed++;
+				console.log(`  =  ${rel}  already optimal (${formatBytes(before)})`);
+			}
+		} catch (err) {
+			console.error(`  ERROR ${relative(ROOT, filePath)}: ${err.message}`);
+			try { await unlink(tmp); } catch {}
+		}
+		continue;
+	}
+
 	if (!['.png', '.jpg', '.jpeg'].includes(e)) {
-		if (['.gif', '.webp', '.svg'].includes(e)) {
+		if (['.webp', '.svg'].includes(e)) {
 			console.log(`  skip  ${relative(ROOT, filePath)}`);
 			skipped++;
 		}
