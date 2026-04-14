@@ -1,22 +1,22 @@
 ---
-title: Render Graph PBR Renderer
-summary: A real-time renderer built around a dependency-driven render graph with clustered lighting and physically based shading.
-date: 2026-04-01
+title: Vulkan Engine Core (Working Title)
+summary: A C++20 Vulkan engine foundation focused on modern rendering architecture, scalable systems, and an integrated sample app.
+date: 2026-04-14
 category: Big Project
-media_images: []
-engine: Custom ECS Engine
+role: Engine and rendering systems programmer.
+media_images:
+  - /media/hobbies/renderer-vulkan/renderer-vulkan-1.png
+engine: Custom C++ Engine
 api: Vulkan
 features:
-  - Render Graph
-  - Clustered Lighting
-  - PBR BRDF
-  - GPU Frustum Culling
-  - Temporal AA
-performance_metrics:
-  - 180 FPS at 1080p on RTX 3070
-  - 2.4 ms GPU frame time (lighting + post)
-  - 1.1 ms CPU frame time
+  - CMake-based multi-target structure (Engine library + App executable)
+  - Vulkan 1.4 stack with GLFW, GLM, and vk-bootstrap
+  - Render graph, render queue, and post-process stack architecture
+  - Scene and world systems with resource and material pipelines
+  - Async file system layers, logging, and crash diagnostics
+performance_metrics: []
+external_url: https://github.com/AlexMollard/MeowCore
 featured: true
 ---
 
-This project focuses on deterministic frame scheduling, explicit synchronization, and tooling for frame-time analysis.
+Custom Vulkan engine project currently under active development, with a strong focus on clean subsystem boundaries, renderer extensibility, and practical tooling for iteration.
