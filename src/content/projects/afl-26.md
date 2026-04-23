@@ -5,9 +5,9 @@ category: Professional
 summary: Get ready for the future of footy with AFL 26. Feel every hit, hear every roar, and live every moment with unmatched authenticity and intensity — with lifelike gameplay, roaring crowds, expert commentary, and all the drama of real AFL. This is footy, redefined.
 role: Ported and merged gameplay systems from other titles into the project, integrated PlayFab online services, and resolved server-side bugs to bring the title up to production standards.
 media_images:
-  - /media/imported/afl-26-1.webp
-  - /media/imported/afl-26-2.webp
-  - /media/imported/afl-26-3.webp
+  - /media/professional/afl-26/afl-26-1.webp
+  - /media/professional/afl-26/afl-26-2.webp
+  - /media/professional/afl-26/afl-26-3.webp
 engine: Proprietary Studio Engine
 api: Other
 features:

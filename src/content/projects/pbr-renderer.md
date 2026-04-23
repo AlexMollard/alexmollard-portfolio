@@ -5,9 +5,9 @@ category: Hobby
 summary: OpenGL renderer implementing a physically based rendering pipeline with multi-texture material support.
 role: Solo graphics programmer.
 media_images:
-  - /media/imported/pbr-renderer-1.webp
-  - /media/imported/pbr-renderer-2.webp
-  - /media/imported/pbr-renderer-3.webp
+  - /media/hobbies/pbr-renderer/pbr-renderer-1.webp
+  - /media/hobbies/pbr-renderer/pbr-renderer-2.webp
+  - /media/hobbies/pbr-renderer/pbr-renderer-3.webp
 engine: Custom Renderer
 api: OpenGL
 features:
