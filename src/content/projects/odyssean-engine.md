@@ -5,7 +5,7 @@ category: Big Project
 summary: Modular 2D/3D game engine framework supporting OpenGL and Vulkan APIs with physically based rendering support.
 role: Engine systems and rendering architecture.
 media_images:
-  - /media/imported/odyssean-engine.webp
+  - /media/hobbies/odyssean-engine/odyssean-engine.webp
 engine: Odyssean Engine
 api: Other
 features:

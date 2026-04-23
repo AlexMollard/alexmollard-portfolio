@@ -5,9 +5,9 @@ category: Professional
 summary: The ultimate rugby gaming experience — Rugby 25 immerses you in the heart of the action with hard-hitting tackles, from humble local club matches to the bright lights of the world's greatest international tournaments. Where legends are born and history is made.
 role: Ported and patched systems from newer titles into an aging Rugby codebase, handled client-to-server integration, and drove TRC certification work to pass platform submissions.
 media_images:
-  - /media/imported/rugby-25-1.webp
-  - /media/imported/rugby-25-2.webp
-  - /media/imported/rugby-25-3.webp
+  - /media/professional/rugby-25/rugby-25-1.webp
+  - /media/professional/rugby-25/rugby-25-2.webp
+  - /media/professional/rugby-25/rugby-25-3.webp
 engine: Proprietary Studio Engine
 api: Other
 features:

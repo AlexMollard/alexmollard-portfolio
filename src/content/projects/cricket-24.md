@@ -5,9 +5,9 @@ category: Professional
 summary: Cricket 24 is the culmination of a decade of Cricket video game development, featuring the Ashes, professional Indian T20 teams, 300+ photogrammetry-scanned players, cross-platform multiplayer, and over 50 detailed official stadiums — the most complete simulation of cricket ever made.
 role: Built a large number of UI screens, resolved state flow issues, implemented PlayFab and PlayGo online features, and drove TRC certification work to pass platform submissions.
 media_images:
-  - /media/imported/cricket-24-steam-1.webp
-  - /media/imported/cricket-24-steam-2.webp
-  - /media/imported/cricket-24-steam-3.webp
+  - /media/professional/cricket-24/cricket-24-steam-1.webp
+  - /media/professional/cricket-24/cricket-24-steam-2.webp
+  - /media/professional/cricket-24/cricket-24-steam-3.webp
 engine: Proprietary Studio Engine
 api: Other
 features:
