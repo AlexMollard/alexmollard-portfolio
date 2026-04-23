@@ -35,7 +35,7 @@ const domains = [...new Set(atlasProjects.map((item) => item.domain))];
 const categories = [...new Set(atlasProjects.map((item) => item.project.data.category))];
 const apis = [...new Set(atlasProjects.map((item) => item.project.data.api))];
 const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) => b - a);
-const heroImagePool = [...new Set(projects.flatMap((project) => project.data.media_images ?? []))];
+const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Professional').flatMap((project) => project.data.media_images ?? []))];
 ---
 
 <Layout
