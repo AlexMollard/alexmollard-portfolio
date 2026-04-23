@@ -5,8 +5,8 @@ category: Hobby
 summary: My first proper C++ project, built as a text-based shop simulator to learn how classes, structs, and functions work in practice.
 role: Solo programmer.
 media_images:
-  - /media/hobbies/shop-game/shop-game-1.png
-  - /media/hobbies/shop-game/shop-game-2.png
+  - /media/hobbies/shop-game/shop-game-1.webp
+  - /media/hobbies/shop-game/shop-game-2.webp
 engine: Visual Studio C++ Console Application
 api: Other
 features:

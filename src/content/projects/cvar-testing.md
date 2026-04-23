@@ -5,8 +5,8 @@ category: Hobby
 summary: C++ sandbox project for prototyping a runtime command console that can execute custom commands in a live application without relying on a GUI.
 role: Solo engine tools programmer.
 media_images:
-  - /media/hobbies/cvar/cvar-1.png
-  - /media/hobbies/cvar/cvar-2.png
+  - /media/hobbies/cvar/cvar-1.webp
+  - /media/hobbies/cvar/cvar-2.webp
 engine: Custom C++ Application
 api: Other
 features:

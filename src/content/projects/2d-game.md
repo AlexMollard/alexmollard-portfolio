@@ -7,8 +7,8 @@ role: Solo developer building gameplay and rendering systems.
 youtube_url: https://www.youtube.com/watch?v=IAcaVST1S9A
 media_images:
   - /media/imported/2d-game.gif
-  - /media/imported/2d-game-2.png
-  - /media/imported/2d-game-3.png
+  - /media/imported/2d-game-2.webp
+  - /media/imported/2d-game-3.webp
 engine: Custom 2D Engine
 api: OpenGL
 features:

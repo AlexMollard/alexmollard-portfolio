@@ -5,9 +5,9 @@ category: Hobby
 summary: User-friendly OpenGL graphics engine for loading complex meshes and simulating Physically Based Rendering material lighting.
 role: C++ graphics engine developer.
 media_images:
-  - /media/imported/slime-cube-1.png
-  - /media/imported/slime-cube-2.png
-  - /media/imported/slime-cube-3.png
+  - /media/imported/slime-cube-1.webp
+  - /media/imported/slime-cube-2.webp
+  - /media/imported/slime-cube-3.webp
 engine: SlimeCube (Custom)
 api: OpenGL
 features:

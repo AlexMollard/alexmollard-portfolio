@@ -5,9 +5,9 @@ category: Hobby
 summary: Co-developed Lua/Love2D game project exploring what it is like to build a full game entirely in Lua, with Declan owning major AI agent systems while I handled gameplay systems, tools, integration, and art.
 role: Co-developer with Declan. Declan led AI agent development and behavior systems; I led gameplay systems, tools, integration, and art.
 media_images:
-  - /media/hobbies/tycoon/tycoon-1.png
-  - /media/hobbies/tycoon/tycoon-2.png
-  - /media/hobbies/tycoon/tycoon-3.png
+  - /media/hobbies/tycoon/tycoon-1.webp
+  - /media/hobbies/tycoon/tycoon-2.webp
+  - /media/hobbies/tycoon/tycoon-3.webp
 engine: LÖVE (Love2D)
 api: Other
 features:

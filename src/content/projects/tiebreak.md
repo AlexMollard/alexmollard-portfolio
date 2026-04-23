@@ -5,9 +5,9 @@ category: Professional
 summary: TIEBREAK is the most lifelike tennis simulation ever released — featuring 120+ officially licensed ATP and WTA pros across 90 official tournaments, AI powered by real match data, and a deep multi-season career mode. The official game of the ATP and WTA.
 role: Effectively led UI implementation across the project — the team's deepest expert on the in-house widget system — delivering entire game modes under extreme deadlines and bridging the old UI framework with the studio's transition to NOESIS GUI.
 media_images:
-  - /media/imported/tiebreak-steam-1.jpg
-  - /media/imported/tiebreak-steam-2.jpg
-  - /media/imported/tiebreak-steam-3.jpg
+  - /media/imported/tiebreak-steam-1.webp
+  - /media/imported/tiebreak-steam-2.webp
+  - /media/imported/tiebreak-steam-3.webp
 engine: Proprietary Studio Engine
 api: Other
 features:

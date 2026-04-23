@@ -5,7 +5,7 @@ category: Hobby
 summary: OpenGL-powered color grading laboratory experimenting with HDR rendering, CLUT workflows, and post-processing effects.
 role: Graphics programmer and tooling designer.
 media_images:
-  - /media/hobbies/render-alchemy/preview.png
+  - /media/hobbies/render-alchemy/preview.webp
 engine: Custom OpenGL
 api: OpenGL
 features:

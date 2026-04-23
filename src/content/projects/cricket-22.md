@@ -5,9 +5,9 @@ category: Professional
 summary: Cricket 22 delivers the Ashes, the Big Bash, The Hundred, and a multitude of other fan-favourite competitions through all-new mechanics, commentary, and a captivating narrative-driven career mode — the most robust cricket game Big Ant has ever created.
 role: Junior programmer contributing minor bug fixes at the start of my career before transitioning to AFL 23.
 media_images:
-  - /media/imported/cricket-22-1.jpg
-  - /media/imported/cricket-22-2.jpg
-  - /media/imported/cricket-22-3.jpg
+  - /media/imported/cricket-22-1.webp
+  - /media/imported/cricket-22-2.webp
+  - /media/imported/cricket-22-3.webp
 engine: Proprietary Studio Engine
 api: Other
 features:

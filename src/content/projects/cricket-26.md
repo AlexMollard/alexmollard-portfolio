@@ -5,9 +5,9 @@ category: Professional
 summary: Cricket 26 is the latest entry in Big Ant's long-running cricket franchise, bringing updated squads, competitions, and gameplay refinements to PC, PlayStation, and Xbox, alongside a new fully integrated websocket networking client.
 role: Built in-house tooling, drove TRC certification work, and fully implemented the client-side websocket stack including cross-platform TLS handshake support.
 media_images:
-  - /media/imported/cricket-26-1.jpg
-  - /media/imported/cricket-26-2.jpg
-  - /media/imported/cricket-26-3.jpg
+  - /media/imported/cricket-26-1.webp
+  - /media/imported/cricket-26-2.webp
+  - /media/imported/cricket-26-3.webp
 engine: Proprietary Studio Engine
 api: Other
 features:
