@@ -5,9 +5,9 @@ category: Hobby
 summary: A Jekyll-based documentation website covering C++ development — from project setup and fundamentals through to advanced topics like building Vulkan game engines.
 role: Technical writer and systems educator.
 media_images:
-  - /media/hobbies/cpp-odyssey/home.png
-  - /media/hobbies/cpp-odyssey/vulkan-devices.png
-  - /media/hobbies/cpp-odyssey/vulkan-code-structure.png
+  - /media/hobbies/cpp-odyssey/home.webp
+  - /media/hobbies/cpp-odyssey/vulkan-devices.webp
+  - /media/hobbies/cpp-odyssey/vulkan-code-structure.webp
 engine: Jekyll + GitHub Pages
 api: Other
 features:

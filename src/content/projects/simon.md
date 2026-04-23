@@ -5,9 +5,9 @@ category: Hobby
 summary: One of my early C++ game projects, built to learn class-based design, game state flow, and per-frame update/draw architecture through a Simon memory game.
 role: Solo programmer.
 media_images:
-  - /media/hobbies/simon/simon-1.png
-  - /media/hobbies/simon/simon-2.png
-  - /media/hobbies/simon/simon-3.png
+  - /media/hobbies/simon/simon-1.webp
+  - /media/hobbies/simon/simon-2.webp
+  - /media/hobbies/simon/simon-3.webp
 engine: AIE Bootstrap Framework
 api: OpenGL
 features:

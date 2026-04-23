@@ -5,8 +5,8 @@ category: Big Project
 summary: A Vulkan-based game engine (SlimeOdyssey) paired with a 2D platformer game — built to explore modern Vulkan 1.3 features, ECS architecture, and PBR rendering across Windows, Linux, and macOS.
 role: Engine and gameplay programmer, co-developed with Connor Young.
 media_images:
-  - /media/hobbies/slime-project/screenshot1.png
-  - /media/hobbies/slime-project/screenshot2.png
+  - /media/hobbies/slime-project/screenshot1.webp
+  - /media/hobbies/slime-project/screenshot2.webp
 engine: SlimeOdyssey (custom)
 api: Vulkan
 features:

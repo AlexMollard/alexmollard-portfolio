@@ -5,8 +5,8 @@ category: Hobby
 summary: Modern audio player with real-time visualization, spatial audio control, and advanced audio processing using OpenAL-Soft and ImGui.
 role: C++ audio systems developer.
 media_images:
-  - /media/hobbies/Fly/empty.png
-  - /media/hobbies/Fly/full.png
+  - /media/hobbies/Fly/empty.webp
+  - /media/hobbies/Fly/full.webp
 engine: Native C++ WinApp
 api: Other
 features:

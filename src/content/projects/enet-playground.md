@@ -5,9 +5,9 @@ category: Hobby
 summary: Networking sandbox for experimenting with ENet protocol, reliable UDP communication, and scalable client-server architecture patterns.
 role: Networking systems programmer.
 media_images:
-  - /media/hobbies/enet-playground/server.png
-  - /media/hobbies/enet-playground/login.png
-  - /media/hobbies/enet-playground/client.png
+  - /media/hobbies/enet-playground/server.webp
+  - /media/hobbies/enet-playground/login.webp
+  - /media/hobbies/enet-playground/client.webp
 engine: C++ Networking Framework
 api: Other
 features:

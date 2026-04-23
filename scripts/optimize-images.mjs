@@ -1,17 +1,19 @@
 /**
- * Losslessly optimizes PNG, JPG, and GIF assets in public/media.
+ * Converts PNG/JPG assets to WebP and updates all source references in-place.
+ * Replaces the original file with a .webp sibling, then rewrites any path
+ * strings found in src/ so nothing breaks.
  *
- * PNG  → re-compressed at max zlib level, metadata stripped (truly lossless)
- * JPG  → metadata stripped + recompressed with mozjpeg at quality 90 (visually lossless)
- * GIF  → re-compressed with gifsicle -O3 (lossless)
- * WebP → skipped (already well-compressed)
+ * PNG  → WebP quality 85, effort 6 (lossy, alpha preserved)
+ * JPG  → WebP quality 85, effort 6
+ * GIF  → re-compressed with gifsicle -O3 (kept as GIF — animated WebP is niche)
+ * WebP → skipped (already converted)
  */
 
 import sharp from 'sharp';
 import gifsicle from 'gifsicle';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { readdir, stat, readFile, writeFile, rename, unlink, copyFile } from 'node:fs/promises';
+import { readdir, stat, readFile, writeFile, rename, unlink } from 'node:fs/promises';
 import { join, extname, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomBytes } from 'node:crypto';
@@ -20,6 +22,7 @@ const execFileAsync = promisify(execFile);
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const MEDIA_DIR = join(ROOT, 'public', 'media');
+const SRC_DIR = join(ROOT, 'src');
 
 async function* walk(dir) {
 	for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -37,15 +40,25 @@ function formatBytes(bytes) {
 	return `${(bytes / 1024).toFixed(1)} KB`;
 }
 
+// Normalise an absolute fs path under public/ to a web-root-relative string.
+// e.g. C:\…\public\media\foo.jpg → /media/foo.jpg
+function toWebPath(absPath) {
+	return '/' + relative(join(ROOT, 'public'), absPath).replace(/\\/g, '/');
+}
+
 let totalBefore = 0;
 let totalAfter = 0;
 let skipped = 0;
 let processed = 0;
 
+// old web path → new web path, e.g. /media/foo.jpg → /media/foo.webp
+const conversions = new Map();
+
 const ext = (f) => extname(f).toLowerCase();
 
 for await (const filePath of walk(MEDIA_DIR)) {
 	const e = ext(filePath);
+
 	if (e === '.gif') {
 		const { size: before } = await stat(filePath);
 		const tmp = join(dirname(filePath), `_tmp-${randomBytes(6).toString('hex')}.gif`);
@@ -74,32 +87,23 @@ for await (const filePath of walk(MEDIA_DIR)) {
 		continue;
 	}
 
-	if (!['.png', '.jpg', '.jpeg'].includes(e)) {
-		if (['.webp', '.svg'].includes(e)) {
-			console.log(`  skip  ${relative(ROOT, filePath)}`);
-			skipped++;
-		}
+	if (e === '.webp') {
+		console.log(`  skip  ${relative(ROOT, filePath)}`);
+		skipped++;
 		continue;
 	}
 
+	if (!['.png', '.jpg', '.jpeg'].includes(e)) continue;
+
 	const { size: before } = await stat(filePath);
+	const webpPath = filePath.replace(/\.(jpg|jpeg|png)$/i, '.webp');
 
 	let output;
 	try {
-		// Read fully into buffer first so the file handle is released before we write back
 		const inputBuffer = await readFile(filePath);
-		const img = sharp(inputBuffer);
-
-		if (e === '.png') {
-			output = await img
-				.png({ compressionLevel: 9, adaptiveFiltering: true, effort: 10 })
-				.toBuffer();
-		} else {
-			// JPG — mozjpeg at quality 90 is visually indistinguishable for photos
-			output = await img
-				.jpeg({ quality: 90, mozjpeg: true })
-				.toBuffer();
-		}
+		output = await sharp(inputBuffer)
+			.webp({ quality: 85, effort: 6, smartSubsample: true })
+			.toBuffer();
 	} catch (err) {
 		console.error(`  ERROR ${relative(ROOT, filePath)}: ${err.message}`);
 		continue;
@@ -114,13 +118,39 @@ for await (const filePath of walk(MEDIA_DIR)) {
 	totalAfter += after;
 	processed++;
 
+	await writeFile(webpPath, output);
+	await unlink(filePath);
+	conversions.set(toWebPath(filePath), toWebPath(webpPath));
+
 	if (saved > 0) {
-		await writeFile(filePath, output);
 		console.log(`  ✓  ${rel}  ${formatBytes(before)} → ${formatBytes(after)}  (−${pct}%)`);
 	} else {
-		// Don't write if sharp made it larger
-		totalAfter = totalAfter - after + before;
-		console.log(`  =  ${rel}  already optimal (${formatBytes(before)})`);
+		console.log(`  ~  ${rel}  converted (${formatBytes(before)} → ${formatBytes(after)}, +${Math.abs(pct)}% — WebP kept)`);
+	}
+}
+
+// Update path references in source files
+if (conversions.size > 0) {
+	console.log('\nUpdating source references…');
+	const SOURCE_EXTS = new Set(['.md', '.mdx', '.astro', '.ts', '.tsx', '.js', '.mjs']);
+
+	for await (const filePath of walk(SRC_DIR)) {
+		if (!SOURCE_EXTS.has(ext(filePath))) continue;
+
+		let content = await readFile(filePath, 'utf8');
+		let changed = false;
+
+		for (const [oldPath, newPath] of conversions) {
+			if (content.includes(oldPath)) {
+				content = content.replaceAll(oldPath, newPath);
+				changed = true;
+			}
+		}
+
+		if (changed) {
+			await writeFile(filePath, content, 'utf8');
+			console.log(`  ✓  ${relative(ROOT, filePath)}`);
+		}
 	}
 }
 
@@ -128,4 +158,6 @@ const savedTotal = totalBefore - totalAfter;
 console.log('');
 console.log(`Processed: ${processed} files  |  Skipped: ${skipped}`);
 console.log(`Before: ${formatBytes(totalBefore)}  →  After: ${formatBytes(totalAfter)}`);
-console.log(`Saved:  ${formatBytes(savedTotal)}  (${((savedTotal / totalBefore) * 100).toFixed(1)}%)`);
+if (totalBefore > 0) {
+	console.log(`Saved:  ${formatBytes(savedTotal)}  (${((savedTotal / totalBefore) * 100).toFixed(1)}%)`);
+}

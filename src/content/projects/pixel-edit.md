@@ -5,8 +5,8 @@ category: Hobby
 summary: WinForms image editor project built to learn how desktop applications are structured, while exploring core algorithms needed for practical editing tools.
 role: Solo programmer.
 media_images:
-  - /media/hobbies/pixel-edit/pixel-edit-1.png
-  - /media/hobbies/pixel-edit/pixel-edit-2.png
+  - /media/hobbies/pixel-edit/pixel-edit-1.webp
+  - /media/hobbies/pixel-edit/pixel-edit-2.webp
 engine: Windows Forms (.NET Framework)
 api: Other
 features:
