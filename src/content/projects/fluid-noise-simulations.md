@@ -5,8 +5,8 @@ category: Hobby
 summary: Two C++ cellular automata experiments — a 2D liquid physics simulator and a noise-driven procedural world generator.
 role: Simulation and procedural systems programmer.
 media_images:
-  - /media/hobbies/noise-cellular-automata/world-gen.gif
-  - /media/hobbies/noise-cellular-automata/global-warming.gif
+  - /media/hobbies/fluid-noise-simulations/world-gen.gif
+  - /media/hobbies/fluid-noise-simulations/global-warming.gif
 engine: C++ Simulation
 api: OpenGL
 features:
