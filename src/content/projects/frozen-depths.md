@@ -18,7 +18,7 @@ features:
 performance_metrics:
   - Real-time simulation-driven geometry updates
   - Stable performance under gameplay interaction
-external_url: https://www.alexmollard.dev/frozen-depths
+external_url: https://github.com/AlexMollard/Frozen-Depths-Programmers
 featured: false
 ---
 
