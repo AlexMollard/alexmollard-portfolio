@@ -1,8 +1,8 @@
-﻿---
+---
 title: Cricket 22
 date: 2022-04-28
 category: Professional
-summary: Cricket 22 delivers the Ashes, the Big Bash, The Hundred, and a multitude of other fan-favourite competitions through all-new mechanics, commentary, and a captivating narrative-driven career mode — the most robust cricket game Big Ant has ever created.
+summary: My first shipped professional title, where I contributed bug fixes before moving onto AFL 23.
 role: Junior programmer contributing minor bug fixes at the start of my career before transitioning to AFL 23.
 media_images:
   - /media/professional/cricket-22/cricket-22-1.webp

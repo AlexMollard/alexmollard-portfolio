@@ -2,8 +2,8 @@
 title: TIEBREAK
 date: 2024-08-22
 category: Professional
-summary: TIEBREAK is the most lifelike tennis simulation ever released — featuring 120+ officially licensed ATP and WTA pros across 90 official tournaments, AI powered by real match data, and a deep multi-season career mode. The official game of the ATP and WTA.
-role: Effectively led UI implementation across the project — the team's deepest expert on the in-house widget system — delivering entire game modes under extreme deadlines and bridging the old UI framework with the studio's transition to NOESIS GUI.
+summary: A multi-platform licensed tennis game with career modes, online play, and a large UI surface built across two interface systems.
+role: Owned most of the UI implementation, built complete game modes, and helped bridge the in-house widget system with the move to NoesisGUI.
 media_images:
   - /media/professional/tiebreak/tiebreak-steam-1.webp
   - /media/professional/tiebreak/tiebreak-steam-2.webp
@@ -26,9 +26,9 @@ approach:
   - Took practical ownership of the legacy UI stack so the rest of the team could move to newer projects without blocking TIEBREAK.
   - Coordinated directly with server developers and implemented complete game-mode flows rather than stopping at individual screens.
 outcomes:
-  - Shipped the production UI and complete game modes across the title and later platform expansion work.
-  - Preserved delivery momentum during the studio's transition between UI technologies.
-  - Became the team's deepest technical owner of the legacy widget system and its production constraints.
+  - Delivered the UI and complete game modes for the initial release and later platform work.
+  - Kept the existing UI working while the project moved to NoesisGUI.
+  - Became the main programmer responsible for the legacy widget system.
 external_url: https://store.steampowered.com/app/2264340/TIEBREAK_Official_game_of_the_ATP_and_WTA/
 featured: true
 spotlight_order: 4

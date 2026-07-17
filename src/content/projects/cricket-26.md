@@ -1,8 +1,8 @@
-﻿---
+---
 title: Cricket 26
 date: 2025-10-01
 category: Professional
-summary: Cricket 26 is the latest entry in Big Ant's long-running cricket franchise, bringing updated squads, competitions, and gameplay refinements to PC, PlayStation, and Xbox, alongside a new fully integrated websocket networking client.
+summary: A multi-platform cricket game released on PC, PlayStation, and Xbox.
 role: Built in-house tooling, drove TRC certification work, and fully implemented the client-side websocket stack including cross-platform TLS handshake support.
 media_images:
   - /media/professional/cricket-26/cricket-26-1.webp
@@ -25,9 +25,9 @@ approach:
   - Worked alongside certification and release requirements so the networking implementation was validated under the same constraints as the shipped game.
   - Continued improving in-house tooling around the release workflow rather than treating networking as an isolated feature.
 outcomes:
-  - Shipped reliable secure websocket connectivity across PC, PlayStation, and Xbox targets.
-  - Supported TRC certification and the wider multi-platform production release.
-  - Left the team with reusable networking and tooling foundations beyond the title itself.
+  - The websocket client shipped on PC, PlayStation, and Xbox.
+  - Supported TRC certification and release work.
+  - The networking and tooling work can be reused on other titles.
 external_url: https://www.bigant.com/
 featured: false
 spotlight_order: 3

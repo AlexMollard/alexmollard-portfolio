@@ -1,8 +1,8 @@
-﻿---
+---
 title: Rugby League 26
 date: 2025-10-01
 category: Professional
-summary: Step onto the pitch in the most authentic Rugby League experience ever — chase club glory, build a custom Pro Team, or rise through the ranks with a self-made superstar. Rugby League 26 puts you at the heart of the action.
+summary: A rugby league title where I worked on cross-title integration, internal tools, client-server integration, and TRC certification.
 role: Cross-title integration, in-house tooling support, client-server integration, and TRC certification work across the project lifecycle.
 media_images:
   - /media/professional/rugby-league-26/rugby-league-26-1.webp

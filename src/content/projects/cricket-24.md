@@ -1,8 +1,8 @@
-﻿---
+---
 title: CRICKET 24
 date: 2023-10-05
 category: Professional
-summary: Cricket 24 is the culmination of a decade of Cricket video game development, featuring the Ashes, professional Indian T20 teams, 300+ photogrammetry-scanned players, cross-platform multiplayer, and over 50 detailed official stadiums — the most complete simulation of cricket ever made.
+summary: A multi-platform cricket title where I built UI screens, fixed state-flow issues, integrated PlayFab and PlayGo, and worked on TRC certification.
 role: Built a large number of UI screens, resolved state flow issues, implemented PlayFab and PlayGo online features, and drove TRC certification work to pass platform submissions.
 media_images:
   - /media/professional/cricket-24/cricket-24-steam-1.webp

@@ -1,8 +1,8 @@
-﻿---
+---
 title: Rugby 25
 date: 2025-02-13
 category: Professional
-summary: The ultimate rugby gaming experience — Rugby 25 immerses you in the heart of the action with hard-hitting tackles, from humble local club matches to the bright lights of the world's greatest international tournaments. Where legends are born and history is made.
+summary: A multi-platform rugby title where I ported systems into an older codebase, handled client-server integration, and worked on TRC certification.
 role: Ported and patched systems from newer titles into an aging Rugby codebase, handled client-to-server integration, and drove TRC certification work to pass platform submissions.
 media_images:
   - /media/professional/rugby-25/rugby-25-1.webp
