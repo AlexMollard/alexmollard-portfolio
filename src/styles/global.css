@@ -109,16 +109,6 @@ h3 {
 	border-bottom: 1px solid var(--color-line);
 }
 
-.hero-stage::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: clamp(1.5rem, 5vw, 5rem);
-	width: 4.5rem;
-	height: 4px;
-	background: var(--color-signal);
-}
-
 .hero-nav,
 .hero-layout,
 .hero-facts {
