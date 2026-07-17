@@ -16,8 +16,18 @@ performance_metrics:
   - Reduced manual crash triage overhead through automatic dump/log collection
   - Enabled unattended multi-machine validation workflows coordinated through Discord
   - Improved script maintainability by consolidating workflows into CSX
+problem: Memory investigation, crash triage, release checks, and multi-machine QA all depended on repetitive manual work that made failures slower to reproduce and harder to group.
+approach:
+  - Built focused tools around the existing studio workflow instead of asking programmers and QA to adopt an entirely separate platform.
+  - Converted raw memory and crash data into grouped, searchable evidence that could be acted on without manually inspecting every dump or machine.
+  - Used Discord and websockets as a lightweight control and reporting surface for distributed automated game validation.
+outcomes:
+  - Reduced the time required to identify recurring crashes and high-impact memory waste.
+  - Enabled unattended testing across multiple game instances with callstacks and logs delivered directly to the team.
+  - Consolidated fragile automation into a more maintainable CSX toolchain used across production workflows.
 external_url: https://www.bigant.com/
 featured: false
+spotlight_order: 2
 ---
 
 This project represents a collection of in-house production tools I built to reduce engineering and QA friction across multiple shipped titles.

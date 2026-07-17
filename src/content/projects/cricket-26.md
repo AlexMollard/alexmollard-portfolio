@@ -19,8 +19,18 @@ performance_metrics:
   - Ongoing annualized release cadence support
   - Stable performance and quality targets in production
   - Reliable secure websocket connectivity across all target platforms
+problem: The title needed a production-ready websocket client with secure TLS behaviour that remained consistent across every supported platform and its different networking constraints.
+approach:
+  - Implemented the client-side websocket stack and platform-specific TLS handshake path inside the studio engine.
+  - Worked alongside certification and release requirements so the networking implementation was validated under the same constraints as the shipped game.
+  - Continued improving in-house tooling around the release workflow rather than treating networking as an isolated feature.
+outcomes:
+  - Shipped reliable secure websocket connectivity across PC, PlayStation, and Xbox targets.
+  - Supported TRC certification and the wider multi-platform production release.
+  - Left the team with reusable networking and tooling foundations beyond the title itself.
 external_url: https://www.bigant.com/
 featured: false
+spotlight_order: 3
 ---
 
 My Cricket 26 work centered on in-house tooling and platform readiness, but the major recent milestone was fully implementing the client-side websocket layer for the title. I also implemented proper TLS handshakes across all target platforms to ensure secure and consistent network connectivity in production. Alongside that networking work, I continued driving TRC certification and internal tool improvements for the wider team.
