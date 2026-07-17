@@ -101,62 +101,94 @@ h3 {
 .hero-stage {
 	position: relative;
 	overflow: hidden;
-	background: var(--color-ground);
+	background:
+		linear-gradient(90deg, color-mix(in oklab, var(--color-line) 13%, transparent) 1px, transparent 1px),
+		linear-gradient(0deg, color-mix(in oklab, var(--color-line) 8%, transparent) 1px, transparent 1px),
+		var(--color-ground);
+	background-size: 5rem 5rem;
 	border-bottom: 1px solid var(--color-line);
 }
 
-.hero-copy {
-	position: relative;
-	background:
-		linear-gradient(90deg, color-mix(in oklab, var(--color-line) 18%, transparent) 1px, transparent 1px),
-		var(--color-ground);
-	background-size: 5rem 100%;
-}
-
-.hero-copy::before {
+.hero-stage::before {
 	content: "";
 	position: absolute;
 	top: 0;
-	left: clamp(1.5rem, 4vw, 4rem);
-	width: 3.5rem;
+	left: clamp(1.5rem, 5vw, 5rem);
+	width: 4.5rem;
 	height: 4px;
 	background: var(--color-signal);
 }
 
-.hero-visual {
+.hero-nav,
+.hero-layout,
+.hero-facts {
 	position: relative;
-	min-height: 42svh;
-	background: var(--color-surface);
+	z-index: 1;
 }
 
-.hero-visual::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background:
-		linear-gradient(90deg, color-mix(in oklab, var(--color-ground) 24%, transparent), transparent 35%),
-		linear-gradient(0deg, color-mix(in oklab, var(--color-ground) 62%, transparent), transparent 30%);
-	pointer-events: none;
+.hero-nav-link {
+	font-family: "IBM Plex Mono", "Consolas", monospace;
+	font-size: 10px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--color-muted);
+	transition: color 160ms ease;
 }
 
-.hero-image {
+.hero-nav-link:hover {
+	color: var(--color-paper);
+}
+
+.hero-action {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem;
+	min-width: 9.5rem;
+	border: 1px solid var(--color-line);
+	padding: 0.72rem 0.85rem;
+	font-family: "IBM Plex Mono", "Consolas", monospace;
+	font-size: 10px;
+	font-weight: 500;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--color-paper);
+	transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.hero-action:hover {
+	border-color: var(--color-signal);
+	background: var(--color-raised);
+}
+
+.hero-action-primary {
+	border-color: var(--color-signal);
+	background: var(--color-signal);
+	color: var(--color-ground);
+}
+
+.hero-action-primary:hover {
+	background: var(--color-paper);
+	color: var(--color-ground);
+}
+
+.hero-project {
+	box-shadow: 0 28px 70px rgb(0 0 0 / 25%);
+}
+
+.hero-project-media {
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	background: var(--color-raised);
+}
+
+.hero-project-media img {
+	display: block;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	object-position: 48% center;
-	filter: saturate(0.82) contrast(1.12);
-}
-
-.hero-caption {
-	position: absolute;
-	right: 1.25rem;
-	bottom: 1.25rem;
-	z-index: 2;
-	max-width: 18rem;
-	border-left: 2px solid var(--color-signal);
-	background: color-mix(in oklab, var(--color-ground) 86%, transparent);
-	padding: 0.65rem 0.8rem;
-	backdrop-filter: blur(8px);
+	object-position: center;
+	filter: saturate(0.82) contrast(1.04);
 }
 
 .section-rule {
@@ -207,6 +239,85 @@ h3 {
 .atlas-expand-toggle {
 	min-width: 7.8rem;
 	text-align: center;
+}
+
+.spotlight-card {
+	position: relative;
+}
+
+.spotlight-media {
+	aspect-ratio: 16 / 8.6;
+	background: var(--color-raised);
+}
+
+.spotlight-placeholder {
+	display: flex;
+	min-height: 12rem;
+	align-items: flex-end;
+	background:
+		linear-gradient(135deg, transparent 0 49.5%, color-mix(in oklab, var(--color-line) 54%, transparent) 49.5% 50.5%, transparent 50.5%),
+		linear-gradient(90deg, color-mix(in oklab, var(--color-line) 22%, transparent) 1px, transparent 1px),
+		var(--color-raised);
+	background-size: 100% 100%, 3rem 100%, auto;
+}
+
+.spotlight-outcomes li,
+.case-study-list li {
+	position: relative;
+	padding-left: 1.15rem;
+	font-size: 0.875rem;
+	line-height: 1.55;
+	color: var(--color-muted);
+}
+
+.spotlight-outcomes li::before,
+.case-study-list li::before {
+	content: "";
+	position: absolute;
+	top: 0.65em;
+	left: 0;
+	width: 0.38rem;
+	height: 0.38rem;
+	background: var(--color-signal);
+}
+
+.case-study-block {
+	border: 1px solid var(--color-line);
+	border-radius: 3px;
+	background: var(--color-raised);
+	padding: 1rem;
+}
+
+.case-study-block-accent {
+	border-left: 3px solid var(--color-signal);
+}
+
+.case-study-label {
+	font-family: "IBM Plex Mono", "Consolas", monospace;
+	font-size: 10px;
+	letter-spacing: 0.14em;
+	line-height: 1.2;
+	text-transform: uppercase;
+	color: var(--color-signal);
+}
+
+.case-study-list {
+	margin-top: 0.65rem;
+}
+
+.case-study-list li + li {
+	margin-top: 0.55rem;
+}
+
+.site-footer {
+	background:
+		linear-gradient(90deg, color-mix(in oklab, var(--color-line) 10%, transparent) 1px, transparent 1px),
+		var(--color-surface);
+	background-size: 5rem 100%;
+}
+
+.footer-email {
+	overflow-wrap: anywhere;
 }
 
 body.atlas-island-open {
@@ -296,13 +407,6 @@ body.atlas-island-open {
 .atlas-select option {
 	background-color: var(--color-surface);
 	color: var(--color-paper);
-}
-
-@media (min-width: 1024px) {
-	.hero-visual {
-		min-height: 100svh;
-		border-left: 1px solid var(--color-line);
-	}
 }
 
 @media (prefers-reduced-motion: reduce) {
