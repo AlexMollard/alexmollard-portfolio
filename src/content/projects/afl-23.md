@@ -1,8 +1,8 @@
-﻿---
+---
 title: AFL 23
 date: 2023-05-04
 category: Professional
-summary: AFL 23 is the most authentic video game football experience to date, featuring the fully licensed 2023 AFL Premiership and AFL Women's competitions, 1,200+ players with photo-realistic likenesses, and unique player traits powered by Champion Data.
+summary: A licensed AFL game where I took ownership of the in-house UI backend, built frontend screens, and contributed to the Academy player creation system.
 role: Implemented and maintained the UI backend powering every screen in the game, built numerous frontend screens, and contributed to the Academy player creation system.
 media_images:
   - /media/professional/afl-23/afl-23-steam-1.webp
