@@ -35,7 +35,6 @@ const domains = [...new Set(atlasProjects.map((item) => item.domain))];
 const categories = [...new Set(atlasProjects.map((item) => item.project.data.category))];
 const apis = [...new Set(atlasProjects.map((item) => item.project.data.api))];
 const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) => b - a);
-const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Professional').flatMap((project) => project.data.media_images ?? []))];
 ---
 
 <Layout
@@ -43,74 +42,93 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 	description="I build graphics, networking, and gameplay systems in C++ with a focus on practical engine architecture and shipped game features."
 >
 	<header class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
-		<section class="hero-stage min-h-[100svh] w-[100dvw] lg:h-[100svh]" data-hero-pool={JSON.stringify(heroImagePool)}>
-			<div class="hero-slide hero-slide-1" style="background-image: url('/media/pbr-frame-01.png');"></div>
-			<div class="hero-slide hero-slide-2" style="background-image: url('/media/pbr-frame-02.png');"></div>
-			<div class="hero-slide hero-slide-3" style="background-image: url('/media/hero-shift-03.png');"></div>
-			<div class="hero-tint"></div>
-			<div class="hero-noise"></div>
+		<section class="hero-stage min-h-[100svh] w-[100dvw]">
+			<div class="grid min-h-[100svh] w-full grid-cols-1 lg:grid-cols-[minmax(30rem,0.88fr)_minmax(0,1.12fr)]">
+				<div class="hero-copy flex min-h-[58svh] flex-col justify-between px-6 pb-8 pt-10 sm:px-10 sm:pb-10 lg:min-h-[100svh] lg:px-16 lg:pb-12 lg:pt-14">
+					<div class="flex items-center justify-between gap-4 border-b border-line pb-4">
+						<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Alex Mollard / Portfolio</p>
+						<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Melbourne, AU</p>
+					</div>
 
-			<div class="relative z-10 grid min-h-[100svh] w-full grid-cols-1 items-end p-4 sm:p-6 lg:h-[100svh] lg:grid-cols-[30rem_1fr] lg:items-stretch lg:p-0">
-				<aside class="w-full self-end rounded-md border border-copper/45 bg-panel/78 p-6 text-ink backdrop-blur-md md:p-8 lg:h-full lg:self-auto lg:rounded-none lg:border-y-0 lg:border-l-0 lg:border-r lg:bg-panel/82 lg:p-10">
-					<div class="flex h-full flex-col justify-between">
-						<div>
-					<p class="mono text-[11px] uppercase tracking-[0.16em] text-ash/80">Graphics Engineering Portfolio</p>
-					<h1 class="mt-3 text-4xl font-semibold leading-[0.94] tracking-tight text-ink md:text-6xl">Alex Mollard</h1>
-					<p class="mt-4 text-sm leading-relaxed text-ash/92 md:text-base">
-						Generalist game systems engineer working across rendering, networking, and tools.
-					</p>
-					<div class="mt-5 space-y-3">
-						<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/80">Current Focus</p>
-						<p class="text-sm leading-relaxed text-ash/92">Building graphics and networking systems in C++, modern Vulkan workflows, and cross-discipline engine tooling across audio, networking, graphics, and systems.</p>
+					<div class="my-14 max-w-2xl lg:my-10">
+						<p class="mono text-[11px] uppercase tracking-[0.16em] text-signal">Graphics + systems engineer</p>
+						<h1 class="mt-5 text-[clamp(3.5rem,7vw,7.4rem)] font-medium leading-[0.82] text-paper">
+							Alex<br />Mollard
+						</h1>
+						<p class="mt-8 max-w-xl text-lg leading-relaxed text-muted md:text-xl">
+							I build rendering, networking, and engine tools—the awkward, useful parts that make the rest of a game work.
+						</p>
 					</div>
-					<div class="mt-5 space-y-2">
-						<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/80">Professional Titles</p>
-						<ul class="space-y-1 text-sm leading-relaxed text-ash/92">
-							<li>Software Engineer - Big Ant Studios (2022-Present)</li>
-						</ul>
-					</div>
+
+					<div>
+						<div class="grid gap-px border border-line bg-line sm:grid-cols-3">
+							<div class="bg-ground p-3">
+								<p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Now</p>
+								<p class="mt-1 text-sm text-paper">Big Ant Studios</p>
+							</div>
+							<div class="bg-ground p-3">
+								<p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Working in</p>
+								<p class="mt-1 text-sm text-paper">C++ / Vulkan</p>
+							</div>
+							<div class="bg-ground p-3">
+								<p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Interested in</p>
+								<p class="mt-1 text-sm text-paper">Systems you can see</p>
+							</div>
 						</div>
-					<div class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
-						<a href="mailto:alexmollard@protonmail.com" class="group soft-panel border-1 border-copper/75 bg-vanilla px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-ink transition hover:-translate-y-0.5 hover:bg-cream hover:border-copper hover:text-ink">
-							<span class="flex items-center justify-between">
-								<span>Contact</span>
-								<span class="mono text-[11px] opacity-80 transition group-hover:opacity-100">01</span>
-							</span>
-						</a>
-						<a href="#projects" class="group soft-panel border-1 border-ash/45 bg-cream/35 px-4 py-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-ink transition hover:-translate-y-0.5 hover:border-copper/65 hover:bg-cream/55">
-							<span class="flex items-center justify-between">
-								<span>Projects</span>
-								<span class="mono text-[11px] opacity-80 transition group-hover:opacity-100">02</span>
-							</span>
-						</a>
+						<div class="mt-3 grid grid-cols-2 gap-3">
+							<a href="mailto:alexmollard@protonmail.com" class="group border border-signal bg-signal px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-ground transition hover:bg-paper">
+								<span class="flex items-center justify-between"><span>Contact</span><span aria-hidden="true">↗</span></span>
+							</a>
+							<a href="#projects" class="group border border-line px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-paper transition hover:border-signal">
+								<span class="flex items-center justify-between"><span>View work</span><span aria-hidden="true">↓</span></span>
+							</a>
+						</div>
 					</div>
-					</div>
-				</aside>
-				<div class="hidden lg:block"></div>
+				</div>
+
+				<figure class="hero-visual overflow-hidden">
+					<img
+						src="/media/hobbies/pbr-renderer/pbr-renderer-1.webp"
+						alt="A physically based material rendered inside Alex's custom engine editor"
+						class="hero-image"
+					/>
+					<figcaption class="hero-caption mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-muted">
+						<span class="block text-paper">Personal renderer / material pass</span>
+						C++ · Engine UI · PBR lighting
+					</figcaption>
+				</figure>
 			</div>
 		</section>
 	</header>
 
-	<main id="projects" class="relative left-1/2 -mx-[50dvw] mt-12 w-[100dvw] px-6 md:px-10 lg:px-14">
+	<main id="projects" class="relative left-1/2 -mx-[50dvw] w-[100dvw] px-6 py-20 md:px-10 md:py-28 lg:px-14">
 		<div class="mx-auto max-w-[104rem]">
+			<header class="section-rule mb-12 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-end">
+				<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Work archive / {atlasProjects.length} entries</p>
+				<div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.65fr)] md:items-end">
+					<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">Built, shipped,<br />or learned from.</h2>
+					<p class="max-w-xl text-base leading-relaxed text-muted">A mix of shipped games, renderer work, engine experiments, and small tools. Some are polished; some exist because I needed to understand the problem properly.</p>
+				</div>
+			</header>
+
 			<section class="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
-				<aside class="soft-panel lg:sticky lg:top-6 h-fit border-1 border-copper/45 bg-panel/90 p-4 md:p-5">
+				<aside class="soft-panel h-fit border-1 border-line bg-surface p-4 md:p-5 lg:sticky lg:top-6">
 					<div class="flex items-center justify-between gap-3 lg:hidden">
 						<div>
-							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Project Atlas</p>
-							<p class="mt-1 text-sm text-ash/82">Filters and sorting</p>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Project index</p>
+							<p class="mt-1 text-sm text-muted">Filter the archive</p>
 						</div>
 						<button id="atlas-filters-toggle" type="button" class="atlas-chip shrink-0" aria-expanded="false" aria-controls="atlas-filters-panel">Show Filters</button>
 					</div>
 					<div id="atlas-filters-panel" class="mt-4 hidden space-y-4 lg:mt-0 lg:block">
 						<div>
-							<label for="atlas-search" class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Search</label>
-							<input id="atlas-search" type="text" placeholder="title, feature, summary" class="mt-2 w-full border-1 border-copper/45 bg-cream/18 px-3 py-2 text-sm text-ink placeholder:text-ash/70 focus:border-signal focus:outline-none" />
+							<label for="atlas-search" class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Search</label>
+							<input id="atlas-search" type="text" placeholder="title, feature, summary" class="mt-2 w-full border-1 border-line bg-ground px-3 py-2 text-sm text-paper placeholder:text-muted/60 focus:border-signal focus:outline-none" />
 						</div>
 
 						<div>
-							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Sort</p>
-							<select id="atlas-sort" class="atlas-select mt-2 w-full border-1 border-copper/45 bg-cream/18 px-3 py-2 text-sm text-ink focus:border-signal focus:outline-none">
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Sort</p>
+							<select id="atlas-sort" class="atlas-select mt-2 w-full border-1 border-line bg-ground px-3 py-2 text-sm text-paper focus:border-signal focus:outline-none">
 								<option value="newest">Newest</option>
 								<option value="oldest">Oldest</option>
 								<option value="title">Title A-Z</option>
@@ -118,7 +136,7 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 						</div>
 
 						<div>
-							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Domain</p>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Domain</p>
 							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="domain">
 								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
 								{domains.map((domain) => <button class="atlas-chip" data-filter={domain} type="button">{domain}</button>)}
@@ -126,7 +144,7 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 						</div>
 
 						<div>
-							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Type</p>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Type</p>
 							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="category">
 								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
 								{categories.map((category) => <button class="atlas-chip" data-filter={category} type="button">{category}</button>)}
@@ -134,7 +152,7 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 						</div>
 
 						<div>
-							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">API</p>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">API</p>
 							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="api">
 								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
 								{apis.map((api) => <button class="atlas-chip" data-filter={api} type="button">{api}</button>)}
@@ -142,7 +160,7 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 						</div>
 
 						<div>
-							<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Timeline</p>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Timeline</p>
 							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="year">
 								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
 								{years.map((year) => <button class="atlas-chip" data-filter={String(year)} type="button">{year}</button>)}
@@ -155,12 +173,12 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 
 				<div class="space-y-5">
 					<div id="atlas-grid" class="grid gap-5 xl:grid-cols-2">
-						{atlasProjects.map(({ project, domain, year, Content }) => {
+						{atlasProjects.map(({ project, domain, year, Content }, projectIndex) => {
 							const previewImage = project.data.media_images?.[0];
 
 							return (
 								<article
-									class="atlas-card soft-panel card-pop overflow-hidden border-1 border-copper/35 bg-cream/16"
+									class="atlas-card soft-panel card-pop overflow-hidden border-1 border-line bg-surface"
 									data-title={project.data.title.toLowerCase()}
 									data-summary={project.data.summary.toLowerCase()}
 									data-features={project.data.features.join(' ').toLowerCase()}
@@ -171,22 +189,24 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 									data-ts={String(project.data.date.getTime())}
 								>
 									{previewImage && (
-										<div class="relative h-44 border-b border-copper/35">
+										<div class="relative h-44 overflow-hidden border-b border-line">
 											<img src={previewImage} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading="lazy" />
-											<div class="absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-transparent"></div>
 										</div>
 									)}
 									<div class="space-y-3 p-5">
-										<div class="flex flex-wrap items-center gap-2">
-											<span class="atlas-chip">{domain}</span>
-											<span class="atlas-chip">{project.data.api}</span>
-											<span class="atlas-chip">{project.data.category}</span>
-											<span class="atlas-chip">{year}</span>
+										<div class="flex items-start justify-between gap-3">
+											<div class="flex flex-wrap items-center gap-2">
+												<span class="atlas-chip">{domain}</span>
+												<span class="atlas-chip">{project.data.api}</span>
+												<span class="atlas-chip">{project.data.category}</span>
+												<span class="atlas-chip">{year}</span>
+											</div>
+											<p class="mono shrink-0 text-[10px] tracking-[0.12em] text-signal">/{String(projectIndex + 1).padStart(2, '0')}</p>
 										</div>
-										<h3 class="text-2xl font-semibold leading-tight text-ink">{project.data.title}</h3>
-										<p class="text-sm leading-relaxed text-ash/88">{project.data.summary}</p>
+										<h3 class="text-2xl font-semibold leading-tight text-paper">{project.data.title}</h3>
+										<p class="text-sm leading-relaxed text-muted">{project.data.summary}</p>
 										<div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
-											<p class="text-sm leading-relaxed text-ash/82">{project.data.features.slice(0, 3).join(' • ')}</p>
+											<p class="text-sm leading-relaxed text-muted/85">{project.data.features.slice(0, 3).join(' · ')}</p>
 											<div class="flex items-center justify-end gap-2">
 												<button
 													type="button"
@@ -203,8 +223,8 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 										<div class="space-y-4">
 											<div class="flex flex-wrap items-start justify-between gap-3">
 												<div>
-													<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/75">Project Detail</p>
-													<h3 class="mt-1 text-3xl font-semibold leading-tight text-ink">{project.data.title}</h3>
+													<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Project detail</p>
+													<h3 class="mt-1 text-3xl font-semibold leading-tight text-paper">{project.data.title}</h3>
 												</div>
 												<div class="flex flex-wrap items-center gap-2">
 													<span class="atlas-chip">{domain}</span>
@@ -214,32 +234,32 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 												</div>
 											</div>
 
-											<div class="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
-												<div class="space-y-4">
-													<div class="atlas-expanded-body soft-panel border-1 border-copper/30 bg-panel/65 p-4 text-sm leading-relaxed text-ash/90">
-														<Content />
+										<div class="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
+											<div class="space-y-4">
+												<div class="atlas-expanded-body soft-panel border-1 border-line bg-raised p-4 text-sm leading-relaxed text-muted">
+													<Content />
+												</div>
+												{project.data.role && (
+													<div class="soft-panel border-1 border-line bg-raised p-4 text-sm leading-relaxed text-muted">
+														<p><span class="font-semibold text-paper">Role:</span> {project.data.role}</p>
 													</div>
-													{project.data.role && (
-														<div class="soft-panel border-1 border-copper/30 bg-panel/65 p-4 text-sm leading-relaxed text-ash/88">
-															<p><span class="font-semibold text-ink">Role:</span> {project.data.role}</p>
-														</div>
-													)}
+												)}
 													<TechSpecs
 														title="Project Specs"
 														engine={project.data.engine}
 														api={project.data.api}
 														features={project.data.features}
 														performanceMetrics={project.data.performance_metrics}
-													/>
-												</div>
-												<div class="soft-panel border-1 border-copper/30 bg-panel/65 p-3">
-													<ProjectMedia title={project.data.title} youtubeUrl={project.data.youtube_url} images={project.data.media_images} />
-												</div>
+												/>
+											</div>
+											<div class="soft-panel border-1 border-line bg-raised p-3">
+												<ProjectMedia title={project.data.title} youtubeUrl={project.data.youtube_url} images={project.data.media_images} />
+											</div>
 											</div>
 
 											{project.data.external_url && (
 												<p>
-													<a href={project.data.external_url} target="_blank" rel="noreferrer" class="mono text-[12px] font-medium uppercase tracking-[0.14em] underline decoration-copper/70 underline-offset-4 hover:text-signal">
+													<a href={project.data.external_url} target="_blank" rel="noreferrer" class="mono text-[12px] font-medium uppercase tracking-[0.14em] underline decoration-signal underline-offset-4 hover:text-signal">
 														Open Project Link
 													</a>
 												</p>
@@ -252,16 +272,16 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 					</div>
 
 					<div class="flex items-center justify-between gap-4">
-						<p id="atlas-empty" class="hidden text-sm text-ash/80">No projects match the current filter set.</p>
+						<p id="atlas-empty" class="hidden text-sm text-muted">No projects match the current filter set.</p>
 						<button id="atlas-load-more" type="button" class="atlas-chip">Load More</button>
 					</div>
 				</div>
 			</section>
 
 			<div id="atlas-island-overlay" class="atlas-island-overlay hidden" aria-hidden="true">
-				<div class="atlas-island-shell soft-panel border-1 border-copper/45 bg-panel/96">
-					<div class="flex items-center justify-between gap-3 border-b border-copper/35 px-4 py-3 md:px-5">
-						<p class="mono text-[11px] uppercase tracking-[0.14em] text-ash/80">Project Island</p>
+				<div class="atlas-island-shell soft-panel border-1 border-line bg-raised">
+					<div class="flex items-center justify-between gap-3 border-b border-line px-4 py-3 md:px-5">
+						<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Project detail</p>
 						<button id="atlas-island-close" type="button" class="atlas-chip">Close</button>
 					</div>
 					<div id="atlas-island-content" class="max-h-[78dvh] overflow-y-auto p-4 md:p-5"></div>
@@ -275,30 +295,6 @@ const heroImagePool = [...new Set(projects.filter((p) => p.data.category !== 'Pr
 
 		<script is:inline>
 			(() => {
-				const heroStage = document.querySelector('[data-hero-pool]');
-				const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
-				const defaultHeroPool = ['/media/pbr-frame-01.png', '/media/pbr-frame-02.png', '/media/hero-shift-03.png'];
-				let heroPool = defaultHeroPool;
-
-				if (heroStage) {
-					try {
-						const parsed = JSON.parse(heroStage.getAttribute('data-hero-pool') || '[]');
-						if (Array.isArray(parsed) && parsed.length > 0) {
-							heroPool = [...new Set(parsed.concat(defaultHeroPool))];
-						}
-					} catch {
-						heroPool = defaultHeroPool;
-					}
-				}
-
-				if (heroSlides.length) {
-					const shuffled = [...heroPool].sort(() => Math.random() - 0.5);
-					heroSlides.forEach((slide, index) => {
-						const image = shuffled[index % shuffled.length];
-						slide.style.backgroundImage = `url('${image}')`;
-					});
-				}
-
 				const cards = Array.from(document.querySelectorAll('.atlas-card'));
 				const searchInput = document.getElementById('atlas-search');
 				const sortSelect = document.getElementById('atlas-sort');

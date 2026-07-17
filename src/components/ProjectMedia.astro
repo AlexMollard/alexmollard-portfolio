@@ -35,7 +35,7 @@ const resolvedImages = images.map((image) => withBase(image, import.meta.env.BAS
 
 <div class="space-y-4">
 	{embedUrl && (
-		<div class="soft-panel overflow-hidden border-1 border-copper/40 bg-cream/45">
+		<div class="soft-panel overflow-hidden border-1 border-line bg-surface">
 			<div class="aspect-video w-full">
 				<iframe
 					src={embedUrl}
@@ -52,7 +52,7 @@ const resolvedImages = images.map((image) => withBase(image, import.meta.env.BAS
 	{resolvedImages.length > 0 && (
 		<div class="grid gap-3 sm:grid-cols-2">
 			{resolvedImages.map((image, index) => (
-				<figure class="soft-panel overflow-hidden border-1 border-copper/35 bg-panel">
+				<figure class="soft-panel overflow-hidden border-1 border-line bg-raised">
 					<img
 						src={image}
 						alt={`${title} screenshot ${index + 1}`}
