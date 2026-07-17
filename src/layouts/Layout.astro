@@ -45,7 +45,7 @@ const robots = noindex ? 'noindex, nofollow' : 'index, follow';
 		<link rel="canonical" href={canonicalURL} />
 		<meta name="robots" content={robots} />
 		<meta name="author" content="Alex Mollard" />
-		<meta name="theme-color" content="#15110f" />
+		<meta name="theme-color" content="#0b0d0e" />
 		<meta name="description" content={description} />
 
 		<meta property="og:type" content={type} />
@@ -62,12 +62,7 @@ const robots = noindex ? 'noindex, nofollow' : 'index, follow';
 		<meta name="twitter:image" content={resolvedImage} />
 		<title>{title}</title>
 	</head>
-	<body class="min-h-screen bg-vanilla text-ash">
-		<div class="pointer-events-none fixed inset-0 -z-10">
-			<div class="absolute -left-32 top-24 h-72 w-72 rounded-full bg-olive/20 blur-3xl"></div>
-			<div class="absolute -right-16 top-10 h-80 w-80 rounded-full bg-copper/20 blur-3xl"></div>
-			<div class="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-cream/40 blur-3xl"></div>
-		</div>
+	<body class="min-h-screen bg-ground text-paper">
 		<div class="surface-grid mx-auto max-w-6xl px-6 py-10 md:px-10 md:py-14">
 			<slot />
 		</div>
