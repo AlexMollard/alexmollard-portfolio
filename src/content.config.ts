@@ -18,8 +18,12 @@ const projects = defineCollection({
 		api: z.enum(['Vulkan', 'OpenGL', 'DirectX', 'Metal', 'WebGPU', 'Other']),
 		features: z.array(z.string()).min(1),
 		performance_metrics: z.array(z.string()).default([]),
+		problem: z.string().optional(),
+		approach: z.array(z.string()).default([]),
+		outcomes: z.array(z.string()).default([]),
 		external_url: z.string().url().optional(),
-		featured: z.boolean().default(false)
+		featured: z.boolean().default(false),
+		spotlight_order: z.number().int().positive().optional()
 	})
 });
 
