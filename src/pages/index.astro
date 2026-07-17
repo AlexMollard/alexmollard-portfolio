@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
-import ProjectMedia from '../components/ProjectMedia.astro';
-import TechSpecs from '../components/TechSpecs.astro';
+import ProjectCaseStudy from '../components/ProjectCaseStudy.astro';
 import Layout from '../layouts/Layout.astro';
 
 const projects = (await getCollection('projects')).sort(
@@ -35,79 +34,149 @@ const domains = [...new Set(atlasProjects.map((item) => item.domain))];
 const categories = [...new Set(atlasProjects.map((item) => item.project.data.category))];
 const apis = [...new Set(atlasProjects.map((item) => item.project.data.api))];
 const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) => b - a);
+const spotlightProjects = atlasProjects
+	.filter((item) => item.project.data.spotlight_order !== undefined)
+	.sort((a, b) => (a.project.data.spotlight_order ?? 999) - (b.project.data.spotlight_order ?? 999));
 ---
 
 <Layout
 	title="Alex Mollard | Graphics Engineer"
 	description="I build graphics, networking, and gameplay systems in C++ with a focus on practical engine architecture and shipped game features."
 >
-	<header class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
-		<section class="hero-stage min-h-[100svh] w-[100dvw]">
-			<div class="grid min-h-[100svh] w-full grid-cols-1 lg:grid-cols-[minmax(30rem,0.88fr)_minmax(0,1.12fr)]">
-				<div class="hero-copy flex min-h-[58svh] flex-col justify-between px-6 pb-8 pt-10 sm:px-10 sm:pb-10 lg:min-h-[100svh] lg:px-16 lg:pb-12 lg:pt-14">
-					<div class="flex items-center justify-between gap-4 border-b border-line pb-4">
-						<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Alex Mollard / Portfolio</p>
-						<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Melbourne, AU</p>
+	<header id="top" class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
+		<section class="hero-stage w-[100dvw] px-6 pb-12 pt-8 sm:px-10 md:pb-16 md:pt-10 lg:px-14">
+			<div class="mx-auto max-w-[104rem]">
+				<nav class="hero-nav flex flex-wrap items-center justify-between gap-4 border-b border-line pb-4" aria-label="Primary navigation">
+					<a href="#top" class="mono text-[10px] uppercase tracking-[0.16em] text-paper">Alex Mollard / Portfolio</a>
+					<div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+						<a href="#selected-work" class="hero-nav-link">Selected work</a>
+						<a href="#archive" class="hero-nav-link">Archive</a>
+						<a href="https://github.com/AlexMollard" target="_blank" rel="noreferrer" class="hero-nav-link">GitHub ↗</a>
 					</div>
+				</nav>
 
-					<div class="my-14 max-w-2xl lg:my-10">
-						<p class="mono text-[11px] uppercase tracking-[0.16em] text-signal">Graphics + systems engineer</p>
-						<h1 class="mt-5 text-[clamp(3.5rem,7vw,7.4rem)] font-medium leading-[0.82] text-paper">
+				<div class="hero-layout grid gap-10 py-14 md:py-18 lg:grid-cols-[minmax(0,0.92fr)_minmax(30rem,1.08fr)] lg:items-end lg:gap-16 lg:py-20">
+					<div class="hero-intro max-w-3xl">
+						<p class="mono text-[11px] uppercase tracking-[0.16em] text-signal">Graphics + systems engineer · Melbourne</p>
+						<h1 class="mt-6 text-[clamp(4.1rem,8vw,8.8rem)] font-medium leading-[0.8] text-paper">
 							Alex<br />Mollard
 						</h1>
-						<p class="mt-8 max-w-xl text-lg leading-relaxed text-muted md:text-xl">
+						<p class="mt-9 max-w-2xl text-lg leading-relaxed text-muted md:text-[1.35rem]">
 							I build rendering, networking, and engine tools—the awkward, useful parts that make the rest of a game work.
 						</p>
+						<div class="mt-8 flex flex-wrap gap-3">
+							<a href="mailto:alexmollard@protonmail.com" class="hero-action hero-action-primary">Email me <span aria-hidden="true">↗</span></a>
+							<a href="#selected-work" class="hero-action">Selected work <span aria-hidden="true">↓</span></a>
+							<a href="https://github.com/AlexMollard" target="_blank" rel="noreferrer" class="hero-action">GitHub <span aria-hidden="true">↗</span></a>
+						</div>
 					</div>
 
-					<div>
-						<div class="grid gap-px border border-line bg-line sm:grid-cols-3">
-							<div class="bg-ground p-3">
-								<p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Now</p>
-								<p class="mt-1 text-sm text-paper">Big Ant Studios</p>
-							</div>
-							<div class="bg-ground p-3">
-								<p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Working in</p>
-								<p class="mt-1 text-sm text-paper">C++ / Vulkan</p>
-							</div>
-							<div class="bg-ground p-3">
-								<p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Interested in</p>
-								<p class="mt-1 text-sm text-paper">Systems you can see</p>
-							</div>
+					<figure class="hero-project soft-panel overflow-hidden border border-line bg-surface">
+						<div class="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
+							<p class="mono text-[9px] uppercase tracking-[0.14em] text-muted">Current personal work / AetherCore</p>
+							<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">01</p>
 						</div>
-						<div class="mt-3 grid grid-cols-2 gap-3">
-							<a href="mailto:alexmollard@protonmail.com" class="group border border-signal bg-signal px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-ground transition hover:bg-paper">
-								<span class="flex items-center justify-between"><span>Contact</span><span aria-hidden="true">↗</span></span>
-							</a>
-							<a href="#projects" class="group border border-line px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-paper transition hover:border-signal">
-								<span class="flex items-center justify-between"><span>View work</span><span aria-hidden="true">↓</span></span>
-							</a>
+						<div class="hero-project-media">
+							<img src="/media/hobbies/aethercore/editor.webp" alt="AetherCore's Vulkan editor showing a lit 3D scene and debugging panels" />
 						</div>
-					</div>
+						<figcaption class="grid gap-4 border-t border-line p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+							<div>
+								<p class="text-lg font-medium text-paper">A real editor, not a mood image.</p>
+								<p class="mt-1 max-w-xl text-sm leading-relaxed text-muted">Modern Vulkan, 2D/3D authoring, hot-reloadable C#, asset tooling, profiling, and automation.</p>
+							</div>
+							<a href="#aethercore" class="mono text-[10px] uppercase tracking-[0.14em] text-paper underline decoration-signal underline-offset-4">Read case study</a>
+						</figcaption>
+					</figure>
 				</div>
 
-				<figure class="hero-visual overflow-hidden">
-					<img
-						src="/media/hobbies/pbr-renderer/pbr-renderer-1.webp"
-						alt="A physically based material rendered inside Alex's custom engine editor"
-						class="hero-image"
-					/>
-					<figcaption class="hero-caption mono text-[10px] uppercase leading-relaxed tracking-[0.1em] text-muted">
-						<span class="block text-paper">Personal renderer / material pass</span>
-						C++ · Engine UI · PBR lighting
-					</figcaption>
-				</figure>
+				<div class="hero-facts grid gap-px border border-line bg-line sm:grid-cols-3">
+					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Currently</p><p class="mt-1 text-sm text-paper">Big Ant Studios</p></div>
+					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Core stack</p><p class="mt-1 text-sm text-paper">C++ · Vulkan · C#</p></div>
+					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Bias</p><p class="mt-1 text-sm text-paper">Systems you can inspect</p></div>
+				</div>
 			</div>
 		</section>
 	</header>
 
-	<main id="projects" class="relative left-1/2 -mx-[50dvw] w-[100dvw] px-6 py-20 md:px-10 md:py-28 lg:px-14">
+	<main class="relative left-1/2 -mx-[50dvw] w-[100dvw] px-6 py-20 md:px-10 md:py-28 lg:px-14">
 		<div class="mx-auto max-w-[104rem]">
+			<section id="selected-work" class="scroll-mt-8">
+				<header class="section-rule mb-12 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-end">
+					<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Selected work / {spotlightProjects.length} case studies</p>
+					<div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.65fr)] md:items-end">
+						<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">The work I would<br />start with.</h2>
+						<p class="max-w-xl text-base leading-relaxed text-muted">A tighter view of what I owned, the problem behind it, and what changed. These are the projects that best explain how I think.</p>
+					</div>
+				</header>
+
+				<div class="spotlight-grid grid gap-5 lg:grid-cols-2">
+					{spotlightProjects.map(({ project, domain, year, Content }, projectIndex) => {
+						const previewImage = project.data.media_images?.[0];
+						const slug = project.data.title === 'AetherCore' ? 'aethercore' : undefined;
+
+						return (
+							<article id={slug} class="spotlight-card soft-panel card-pop overflow-hidden border border-line bg-surface" data-project-card>
+								{previewImage ? (
+									<div class="spotlight-media overflow-hidden border-b border-line">
+										<img src={previewImage} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading={projectIndex === 0 ? 'eager' : 'lazy'} />
+									</div>
+								) : (
+									<div class="spotlight-placeholder border-b border-line p-5">
+										<span class="mono text-[10px] uppercase tracking-[0.14em] text-muted">Internal tools / production systems</span>
+									</div>
+								)}
+
+								<div class="p-5 md:p-6">
+									<div class="flex items-start justify-between gap-4">
+										<div class="flex flex-wrap gap-2">
+											<span class="atlas-chip">{domain}</span>
+											<span class="atlas-chip">{project.data.api}</span>
+											<span class="atlas-chip">{year}</span>
+										</div>
+										<p class="mono shrink-0 text-[10px] tracking-[0.12em] text-signal">/{String(projectIndex + 1).padStart(2, '0')}</p>
+									</div>
+									<h3 class="mt-5 text-3xl font-semibold leading-tight text-paper md:text-4xl">{project.data.title}</h3>
+									<p class="mt-3 text-sm leading-relaxed text-muted md:text-base">{project.data.summary}</p>
+									{project.data.role && <p class="mt-4 text-sm leading-relaxed text-paper"><span class="mono mr-2 text-[9px] uppercase tracking-[0.12em] text-signal">Owned</span> {project.data.role}</p>}
+									{project.data.outcomes.length > 0 && (
+										<ul class="spotlight-outcomes mt-5 space-y-2">
+											{project.data.outcomes.slice(0, 2).map((outcome) => <li>{outcome}</li>)}
+										</ul>
+									)}
+									<button type="button" class="case-study-toggle atlas-chip mt-6" aria-expanded="false" data-closed-label="Read case study">Read case study</button>
+								</div>
+
+								<ProjectCaseStudy
+									title={project.data.title}
+									domain={domain}
+									api={project.data.api}
+									category={project.data.category}
+									year={year}
+									summary={project.data.summary}
+									role={project.data.role}
+									problem={project.data.problem}
+									approach={project.data.approach}
+									outcomes={project.data.outcomes}
+									engine={project.data.engine}
+									features={project.data.features}
+									performanceMetrics={project.data.performance_metrics}
+									externalUrl={project.data.external_url}
+									youtubeUrl={project.data.youtube_url}
+									images={project.data.media_images}
+									Content={Content}
+								/>
+							</article>
+						);
+					})}
+				</div>
+			</section>
+
+			<section id="archive" class="scroll-mt-8 pt-24 md:pt-32">
 			<header class="section-rule mb-12 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-end">
 				<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Work archive / {atlasProjects.length} entries</p>
 				<div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.65fr)] md:items-end">
-					<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">Built, shipped,<br />or learned from.</h2>
-					<p class="max-w-xl text-base leading-relaxed text-muted">A mix of shipped games, renderer work, engine experiments, and small tools. Some are polished; some exist because I needed to understand the problem properly.</p>
+					<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">Everything else<br />still matters.</h2>
+					<p class="max-w-xl text-base leading-relaxed text-muted">The complete index: shipped games, renderer work, engine experiments, small tools, and the projects that taught me what not to do next time.</p>
 				</div>
 			</header>
 
@@ -179,6 +248,7 @@ const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) =
 							return (
 								<article
 									class="atlas-card soft-panel card-pop overflow-hidden border-1 border-line bg-surface"
+									data-project-card
 									data-title={project.data.title.toLowerCase()}
 									data-summary={project.data.summary.toLowerCase()}
 									data-features={project.data.features.join(' ').toLowerCase()}
@@ -208,64 +278,37 @@ const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) =
 										<div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
 											<p class="text-sm leading-relaxed text-muted/85">{project.data.features.slice(0, 3).join(' · ')}</p>
 											<div class="flex items-center justify-end gap-2">
-												<button
-													type="button"
-													class="atlas-expand-toggle atlas-chip"
-													aria-expanded="false"
-												>
-													More Info
+											<button
+												type="button"
+												class="case-study-toggle atlas-expand-toggle atlas-chip"
+												aria-expanded="false"
+												data-closed-label="More Info"
+											>
+												More Info
 												</button>
 											</div>
 										</div>
 									</div>
 
-									<template class="atlas-island-template">
-										<div class="space-y-4">
-											<div class="flex flex-wrap items-start justify-between gap-3">
-												<div>
-													<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Project detail</p>
-													<h3 class="mt-1 text-3xl font-semibold leading-tight text-paper">{project.data.title}</h3>
-												</div>
-												<div class="flex flex-wrap items-center gap-2">
-													<span class="atlas-chip">{domain}</span>
-													<span class="atlas-chip">{project.data.api}</span>
-													<span class="atlas-chip">{project.data.category}</span>
-													<span class="atlas-chip">{year}</span>
-												</div>
-											</div>
-
-										<div class="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
-											<div class="space-y-4">
-												<div class="atlas-expanded-body soft-panel border-1 border-line bg-raised p-4 text-sm leading-relaxed text-muted">
-													<Content />
-												</div>
-												{project.data.role && (
-													<div class="soft-panel border-1 border-line bg-raised p-4 text-sm leading-relaxed text-muted">
-														<p><span class="font-semibold text-paper">Role:</span> {project.data.role}</p>
-													</div>
-												)}
-													<TechSpecs
-														title="Project Specs"
-														engine={project.data.engine}
-														api={project.data.api}
-														features={project.data.features}
-														performanceMetrics={project.data.performance_metrics}
-												/>
-											</div>
-											<div class="soft-panel border-1 border-line bg-raised p-3">
-												<ProjectMedia title={project.data.title} youtubeUrl={project.data.youtube_url} images={project.data.media_images} />
-											</div>
-											</div>
-
-											{project.data.external_url && (
-												<p>
-													<a href={project.data.external_url} target="_blank" rel="noreferrer" class="mono text-[12px] font-medium uppercase tracking-[0.14em] underline decoration-signal underline-offset-4 hover:text-signal">
-														Open Project Link
-													</a>
-												</p>
-											)}
-										</div>
-									</template>
+									<ProjectCaseStudy
+										title={project.data.title}
+										domain={domain}
+										api={project.data.api}
+										category={project.data.category}
+										year={year}
+										summary={project.data.summary}
+										role={project.data.role}
+										problem={project.data.problem}
+										approach={project.data.approach}
+										outcomes={project.data.outcomes}
+										engine={project.data.engine}
+										features={project.data.features}
+										performanceMetrics={project.data.performance_metrics}
+										externalUrl={project.data.external_url}
+										youtubeUrl={project.data.youtube_url}
+										images={project.data.media_images}
+										Content={Content}
+									/>
 								</article>
 							);
 						})}
@@ -295,7 +338,7 @@ const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) =
 
 		<script is:inline>
 			(() => {
-				const cards = Array.from(document.querySelectorAll('.atlas-card'));
+				const cards = Array.from(document.querySelectorAll('#atlas-grid .atlas-card'));
 				const searchInput = document.getElementById('atlas-search');
 				const sortSelect = document.getElementById('atlas-sort');
 				const emptyState = document.getElementById('atlas-empty');
@@ -304,7 +347,7 @@ const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) =
 				const filtersToggle = document.getElementById('atlas-filters-toggle');
 				const filtersPanel = document.getElementById('atlas-filters-panel');
 				const groups = Array.from(document.querySelectorAll('[data-filter-group]'));
-				const expandToggles = Array.from(document.querySelectorAll('.atlas-expand-toggle'));
+				const expandToggles = Array.from(document.querySelectorAll('.case-study-toggle'));
 				const islandOverlay = document.getElementById('atlas-island-overlay');
 				const islandContent = document.getElementById('atlas-island-content');
 				const islandClose = document.getElementById('atlas-island-close');
@@ -421,7 +464,7 @@ const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) =
 					document.body.classList.remove('atlas-island-open');
 					expandToggles.forEach((toggle) => {
 						toggle.setAttribute('aria-expanded', 'false');
-						toggle.textContent = 'More Info';
+						toggle.textContent = toggle.dataset.closedLabel || 'Project detail';
 					});
 				};
 
@@ -436,14 +479,14 @@ const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) =
 					toggle.addEventListener('click', (e) => {
 						e.stopPropagation();
 						if (!islandOverlay || !islandContent) return;
-						const card = toggle.closest('.atlas-card');
+						const card = toggle.closest('[data-project-card]');
 						if (!card) return;
 						const template = card.querySelector('.atlas-island-template');
 						if (!template) return;
 
 						expandToggles.forEach((chip) => {
 							chip.setAttribute('aria-expanded', 'false');
-							chip.textContent = 'More Info';
+							chip.textContent = chip.dataset.closedLabel || 'Project detail';
 						});
 
 						islandContent.innerHTML = '';
@@ -457,11 +500,11 @@ const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) =
 					});
 				});
 
-				document.querySelectorAll('.atlas-card').forEach((card) => {
+				document.querySelectorAll('[data-project-card]').forEach((card) => {
 					card.style.cursor = 'pointer';
 					card.addEventListener('click', (e) => {
-						if (e.target.closest('a')) return;
-						const toggle = card.querySelector('.atlas-expand-toggle');
+						if (e.target.closest('a, button')) return;
+						const toggle = card.querySelector('.case-study-toggle');
 						if (toggle) toggle.click();
 					});
 				});
@@ -587,4 +630,29 @@ const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) =
 			})();
 		</script>
 	</main>
+
+	<footer class="site-footer relative left-1/2 -mx-[50dvw] w-[100dvw] border-t border-line px-6 py-9 sm:px-10 md:py-11 lg:px-14">
+		<div class="mx-auto max-w-[104rem]">
+			<div class="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(22rem,0.85fr)] lg:gap-14">
+				<div>
+					<p class="mono text-[10px] uppercase tracking-[0.16em] text-signal">Say hello</p>
+					<p class="mt-4 max-w-3xl text-2xl font-medium leading-snug text-paper sm:text-3xl md:text-4xl">Engine, graphics, or tooling problem? Send me the difficult version.</p>
+				</div>
+
+				<div class="border-t border-line pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-1">
+					<p class="mono text-[9px] uppercase tracking-[0.14em] text-muted">Contact</p>
+					<a href="mailto:alexmollard@protonmail.com" class="footer-email mt-2 inline-block text-base text-paper underline decoration-signal underline-offset-6 sm:text-lg">alexmollard@protonmail.com</a>
+					<div class="mt-5 grid grid-cols-2 gap-3">
+						<a href="https://github.com/AlexMollard" target="_blank" rel="noreferrer" class="hero-action">GitHub <span aria-hidden="true">↗</span></a>
+						<a href="#top" class="hero-action">Back to top <span aria-hidden="true">↑</span></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="mt-9 flex flex-col gap-3 border-t border-line pt-4 text-muted sm:flex-row sm:items-center sm:justify-between">
+				<p class="max-w-2xl text-xs leading-relaxed">Built in Melbourne—usually somewhere between a renderer, an editor, and the tool needed to understand both.</p>
+				<p class="mono shrink-0 text-[9px] uppercase tracking-[0.14em]">© {new Date().getFullYear()} Alex Mollard</p>
+			</div>
+		</div>
+	</footer>
 </Layout>
