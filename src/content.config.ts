@@ -17,6 +17,7 @@ const projects = defineCollection({
 		engine: z.string(),
 		api: z.enum(['Vulkan', 'OpenGL', 'DirectX', 'Metal', 'WebGPU', 'Other']),
 		features: z.array(z.string()).min(1),
+		domain: z.enum(['Graphics', 'Networking', 'Gameplay', 'Tools', 'Engine', 'Research']).optional(),
 		performance_metrics: z.array(z.string()).default([]),
 		problem: z.string().optional(),
 		approach: z.array(z.string()).default([]),

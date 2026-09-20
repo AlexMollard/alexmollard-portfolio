@@ -7,6 +7,7 @@ role: Designed and implemented multiple production tools used by programmers and
 media_images: []
 engine: Proprietary Studio Engine
 api: Other
+domain: Tools
 features:
   - Memory Mapper for CSV-driven leak and waste analysis
   - Big Ant Crash Handler with WER-based dump/log capture and crash grouping

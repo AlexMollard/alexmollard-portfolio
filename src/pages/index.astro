@@ -8,6 +8,7 @@ const projects = (await getCollection('projects')).sort(
 );
 
 const inferDomain = (project: (typeof projects)[number]) => {
+	if (project.data.domain) return project.data.domain;
 	const corpus = `${project.data.title} ${project.data.summary} ${project.data.features.join(' ')}`.toLowerCase();
 	if (corpus.includes('network') || corpus.includes('enet') || corpus.includes('udp')) return 'Networking';
 	if (corpus.includes('audio') || corpus.includes('openal')) return 'Tools';
