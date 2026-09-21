@@ -17,4 +17,4 @@ features:
 domain: Networking
 ---
 
-A significant integration challenge — the Rugby project was built on an older codebase that needed to be brought up to date with systems developed across newer titles. I merged in code from multiple more recent projects, patched the resulting conflicts and regressions, handled client-to-server integration, and put in considerable TRC certification work to get the game through platform submissions.
+A significant integration challenge - the Rugby project was built on an older codebase that needed to be brought up to date with systems developed across newer titles. I merged in code from multiple more recent projects, patched the resulting conflicts and regressions, handled client-to-server integration, and put in considerable TRC certification work to get the game through platform submissions.

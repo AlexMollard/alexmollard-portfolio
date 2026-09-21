@@ -2,7 +2,7 @@
 title: Fluid & Noise Simulations
 date: 2021-03-23
 category: Hobby
-summary: Two C++ cellular automata experiments — a 2D liquid physics simulator and a noise-driven procedural world generator.
+summary: Two C++ cellular automata experiments - a 2D liquid physics simulator and a noise-driven procedural world generator.
 role: Simulation and procedural systems programmer.
 media_images:
   - /media/hobbies/fluid-noise-simulations/world-gen.gif

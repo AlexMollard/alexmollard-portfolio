@@ -17,4 +17,4 @@ features:
 domain: Gameplay
 ---
 
-Cricket 22 was my entry point into the industry. I implemented bug fixes across the shipped game during its production cycle, learning first-hand how a AAA sports title comes together — its production QA loop, broad platform support, and the scale of the studio's shared codebase.
+Cricket 22 was my entry point into the industry. I implemented bug fixes across the shipped game during its production cycle, learning first-hand how a AAA sports title comes together - its production QA loop, broad platform support, and the scale of the studio's shared codebase.

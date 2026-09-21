@@ -17,4 +17,4 @@ features:
 domain: Networking
 ---
 
-My work followed the same pattern as other titles in this period — cross-title code integration, tooling support, client-server integration, and TRC certification work to clear platform requirements.
+My work followed the same pattern as other titles in this period - cross-title code integration, tooling support, client-server integration, and TRC certification work to clear platform requirements.

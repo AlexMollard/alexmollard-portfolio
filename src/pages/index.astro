@@ -63,7 +63,7 @@ const spotlightProjects = atlasProjects
 							Alex<br />Mollard
 						</h1>
 						<p class="mt-9 max-w-2xl text-lg leading-relaxed text-muted md:text-[1.35rem]">
-							I build the systems a game is made of — Vulkan rendering, engine architecture, netcode, and the tools the rest of the team works in.
+							I build the systems a game is made of - Vulkan rendering, engine architecture, netcode, and the tools the rest of the team works in.
 						</p>
 						<div class="mt-8 flex flex-wrap gap-3">
 							<a href="mailto:alexmollard@protonmail.com" class="hero-action hero-action-primary">Email me <span aria-hidden="true">↗</span></a>
@@ -75,7 +75,7 @@ const spotlightProjects = atlasProjects
 
 					<div class="hero-board soft-panel overflow-hidden border border-line bg-surface">
 						<div class="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
-							<p class="mono text-[9px] uppercase tracking-[0.14em] text-muted">Shipped titles</p>
+							<p class="mono text-[9px] uppercase tracking-[0.14em] text-muted">Shipped at Big Ant Studios</p>
 							<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">{String(shippedTitleCount).padStart(2, '0')}</p>
 						</div>
 						<ul class="hero-shipped">
@@ -95,9 +95,9 @@ const spotlightProjects = atlasProjects
 								</li>
 							))}
 						</ul>
-						<div class="grid gap-3 border-t border-line p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+						<div class="hero-board-aside grid gap-3 border-t border-line bg-raised p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
 							<div>
-								<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">Current personal work</p>
+								<p class="mono text-[9px] uppercase tracking-[0.14em] text-cool">Outside work / personal engine</p>
 								<p class="mt-1.5 text-sm leading-relaxed text-muted"><span class="text-paper">AetherCore</span> - a Vulkan engine with an editor, hot-reloadable C# gameplay, and owner-authoritative netcode.</p>
 							</div>
 							<a href="#aethercore" class="mono shrink-0 text-[10px] uppercase tracking-[0.14em] text-paper underline decoration-signal underline-offset-4">Read case study</a>
@@ -121,26 +121,30 @@ const spotlightProjects = atlasProjects
 					<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">How I work / {agentDirectedCount} agent-directed projects</p>
 					<div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.65fr)] md:items-end">
 						<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">How the<br /> work happens.</h2>
-						<p class="max-w-xl text-base leading-relaxed text-muted">I architect, evaluate, and review; multi-model agent harnesses do most of the typing. Projects built that way carry an <span class="text-paper">Agent-directed</span> label below - I am not going to pretend otherwise.</p>
+						<p class="max-w-xl text-base leading-relaxed text-muted">I architect, evaluate, and review. Agent harnesses do most of the typing, and projects built that way are labelled below.</p>
 					</div>
 				</header>
 
 				<div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
 					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Design and constraints</p>
-						<p class="mt-3 text-sm leading-relaxed text-muted">I decide the architecture, the boundaries between systems, and the acceptance criteria before any agent runs. AetherCore's engine-facing GPU abstraction, its immutable render packets, and its owner-authoritative netcode model are design calls, not generated ones.</p>
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Design</p>
+						<p class="mt-3 text-lg leading-snug text-paper">I decide the architecture.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">GPU abstraction boundaries, immutable render packets, owner-authoritative netcode - design calls, not generated ones.</p>
 					</article>
 					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Verification floor</p>
-						<p class="mt-3 text-sm leading-relaxed text-muted">Agent output only counts once it survives a gate. AetherCore keeps 1,271 automated tests across 152 suites, an automated guard that fails the build when engine code reaches past the GPU abstraction, and CI architecture checks on every push. Nothing merges on vibes.</p>
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Verification</p>
+						<p class="mt-3 text-lg leading-snug text-paper">Nothing merges on vibes.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">1,271 tests, a guard that fails the build on abstraction leaks, architecture checks every push.</p>
 					</article>
 					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
 						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Throughput</p>
-						<p class="mt-3 text-sm leading-relaxed text-muted">Running several models in parallel through harnesses like omp and Claude Code, with work split so agents do not collide, turns subsystems that used to take weeks into days. A solo engine of this size is only tractable because of it.</p>
+						<p class="mt-3 text-lg leading-snug text-paper">Weeks of work, done in days.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">Several models running in parallel through omp and Claude Code, split so they do not collide.</p>
 					</article>
 					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Evaluate before adopting</p>
-						<p class="mt-3 text-sm leading-relaxed text-muted">When something unfamiliar surfaces - NAT hole punching, an extension promoted in a Vulkan SDK release - I go and learn it properly, then decide whether it earns a place. AetherCore's connect ladder exists because that study said yes. Most of what I read gets understood and deliberately left out.</p>
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Evaluation</p>
+						<p class="mt-3 text-lg leading-snug text-paper">I learn it before I add it.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">New Vulkan extensions, NAT traversal - studied properly, then mostly left out. The connect ladder is one that earned its place.</p>
 					</article>
 				</div>
 			</section>

@@ -22,4 +22,4 @@ approach:
   - Tracked down and fixed server-side bugs introduced through the merge process.
 ---
 
-My work on AFL 26 focused heavily on cross-title integration — pulling updated systems from newer projects and merging them into the AFL codebase to get the game up to speed. This involved significant PlayFab integration work and tracking down and fixing server-side bugs introduced through the merge process.
+My work on AFL 26 focused heavily on cross-title integration - pulling updated systems from newer projects and merging them into the AFL codebase to get the game up to speed. This involved significant PlayFab integration work and tracking down and fixing server-side bugs introduced through the merge process.

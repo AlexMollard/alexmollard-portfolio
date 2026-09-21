@@ -18,4 +18,4 @@ domain: Gameplay
 external_url: https://store.steampowered.com/app/2337630/AFL_23/
 ---
 
-My first professional shipped title. I was handed ownership of a partially-built in-house UI system and tasked with designing and implementing the backend that drives every UI element in the game — code that runs in every single scene. Beyond the backend, I built many of the frontend screens myself and contributed to Academy systems for custom player creation. A deep end entry into the industry that shaped how I approach systems programming.
+My first professional shipped title. I was handed ownership of a partially-built in-house UI system and tasked with designing and implementing the backend that drives every UI element in the game - code that runs in every single scene. Beyond the backend, I built many of the frontend screens myself and contributed to Academy systems for custom player creation. A deep end entry into the industry that shaped how I approach systems programming.

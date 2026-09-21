@@ -166,6 +166,10 @@ h3 {
 	box-shadow: 0 28px 70px rgb(0 0 0 / 25%);
 }
 
+.hero-board-aside {
+	box-shadow: inset 3px 0 0 var(--color-cool);
+}
+
 .hero-shipped {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -179,11 +183,18 @@ h3 {
 	}
 }
 
+
 .hero-shipped-tile {
 	position: relative;
 	aspect-ratio: 16 / 9;
 	overflow: hidden;
 	background: var(--color-raised);
+}
+
+@media (min-width: 1024px) {
+	.hero-shipped-tile {
+		aspect-ratio: 5 / 4;
+	}
 }
 
 .hero-shipped-tile img {

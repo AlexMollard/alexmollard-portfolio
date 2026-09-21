@@ -2,7 +2,7 @@
 title: CppOdyssey
 date: 2025-01-20
 category: Hobby
-summary: A Jekyll-based documentation website covering C++ development — from project setup and fundamentals through to advanced topics like building Vulkan game engines.
+summary: A Jekyll-based documentation website covering C++ development - from project setup and fundamentals through to advanced topics like building Vulkan game engines.
 role: Technical writer and systems educator.
 media_images:
   - /media/hobbies/cpp-odyssey/home.webp
