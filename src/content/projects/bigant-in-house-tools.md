@@ -3,7 +3,7 @@ title: Big Ant In-House Tools Suite
 date: 2026-04-09
 category: Professional
 summary: Internal tooling and automation suite spanning memory diagnostics, crash reporting, CI/developer workflow scripts, and distributed QA orchestration for large-scale automated game validation.
-role: Designed and implemented multiple production tools used by programmers and QA, including memory analysis workflows, crash triage pipelines, script ecosystem migration, and distributed automated crash testing.
+role: Designed and implemented multiple production tools used by programmers and QA, including memory analysis workflows, crash triage pipelines, script ecosystem migration, and distributed automated crash testing. Each one started with the people who would use it - I sat down with them, wrote up what they actually needed, and documented the finished tool so it did not depend on me.
 media_images: []
 engine: Proprietary Studio Engine
 domain: Tools
@@ -17,10 +17,13 @@ approach:
   - Built focused tools around the existing studio workflow instead of asking programmers and QA to adopt an entirely separate platform.
   - Converted raw memory and crash data into grouped, searchable evidence that could be acted on without manually inspecting every dump or machine.
   - Used Discord and websockets as a lightweight control and reporting surface for distributed automated game validation.
+  - Worked directly with the programmers and QA who would use each tool, writing up their requirements first so the tool solved the real problem rather than the one I assumed.
+  - Wrote and maintained usage documentation for every tool so teammates could get a good result without asking me how it works.
 outcomes:
   - Reduced the time required to identify recurring crashes and high-impact memory waste.
   - Enabled unattended testing across multiple game instances with callstacks and logs delivered directly to the team.
   - Consolidated fragile automation into a more maintainable CSX toolchain used across production workflows.
+  - Tools that teammates adopted and ran themselves, documented well enough that my involvement was not a dependency.
 external_url: https://www.bigant.com/
 spotlight_order: 2
 ---
