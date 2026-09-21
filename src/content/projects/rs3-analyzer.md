@@ -3,7 +3,7 @@ title: RS3 Grand Exchange Analyzer
 summary: A Rust desktop application that scores RuneScape 3 Grand Exchange market history to surface profitable item flips, backed by a Python data collection pipeline and SQLite.
 date: 2026-04-23
 category: Hobby
-role: Solo developer.
+role: Solo project. I designed the scoring model and the data pipeline and wrote the first version by hand, then moved the build to agent-directed development while keeping the design decisions and review my own.
 media_images: []
 engine: None
 domain: Tools
@@ -20,6 +20,9 @@ approach:
 outcomes:
   - A working end-to-end pipeline from API collection through to a ranked, filterable list of flips.
 external_url: https://github.com/AlexMollard/rs3_analyzer
+build_mode: Agent-directed
+build_note: >-
+  I wrote the first version by hand and then shifted to directing agents through a harness once the shape of the scoring model was settled. The judgement calls that make it work - which factors to weight, how to log-scale volume, where to cut vendor trash out of the results - are mine; a lot of the implementation and the Rust UI plumbing was agent-written to my spec and reviewed by me.
 ---
 
-I wrote a Rust desktop application that turns RuneScape 3 Grand Exchange price history into a ranked list of flipping opportunities. Each item is scored on ROI, log-scaled trading volume, absolute profit, volatility, data reliability, spread, and price trend, then filtered to drop illiquid or anomalous results. A companion Python collector pulls history from the Weirdgloop API into a SQLite database, which the app reads at startup.
+A Rust desktop application that turns RuneScape 3 Grand Exchange price history into a ranked list of flipping opportunities. Each item is scored on ROI, log-scaled trading volume, absolute profit, volatility, data reliability, spread, and price trend, then filtered to drop illiquid or anomalous results. A companion Python collector pulls history from the Weirdgloop API into a SQLite database, which the app reads at startup. I built the first version by hand and directed the rest through an agent harness - see "How it was built" for the split.

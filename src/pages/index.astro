@@ -132,6 +132,7 @@ const spotlightProjects = atlasProjects
 											<span class="meta-chip">{domain}</span>
 											{project.data.api && <span class="meta-chip">{project.data.api}</span>}
 											<span class="meta-chip">{year}</span>
+											{project.data.build_mode === 'Agent-directed' && <span class="meta-chip build-chip">Agent-directed</span>}
 										</div>
 										<p class="mono shrink-0 text-[10px] tracking-[0.12em] text-signal">/{String(projectIndex + 1).padStart(2, '0')}</p>
 									</div>
@@ -163,6 +164,8 @@ const spotlightProjects = atlasProjects
 									externalUrl={project.data.external_url}
 									youtubeUrl={project.data.youtube_url}
 									images={project.data.media_images}
+									buildMode={project.data.build_mode}
+									buildNote={project.data.build_note}
 									hasNotes={Boolean(project.body?.trim())}
 									Content={Content}
 								/>
@@ -271,6 +274,7 @@ const spotlightProjects = atlasProjects
 												{project.data.api && <span class="meta-chip">{project.data.api}</span>}
 												<span class="meta-chip">{project.data.category}</span>
 												<span class="meta-chip">{year}</span>
+												{project.data.build_mode === 'Agent-directed' && <span class="meta-chip build-chip">Agent-directed</span>}
 											</div>
 											<p class="mono shrink-0 text-[10px] tracking-[0.12em] text-signal">/{String(projectIndex + 1).padStart(2, '0')}</p>
 										</div>
@@ -308,6 +312,8 @@ const spotlightProjects = atlasProjects
 										externalUrl={project.data.external_url}
 										youtubeUrl={project.data.youtube_url}
 										images={project.data.media_images}
+										buildMode={project.data.build_mode}
+										buildNote={project.data.build_note}
 										hasNotes={Boolean(project.body?.trim())}
 										Content={Content}
 									/>

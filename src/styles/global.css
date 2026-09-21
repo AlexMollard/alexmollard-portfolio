@@ -237,6 +237,14 @@ h3 {
 	color: color-mix(in oklab, var(--color-line) 90%, var(--color-muted));
 }
 
+.build-chip {
+	color: var(--color-cool);
+}
+
+.atlas-chip.build-chip {
+	border-color: color-mix(in oklab, var(--color-cool) 45%, var(--color-line));
+}
+
 [data-project-card] {
 	cursor: pointer;
 }

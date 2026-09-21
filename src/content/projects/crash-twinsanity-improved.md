@@ -3,7 +3,7 @@ title: Crash Twinsanity Improved
 summary: A fix-and-polish mod for the PAL release of Crash Twinsanity on PS2 that patches the disc image directly, restoring cut content and improving load times and output.
 date: 2026-09-21
 category: Hobby
-role: Solo developer.
+role: Solo project, directed rather than hand-written. I chose what to fix, worked out what the patches had to do to the PAL executable, and verified every change in the emulator; the patcher and wiki were largely agent-built to that spec.
 media_images:
   - /media/hobbies/crash-twinsanity-improved/skip-prompt-beach.png
   - /media/hobbies/crash-twinsanity-improved/skip-prompt-core.png
@@ -22,6 +22,9 @@ approach:
 outcomes:
   - A documented, reproducible mod with a published wiki covering what changed and why, requiring no copyrighted game files in the repository.
 external_url: https://github.com/AlexMollard/Crash-Twinsanity-Improved
+build_mode: Agent-directed
+build_note: >-
+  This one was agent-directed from the start. I drove the reverse-engineering - deciding which cut features were worth restoring, reading the PAL executable's behaviour, and testing each patch in PCSX2 - and used agents to write the Python patcher, the build tooling, and the wiki against that. The verification is the part I own: every change here was confirmed running on a patched disc image.
 ---
 
-I reverse-engineered parts of the PAL release of Crash Twinsanity to restore content the developers cut before release. Working against the disc image directly, I re-enabled cutscene skipping with an on-screen prompt localised to all five shipping languages, made Aku Aku invincibility actually survive TNT and Nitro crates, added shadows on crates, and kept beaten bosses harmless. I also cut level load times by 25-35% (40-50% with Fast CDVD) and added 480p/60Hz output with the game's frame timing matched to it. The repository ships a Python patcher that turns the player's own disc image into a modded ISO, plus a Docusaurus wiki documenting every change.
+This mod restores content the developers cut from the PAL release of Crash Twinsanity before it shipped. Working against the disc image directly, it re-enables cutscene skipping with an on-screen prompt localised to all five shipping languages, makes Aku Aku invincibility survive TNT and Nitro crates, adds shadows on crates, and keeps beaten bosses harmless. Level load times drop 25-35% (40-50% with Fast CDVD) and the game outputs 480p/60Hz with its frame timing matched to it. The repository ships a Python patcher that turns the player's own disc image into a modded ISO, plus a Docusaurus wiki documenting every change. I directed this one through an agent harness rather than writing it by hand - see "How it was built".

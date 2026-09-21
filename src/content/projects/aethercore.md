@@ -3,7 +3,7 @@ title: AetherCore
 summary: An editor-first Vulkan game engine for 2D and 3D games, with a GPU-driven renderer, hot-reloadable C# gameplay, owner-authoritative multiplayer with full NAT traversal, and an end-to-end asset and publishing pipeline.
 date: 2026-09-06
 category: Big Project
-role: Designed and built the engine architecture, Vulkan renderer, editor and Launcher, networking stack, managed scripting bridge, asset pipeline, diagnostics, and project tooling.
+role: I own the architecture and direct the work. The engine started as hand-written C++ and Vulkan, and as it grew I moved to directing it through multi-agent harnesses - I set the design, the boundaries, and the acceptance criteria, then review, verify, and land the result.
 media_images:
   - /media/hobbies/aethercore/editor.webp
   - /media/hobbies/aethercore/editor-2d.webp
@@ -48,6 +48,9 @@ outcomes:
   - Tagging a release publishes a self-contained editor that someone can install and build games with, without a compiler, the Vulkan SDK, or the source repository.
   - The Launcher and Editor can be driven and inspected programmatically for reproducible scene authoring, screenshots, diagnostics, and end-to-end validation.
 external_url: https://github.com/AlexMollard/AetherCore
+build_mode: Agent-directed
+build_note: >-
+  AetherCore began as hand-written C++ and Vulkan. As the surface area grew I moved to directing it through agent harnesses (omp, Claude Code) and several models working in parallel, which is how an engine this size stays tractable for one person - subsystems that would have taken weeks land in days. I am the architect and the reviewer rather than the person typing every line: I decide the design and the constraints, the agents implement against them, and nothing merges until it passes the test suite, the GPU abstraction guard, and my own review. The 1,271 tests and the architecture checks in CI exist because that workflow needs a hard verification floor.
 spotlight_order: 1
 ---
 

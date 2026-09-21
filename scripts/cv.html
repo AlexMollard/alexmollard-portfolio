@@ -4,13 +4,13 @@
 		<meta charset="utf-8" />
 		<title>Alex Mollard - Senior Generalist Programmer</title>
 		<style>
-			@page { size: A4; margin: 11mm 13mm; }
+			@page { size: A4; margin: 10mm 13mm; }
 			* { box-sizing: border-box; }
 			body {
 				margin: 0;
 				font-family: "Segoe UI", Arial, sans-serif;
-				font-size: 8.7pt;
-				line-height: 1.3;
+				font-size: 8.5pt;
+				line-height: 1.28;
 				color: #14181a;
 			}
 			h1 { margin: 0; font-size: 22pt; letter-spacing: -0.5px; }
@@ -58,6 +58,8 @@
 			Game programmer with eight shipped console and PC titles since 2022, working across UI, gameplay, networking,
 			platform certification, and internal tooling. Outside work I build AetherCore, a Vulkan engine with an
 			editor-first workflow, hot-reloadable C# gameplay, and owner-authoritative multiplayer with full NAT traversal.
+			I increasingly work as architect and reviewer of agent-directed development: I set the design, constraints, and
+			verification floor, then drive implementation through multi-model agent harnesses, turning weeks of work into days.
 		</p>
 
 		<h2>Experience</h2>
@@ -99,7 +101,7 @@
 				<li>Editor-first 2D and 3D workflow with a standalone launcher, dockable inspectors, prefabs, undo, autosave and crash recovery.</li>
 				<li>Hot-reloadable .NET 10 C# gameplay SDK with collectible load contexts, inspector-exposed script fields and a managed immediate-mode editor GUI API.</li>
 				<li>Owner-authoritative multiplayer over ENet reached through a cheapest-first ladder: LAN broadcast, UPnP/NAT-PMP/PCP, STUN hole punching, rendezvous signalling and opt-in TURN relay, with no port forwarding at any rung.</li>
-				<li>Eight in-repo projects act as the acceptance test; CI runs static architecture checks and a Windows build-and-unit pass on every push.</li>
+				<li>Architecture, design and review are mine; much of the implementation is agent-directed against a hard verification floor &mdash; 1,271 tests, eight in-repo games as the acceptance test, an automated GPU abstraction guard, and CI architecture checks on every push.</li>
 			</ul>
 		</div>
 		<div class="job">
@@ -108,8 +110,8 @@
 			</div>
 			<ul>
 				<li>SlimeProject &mdash; co-developed Vulkan 1.3 engine; Odyssean Engine &mdash; C++ OpenGL/Vulkan 2D/3D engine that preceded AetherCore.</li>
-				<li>Dreaded Escape &mdash; multiplayer Unreal Engine 5 horror game built with a small team; I handled project setup, menus, Steamworks and the multiplayer layer.</li>
-				<li>Crash Twinsanity Improved &mdash; PS2 reverse-engineering patch set; RS3 Analyzer &mdash; Rust desktop market analyzer; Fly &mdash; C++ audio player with real-time visualisation.</li>
+				<li>Dreaded Escape &mdash; unfinished weekend project with two friends; hands-on Unreal Engine 5 replication and Steamworks session work, playable co-op but never completed.</li>
+				<li>Crash Twinsanity Improved &mdash; PS2 reverse-engineering patch set (agent-directed, verified in-emulator); RS3 Analyzer &mdash; Rust desktop market analyzer; Fly &mdash; C++ audio player with real-time visualisation.</li>
 			</ul>
 		</div>
 
@@ -127,6 +129,8 @@
 			<dd>PC, PlayStation, Xbox; TRC/platform certification, PlayFab, PlayGo, Steamworks</dd>
 			<dt>Tooling</dt>
 			<dd>Editor and debug tooling, Tracy instrumentation, crash reporting (WER), CI, CMake, Git</dd>
+			<dt>Workflow</dt>
+			<dd>Agent-directed development (omp, Claude Code), multi-model orchestration, spec-and-review discipline, automated verification gates</dd>
 		</dl>
 
 		<h2>Education</h2>
@@ -135,12 +139,7 @@
 				<span class="job-title">Advanced Diploma of Professional Game Development &mdash; AIE Melbourne</span>
 			</div>
 			<p class="muted">Fundamentals of engine architecture, mathematics, and game systems programming, extended by self-taught C++ and graphics work.</p>
+			<p class="muted">Case studies and source: alexmollard.dev &nbsp;&middot;&nbsp; github.com/AlexMollard &nbsp;&middot;&nbsp; au.linkedin.com/in/alex-mollard</p>
 		</div>
-
-		<h2>More</h2>
-		<p class="muted">
-			Full case studies, screenshots and source: alexmollard.dev &nbsp;&middot;&nbsp; github.com/AlexMollard
-			&nbsp;&middot;&nbsp; career history and references: au.linkedin.com/in/alex-mollard
-		</p>
 	</body>
 </html>

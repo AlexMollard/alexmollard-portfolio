@@ -23,6 +23,8 @@ const projects = defineCollection({
 		approach: z.array(z.string()).default([]),
 		outcomes: z.array(z.string()).default([]),
 		external_url: z.string().url().optional(),
+		build_mode: z.enum(['Hand-written', 'Agent-directed']).default('Hand-written'),
+		build_note: z.string().optional(),
 		spotlight_order: z.number().int().positive().optional()
 	})
 });

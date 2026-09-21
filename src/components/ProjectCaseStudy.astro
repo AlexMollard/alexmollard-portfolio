@@ -19,6 +19,8 @@ interface Props {
 	externalUrl?: string;
 	youtubeUrl?: string;
 	images?: string[];
+	buildMode?: string;
+	buildNote?: string;
 	hasNotes?: boolean;
 	Content: any;
 }
@@ -40,6 +42,8 @@ const {
 	externalUrl,
 	youtubeUrl,
 	images = [],
+	buildMode,
+	buildNote,
 	hasNotes = true,
 	Content
 } = Astro.props as Props;
@@ -72,6 +76,7 @@ const activeTab = tabs[0].id;
 					{api && <span class="atlas-chip">{api}</span>}
 					<span class="atlas-chip">{category}</span>
 					<span class="atlas-chip">{year}</span>
+					{buildMode === 'Agent-directed' && <span class="atlas-chip build-chip">Agent-directed</span>}
 					{externalUrl && (
 						<a href={externalUrl} target="_blank" rel="noreferrer" class="atlas-chip case-study-link">Repository ↗</a>
 					)}
@@ -136,6 +141,13 @@ const activeTab = tabs[0].id;
 						</section>
 					)}
 				</div>
+
+				{buildNote && (
+					<section class="case-study-block mt-4">
+						<p class="case-study-label">How it was built</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">{buildNote}</p>
+					</section>
+				)}
 			</section>
 
 			{hasStory && (
