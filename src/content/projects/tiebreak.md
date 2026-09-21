@@ -3,7 +3,7 @@ title: TIEBREAK
 date: 2024-08-22
 category: Professional
 summary: A multi-platform licensed tennis game with career modes, online play, and a large UI surface built across two interface systems.
-role: Owned most of the UI implementation, built complete game modes, and helped bridge the in-house widget system with the move to NoesisGUI.
+role: Owned most of the UI implementation, built complete game modes, and helped bridge the in-house widget system and NoesisGUI.
 media_images:
   - /media/professional/tiebreak/tiebreak-steam-1.webp
   - /media/professional/tiebreak/tiebreak-steam-2.webp
@@ -12,9 +12,9 @@ engine: Proprietary Studio Engine
 features:
   - Real-time gameplay systems
   - Input and responsiveness tuning
-  - Performance optimization
+  - Performance optimisation
   - Platform release support and adaptation
-  - Production QA and optimization for expansion content
+  - Production QA and optimisation for expansion content
 domain: Gameplay
 problem: TIEBREAK still depended on the studio's legacy widget framework while other programmers were moving to NoesisGUI, leaving a large amount of UI and entire game modes to be delivered under severe schedule pressure.
 approach:
@@ -29,4 +29,4 @@ external_url: https://store.steampowered.com/app/2264340/TIEBREAK_Official_game_
 spotlight_order: 4
 ---
 
-TIEBREAK was the culmination of my UI work at Big Ant. As the studio shifted to NoesisGUI for future titles, I was the team member with the deepest understanding of the legacy in-house widget system. Rather than block progress, I reverse-engineered what NoesisGUI provided and replicated it entirely using the existing widget framework - allowing other programmers to move to newer titles while I kept TIEBREAK's UI running. I effectively led UI delivery on the project, working under extreme timelines including multi-day sprints to fully implement entire game modes end-to-end, coordinating directly with server developers to get data flowing in both directions.
+TIEBREAK was the culmination of my UI work at Big Ant. As the studio shifted to NoesisGUI for future titles, I was the team member with the deepest understanding of the legacy in-house widget system. Rather than block progress, I reverse-engineered what NoesisGUI provided and replicated it entirely using the existing widget framework - allowing other programmers to move to newer titles while I kept TIEBREAK's UI running. I effectively led UI delivery on the project, working under extreme timelines, including multi-day sprints to fully implement entire game modes end-to-end, coordinating directly with server developers to get data flowing in both directions.

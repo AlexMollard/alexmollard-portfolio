@@ -15,7 +15,7 @@ features:
   - Tabbed case-study overlay with focus trapping, keyboard tab navigation, and image zoom
   - One-page CV rendered to PDF from the same sourced content rather than maintained separately
   - Authorship metadata on every project so agent-directed work is labelled in the UI
-problem: A portfolio is the one artifact a hiring manager actually reads, and mine had drifted - a stale job title, projects described in dense unreadable blocks, and claims with no evidence behind them.
+problem: A portfolio is the one artifact a hiring manager actually reads, and mine had drifted - a stale job title, projects described in dense, unreadable blocks, and claims with no evidence behind them.
 approach:
   - Ran a parallel read-only audit across positioning, copy, credibility, information architecture, accessibility, and the content model, then verified every finding at the cited line before acting on it.
   - Moved editorial rules into the schema - explicit domains, real metrics only, and an authorship field - so a future entry cannot quietly break them.

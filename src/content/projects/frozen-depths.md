@@ -8,8 +8,7 @@ youtube_url: https://www.youtube.com/watch?v=Ki7QGZDyZ9Q
 media_images:
   - /media/hobbies/frozen-depths/frozen-depths-1.webp
   - /media/hobbies/frozen-depths/frozen-depths-3.webp
-engine: Custom Student Engine
-api: OpenGL
+engine: Unity
 domain: Research
 features:
   - Marching Cubes mesh extraction

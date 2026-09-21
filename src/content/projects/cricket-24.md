@@ -3,7 +3,7 @@ title: Cricket 24
 date: 2023-10-05
 category: Professional
 summary: A multi-platform cricket title where I built UI screens, fixed state-flow issues, integrated PlayFab and PlayGo, and worked on TRC certification.
-role: I built a large number of UI screens, resolved state flow issues, and implemented PlayFab and PlayGo online features, then carried the TRC certification work needed for the title to pass platform submissions.
+role: I built a large number of UI screens, resolved state-flow issues, and implemented PlayFab and PlayGo online features, then carried the TRC certification work needed for the title to pass platform submissions.
 media_images:
   - /media/professional/cricket-24/cricket-24-steam-1.webp
   - /media/professional/cricket-24/cricket-24-steam-2.webp

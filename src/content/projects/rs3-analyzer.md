@@ -3,7 +3,7 @@ title: RS3 Grand Exchange Analyzer
 summary: A Rust desktop application that scores RuneScape 3 Grand Exchange market history to surface profitable item flips, backed by a Python data collection pipeline and SQLite.
 date: 2026-04-23
 category: Hobby
-role: Solo project. I designed the scoring model and the data pipeline and wrote the first version by hand, then moved the build to agent-directed development while keeping the design decisions and review my own.
+role: Solo project. I designed the scoring model and the data pipeline and wrote the first version by hand, then moved the build to agent-directed development while keeping the design decisions and the review my own.
 media_images: []
 engine: None
 domain: Tools

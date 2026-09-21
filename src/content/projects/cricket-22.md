@@ -12,7 +12,7 @@ engine: Proprietary Studio Engine
 features:
   - Sports gameplay systems
   - Broad platform support
-  - Production QA and optimization
+  - Production QA and optimisation
   - Franchise feature continuation
 domain: Gameplay
 ---

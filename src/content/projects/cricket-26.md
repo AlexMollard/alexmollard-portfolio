@@ -12,7 +12,7 @@ engine: Proprietary Studio Engine
 features:
   - Cricket franchise systems support
   - Multi-platform release workflow
-  - Client-side websocket implementation
+  - Client-side WebSocket implementation
   - Cross-platform TLS handshake implementation
 domain: Networking
 problem: The title needed a production-ready websocket client with secure TLS behaviour that remained consistent across every supported platform and its different networking constraints.
@@ -27,4 +27,4 @@ outcomes:
 spotlight_order: 3
 ---
 
-My Cricket 26 work centered on in-house tooling and platform readiness, but the major recent milestone was fully implementing the client-side websocket layer for the title. I also implemented proper TLS handshakes across all target platforms to ensure secure and consistent network connectivity in production. Alongside that networking work, I continued driving TRC certification and internal tool improvements for the wider team.
+My Cricket 26 work centred on in-house tooling and platform readiness, but the most recent major milestone was fully implementing the client-side websocket layer for the title. I also implemented proper TLS handshakes across all target platforms to ensure secure and consistent network connectivity in production. Alongside that networking work, I continued driving TRC certification and internal tool improvements for the wider team.
