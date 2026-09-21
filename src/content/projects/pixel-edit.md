@@ -11,7 +11,7 @@ engine: Windows Forms (.NET Framework)
 domain: Tools
 features:
   - Bresenham-style line rasterization for drawing tools
-  - Queue-based flood fill implementation for bucket behavior
+  - Queue-based flood fill implementation for bucket behaviour
 external_url: https://github.com/AlexMollard/PixelEdit
 ---
 

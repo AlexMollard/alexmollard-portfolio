@@ -20,4 +20,4 @@ performance_metrics:
   - Supports up to six textures per model
 ---
 
-I explored physically grounded shading models and asset workflows that better approximate real-world lighting behavior.
+I explored physically grounded shading models and asset workflows that better approximate real-world lighting behaviour.

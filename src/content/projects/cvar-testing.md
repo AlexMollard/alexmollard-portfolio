@@ -12,7 +12,7 @@ domain: Tools
 features:
   - Runtime command console integrated directly into the application loop
   - CVar-style command registration and parsing pipeline
-  - Custom commands for driving behavior and triggering code paths at runtime
+  - Custom commands for driving behaviour and triggering code paths at runtime
   - Lightweight workflow for debugging and iteration without building UI panels
 external_url: https://github.com/AlexMollard/WindowsSDK-Cvar-Testing
 ---

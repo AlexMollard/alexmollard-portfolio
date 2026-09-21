@@ -17,7 +17,7 @@ features:
   - Reconnection handling and client state synchronization
   - MySQL database integration
   - Plugin architecture support
-  - Position visualization
+  - Position visualisation
   - Comprehensive logging system
 external_url: https://github.com/AlexMollard/EnetPlayGround
 ---
