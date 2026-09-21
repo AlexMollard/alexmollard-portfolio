@@ -50,17 +50,20 @@ const resolvedImages = images.map((image) => withBase(image, import.meta.env.BAS
 	)}
 
 	{resolvedImages.length > 0 && (
-		<div class="grid gap-3 sm:grid-cols-2">
-			{resolvedImages.map((image, index) => (
-				<figure class="soft-panel overflow-hidden border-1 border-line bg-raised">
-					<img
-						src={image}
-						alt={`${title} screenshot ${index + 1}`}
-						loading="lazy"
-						class="h-40 w-full object-cover md:h-44"
-					/>
-				</figure>
-			))}
+		<div class="space-y-3">
+			<div class="grid gap-3 sm:grid-cols-2">
+				{resolvedImages.map((image, index) => (
+					<figure class="soft-panel overflow-hidden border-1 border-line bg-raised">
+						<img
+							src={image}
+							alt={`${title} screenshot ${index + 1}`}
+							loading="lazy"
+							class="aspect-video w-full object-cover"
+						/>
+					</figure>
+				))}
+			</div>
+			<p class="mono text-[10px] uppercase tracking-[0.14em] text-muted/70">Select an image to enlarge</p>
 		</div>
 	)}
 </div>

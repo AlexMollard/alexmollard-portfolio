@@ -19,6 +19,7 @@ interface Props {
 	externalUrl?: string;
 	youtubeUrl?: string;
 	images?: string[];
+	hasNotes?: boolean;
 	Content: any;
 }
 
@@ -39,87 +40,164 @@ const {
 	externalUrl,
 	youtubeUrl,
 	images = [],
+	hasNotes = true,
 	Content
 } = Astro.props as Props;
 
-const hasStructuredStory = Boolean(problem || approach.length || outcomes.length);
+const hasMedia = Boolean(youtubeUrl) || images.length > 0;
+const hasStory = approach.length > 0 || hasNotes;
+const splitStory = approach.length > 0 && hasNotes;
+const splitOverview = Boolean(role || problem) && outcomes.length > 0;
+
+const tabs = [
+	{ id: 'overview', label: 'Overview', count: 0, show: true },
+	{ id: 'approach', label: approach.length > 0 ? 'Approach' : 'Notes', count: approach.length, show: hasStory },
+	{ id: 'technical', label: 'Technical', count: features.length, show: true },
+	{ id: 'media', label: 'Media', count: images.length + (youtubeUrl ? 1 : 0), show: hasMedia }
+].filter((tab) => tab.show);
+
+const activeTab = tabs[0].id;
 ---
 
 <template class="atlas-island-template">
-	<div class="space-y-5">
-		<div class="flex flex-wrap items-start justify-between gap-4">
-			<div class="max-w-3xl">
-				<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Case study</p>
-				<h3 class="mt-2 text-3xl font-semibold leading-tight text-paper md:text-4xl">{title}</h3>
-				<p class="mt-3 text-sm leading-relaxed text-muted md:text-base">{summary}</p>
-			</div>
-			<div class="flex flex-wrap items-center gap-2">
-				<span class="atlas-chip">{domain}</span>
-				<span class="atlas-chip">{api}</span>
-				<span class="atlas-chip">{category}</span>
-				<span class="atlas-chip">{year}</span>
-			</div>
-		</div>
-
-		<div class="grid gap-4 xl:grid-cols-[1.05fr_0.95fr]">
-			<div class="space-y-4">
-				{role && (
-					<section class="case-study-block">
-						<p class="case-study-label">Role</p>
-						<p class="mt-2 text-sm leading-relaxed text-paper">{role}</p>
-					</section>
-				)}
-
-				{problem && (
-					<section class="case-study-block">
-						<p class="case-study-label">Problem</p>
-						<p class="mt-2 text-sm leading-relaxed text-muted">{problem}</p>
-					</section>
-				)}
-
-				{approach.length > 0 && (
-					<section class="case-study-block">
-						<p class="case-study-label">Approach</p>
-						<ul class="case-study-list">
-							{approach.map((item) => <li>{item}</li>)}
-						</ul>
-					</section>
-				)}
-
-				{outcomes.length > 0 && (
-					<section class="case-study-block case-study-block-accent">
-						<p class="case-study-label">Outcome</p>
-						<ul class="case-study-list">
-							{outcomes.map((item) => <li>{item}</li>)}
-						</ul>
-					</section>
-				)}
-
-				<div class="atlas-expanded-body soft-panel border-1 border-line bg-raised p-4 text-sm leading-relaxed text-muted">
-					{hasStructuredStory && <p class="case-study-label mb-3">Project notes</p>}
-					<Content />
+	<article class="case-study" data-case-study data-case-title={title}>
+		<header class="case-study-head">
+			<div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
+				<div class="min-w-0">
+					<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Case study</p>
+					<h3 class="mt-1.5 text-2xl font-semibold leading-tight text-paper md:text-3xl">{title}</h3>
 				</div>
+				<div class="flex flex-wrap items-center gap-2">
+					<span class="atlas-chip">{domain}</span>
+					<span class="atlas-chip">{api}</span>
+					<span class="atlas-chip">{category}</span>
+					<span class="atlas-chip">{year}</span>
+					{externalUrl && (
+						<a href={externalUrl} target="_blank" rel="noreferrer" class="atlas-chip case-study-link">Repository ↗</a>
+					)}
+				</div>
+			</div>
 
+			<div class="case-study-tabs" role="tablist" aria-label={`${title} sections`}>
+				{tabs.map((tab) => (
+					<button
+						type="button"
+						role="tab"
+						id={`case-tab-${tab.id}`}
+						class="case-study-tab"
+						data-case-tab={tab.id}
+						aria-controls={`case-panel-${tab.id}`}
+						aria-selected={tab.id === activeTab ? 'true' : 'false'}
+						tabindex={tab.id === activeTab ? 0 : -1}
+					>
+						{tab.label}
+						{tab.count > 0 && <span class="case-study-tab-count">{tab.count}</span>}
+					</button>
+				))}
+			</div>
+		</header>
+
+		<div class="case-study-body">
+			<section
+				id="case-panel-overview"
+				class="case-study-panel"
+				role="tabpanel"
+				aria-labelledby="case-tab-overview"
+				data-case-panel="overview"
+				tabindex="0"
+				hidden={activeTab !== 'overview'}
+			>
+				<p class="case-study-lead">{summary}</p>
+
+				<div class:list={['mt-5 grid items-start gap-4', splitOverview && 'xl:grid-cols-2']}>
+					{(role || problem) && (
+						<div class="space-y-4">
+							{role && (
+								<section class="case-study-block">
+									<p class="case-study-label">Role</p>
+									<p class="mt-2 text-sm leading-relaxed text-paper">{role}</p>
+								</section>
+							)}
+							{problem && (
+								<section class="case-study-block">
+									<p class="case-study-label">Problem</p>
+									<p class="mt-2 text-sm leading-relaxed text-muted">{problem}</p>
+								</section>
+							)}
+						</div>
+					)}
+
+					{outcomes.length > 0 && (
+						<section class="case-study-block case-study-block-accent">
+							<p class="case-study-label">Outcome</p>
+							<ul class="case-study-list">
+								{outcomes.map((item) => <li>{item}</li>)}
+							</ul>
+						</section>
+					)}
+				</div>
+			</section>
+
+			{hasStory && (
+				<section
+					id="case-panel-approach"
+					class="case-study-panel"
+					role="tabpanel"
+					aria-labelledby="case-tab-approach"
+					data-case-panel="approach"
+					tabindex="0"
+					hidden={activeTab !== 'approach'}
+				>
+					<div class:list={['grid items-start gap-4', splitStory && 'xl:grid-cols-[1.05fr_0.95fr]']}>
+						{approach.length > 0 && (
+							<section class="case-study-block">
+								<p class="case-study-label">Approach</p>
+								<ul class="case-study-list">
+									{approach.map((item) => <li>{item}</li>)}
+								</ul>
+							</section>
+						)}
+
+						{hasNotes && (
+							<section class="case-study-block atlas-expanded-body text-sm leading-relaxed text-muted">
+								<p class="case-study-label mb-3">Project notes</p>
+								<Content />
+							</section>
+						)}
+					</div>
+				</section>
+			)}
+
+			<section
+				id="case-panel-technical"
+				class="case-study-panel"
+				role="tabpanel"
+				aria-labelledby="case-tab-technical"
+				data-case-panel="technical"
+				tabindex="0"
+				hidden={activeTab !== 'technical'}
+			>
 				<TechSpecs
-					title="Technical profile"
 					engine={engine}
 					api={api}
 					features={features}
 					performanceMetrics={performanceMetrics}
 				/>
-			</div>
+			</section>
 
-			<div class="soft-panel h-fit border-1 border-line bg-raised p-3">
-				<ProjectMedia title={title} youtubeUrl={youtubeUrl} images={images} />
-			</div>
+			{hasMedia && (
+				<section
+					id="case-panel-media"
+					class="case-study-panel"
+					role="tabpanel"
+					aria-labelledby="case-tab-media"
+					data-case-panel="media"
+					tabindex="0"
+					hidden={activeTab !== 'media'}
+				>
+					<ProjectMedia title={title} youtubeUrl={youtubeUrl} images={images} />
+				</section>
+			)}
 		</div>
-
-		{externalUrl && (
-			<p>
-				<a href={externalUrl} target="_blank" rel="noreferrer" class="mono text-[11px] font-medium uppercase tracking-[0.14em] underline decoration-signal underline-offset-4 hover:text-signal">
-					Open project link ↗
-				</a>
-			</p>
-		)}
-	</div>
+	</article>
 </template>

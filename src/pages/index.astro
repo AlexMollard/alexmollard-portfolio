@@ -164,6 +164,7 @@ const spotlightProjects = atlasProjects
 									externalUrl={project.data.external_url}
 									youtubeUrl={project.data.youtube_url}
 									images={project.data.media_images}
+									hasNotes={Boolean(project.body?.trim())}
 									Content={Content}
 								/>
 							</article>
@@ -308,6 +309,7 @@ const spotlightProjects = atlasProjects
 										externalUrl={project.data.external_url}
 										youtubeUrl={project.data.youtube_url}
 										images={project.data.media_images}
+										hasNotes={Boolean(project.body?.trim())}
 										Content={Content}
 									/>
 								</article>
@@ -323,12 +325,12 @@ const spotlightProjects = atlasProjects
 			</section>
 
 			<div id="atlas-island-overlay" class="atlas-island-overlay hidden" aria-hidden="true">
-				<div class="atlas-island-shell soft-panel border-1 border-line bg-raised">
-					<div class="flex items-center justify-between gap-3 border-b border-line px-4 py-3 md:px-5">
+				<div class="atlas-island-shell soft-panel border-1 border-line bg-surface" role="dialog" aria-modal="true" aria-label="Project detail">
+					<div class="flex shrink-0 items-center justify-between gap-3 border-b border-line px-4 py-3 md:px-5">
 						<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Project detail</p>
 						<button id="atlas-island-close" type="button" class="atlas-chip">Close</button>
 					</div>
-					<div id="atlas-island-content" class="max-h-[78dvh] overflow-y-auto p-4 md:p-5"></div>
+					<div id="atlas-island-content" class="atlas-island-scroll"></div>
 				</div>
 				<div id="atlas-image-preview" class="atlas-image-preview hidden" aria-hidden="true">
 					<button id="atlas-image-preview-close" type="button" class="atlas-chip atlas-image-preview-close">Close Preview</button>
@@ -452,6 +454,46 @@ const spotlightProjects = atlasProjects
 					setupInfiniteScroll();
 				};
 
+				let islandReturnFocus = null;
+
+				const activateCaseTab = (tab) => {
+					const root = tab.closest('[data-case-study]');
+					if (!root) return;
+
+					const target = tab.getAttribute('data-case-tab');
+					root.querySelectorAll('[data-case-tab]').forEach((item) => {
+						const selected = item === tab;
+						item.setAttribute('aria-selected', selected ? 'true' : 'false');
+						item.tabIndex = selected ? 0 : -1;
+					});
+					root.querySelectorAll('[data-case-panel]').forEach((panel) => {
+						panel.hidden = panel.getAttribute('data-case-panel') !== target;
+					});
+
+					if (islandContent) islandContent.scrollTop = 0;
+				};
+
+				const trapIslandFocus = (event) => {
+					if (event.key !== 'Tab' || !islandOverlay || islandOverlay.classList.contains('hidden')) return;
+					const shell = islandOverlay.querySelector('.atlas-island-shell');
+					if (!shell) return;
+
+					const focusable = Array.from(
+						shell.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
+					).filter((element) => element.offsetParent !== null);
+					if (!focusable.length) return;
+
+					const first = focusable[0];
+					const last = focusable[focusable.length - 1];
+					if (event.shiftKey && document.activeElement === first) {
+						event.preventDefault();
+						last.focus();
+					} else if (!event.shiftKey && document.activeElement === last) {
+						event.preventDefault();
+						first.focus();
+					}
+				};
+
 				const closeIsland = () => {
 					if (!islandOverlay || !islandContent) return;
 					if (imagePreview && imagePreviewImg) {
@@ -467,6 +509,10 @@ const spotlightProjects = atlasProjects
 						toggle.setAttribute('aria-expanded', 'false');
 						toggle.textContent = toggle.dataset.closedLabel || 'Project detail';
 					});
+					if (islandReturnFocus) {
+						islandReturnFocus.focus();
+						islandReturnFocus = null;
+					}
 				};
 
 				const closeImagePreview = () => {
@@ -498,6 +544,10 @@ const spotlightProjects = atlasProjects
 
 						toggle.setAttribute('aria-expanded', 'true');
 						toggle.textContent = 'Opened';
+						islandReturnFocus = toggle;
+
+						const activeTab = islandContent.querySelector('[data-case-tab][aria-selected="true"]');
+						(activeTab || islandClose)?.focus();
 					});
 				});
 
@@ -527,6 +577,33 @@ const spotlightProjects = atlasProjects
 						imagePreview.setAttribute('aria-hidden', 'false');
 					});
 				}
+
+				if (islandContent) {
+					islandContent.addEventListener('click', (event) => {
+						const tab = event.target.closest('[data-case-tab]');
+						if (tab) activateCaseTab(tab);
+					});
+
+					islandContent.addEventListener('keydown', (event) => {
+						const tab = event.target.closest('[data-case-tab]');
+						if (!tab) return;
+
+						const tabs = Array.from(tab.parentElement.querySelectorAll('[data-case-tab]'));
+						const index = tabs.indexOf(tab);
+						let next = null;
+						if (event.key === 'ArrowRight') next = tabs[(index + 1) % tabs.length];
+						else if (event.key === 'ArrowLeft') next = tabs[(index - 1 + tabs.length) % tabs.length];
+						else if (event.key === 'Home') next = tabs[0];
+						else if (event.key === 'End') next = tabs[tabs.length - 1];
+						if (!next) return;
+
+						event.preventDefault();
+						activateCaseTab(next);
+						next.focus();
+					});
+				}
+
+				document.addEventListener('keydown', trapIslandFocus);
 
 				if (imagePreviewClose) {
 					imagePreviewClose.addEventListener('click', closeImagePreview);
