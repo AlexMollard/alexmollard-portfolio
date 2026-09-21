@@ -9,6 +9,7 @@ media_images:
   - /media/hobbies/slime-project/screenshot2.webp
 engine: SlimeOdyssey (custom)
 api: Vulkan
+domain: Engine
 features:
   - Vulkan 1.3 renderer with vk-bootstrap and VulkanMemoryAllocator
   - Entity Component System (ECS) architecture
@@ -18,11 +19,7 @@ features:
   - SPIRV-Cross shader reflection
   - 2D platformer game with moving platforms and power-ups
   - Automated multi-platform CI build pipeline
-performance_metrics:
-  - Builds and runs across Windows, Linux, and macOS via CMake
-  - CI validated on every push via GitHub Actions
 external_url: https://github.com/Slime-Dev/SlimeProject
-featured: true
 ---
 
 SlimeProject is a full game development stack — a custom Vulkan 1.3 engine (SlimeOdyssey) used to build a 2D platformer (SlimeGame). The engine focuses on clean, understandable Vulkan implementation while covering modern features like ECS, PBR, and cross-platform support. Built collaboratively with Connor Young.

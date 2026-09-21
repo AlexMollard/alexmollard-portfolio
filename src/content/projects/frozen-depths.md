@@ -10,16 +10,13 @@ media_images:
   - /media/hobbies/frozen-depths/frozen-depths-3.webp
 engine: Custom Student Engine
 api: OpenGL
+domain: Research
 features:
   - Marching Cubes mesh extraction
   - Procedural terrain generation
   - Real-time mesh updates
   - Simulation-driven world shaping
-performance_metrics:
-  - Real-time simulation-driven geometry updates
-  - Stable performance under gameplay interaction
 external_url: https://github.com/AlexMollard/Frozen-Depths-Programmers
-featured: false
 ---
 
-Focused on turning procedural mesh generation into tangible gameplay mechanics with responsive runtime updates.
+I turned procedural mesh generation into tangible gameplay mechanics with responsive runtime updates, rebuilding world geometry as the simulation changed it.

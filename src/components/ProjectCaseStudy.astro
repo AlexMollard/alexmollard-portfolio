@@ -5,7 +5,7 @@ import TechSpecs from './TechSpecs.astro';
 interface Props {
 	title: string;
 	domain: string;
-	api: string;
+	api?: string;
 	category: string;
 	year: number;
 	summary: string;
@@ -69,7 +69,7 @@ const activeTab = tabs[0].id;
 				</div>
 				<div class="flex flex-wrap items-center gap-2">
 					<span class="atlas-chip">{domain}</span>
-					<span class="atlas-chip">{api}</span>
+					{api && <span class="atlas-chip">{api}</span>}
 					<span class="atlas-chip">{category}</span>
 					<span class="atlas-chip">{year}</span>
 					{externalUrl && (

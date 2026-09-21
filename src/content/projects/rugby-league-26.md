@@ -2,24 +2,19 @@
 title: Rugby League 26
 date: 2025-10-01
 category: Professional
-summary: A rugby league title where I worked on cross-title integration, internal tools, client-server integration, and TRC certification.
-role: Cross-title integration, in-house tooling support, client-server integration, and TRC certification work across the project lifecycle.
+summary: A rugby league title where I contributed cross-title code integration, in-house tooling support, client-server integration, and certification work across the project lifecycle.
+role: I handled cross-title code integration, supported the team's in-house tooling, worked on client-server integration, and carried TRC certification work across the project lifecycle.
 media_images:
   - /media/professional/rugby-league-26/rugby-league-26-1.webp
   - /media/professional/rugby-league-26/rugby-league-26-2.webp
   - /media/professional/rugby-league-26/rugby-league-26-3.webp
 engine: Proprietary Studio Engine
-api: Other
 features:
   - Sports simulation systems
   - Cross-platform feature delivery
   - Production gameplay tuning
   - Ongoing franchise support
-performance_metrics:
-  - Commercial release readiness under schedule constraints
-  - Focus on runtime reliability and consistency
-external_url: https://www.bigant.com/
-featured: false
+domain: Networking
 ---
 
 My work followed the same pattern as other titles in this period — cross-title code integration, tooling support, client-server integration, and TRC certification work to clear platform requirements.

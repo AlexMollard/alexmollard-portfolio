@@ -2,29 +2,24 @@
 title: EnetPlayGround
 date: 2025-03-13
 category: Hobby
-summary: Networking sandbox for experimenting with ENet protocol, reliable UDP communication, and scalable client-server architecture patterns.
+summary: Networking sandbox where I worked through ENet, reliable UDP communication, and client-server architecture patterns - the groundwork that later fed AetherCore's netcode.
 role: Networking systems programmer.
 media_images:
   - /media/hobbies/enet-playground/server.webp
   - /media/hobbies/enet-playground/login.webp
   - /media/hobbies/enet-playground/client.webp
 engine: C++ Networking Framework
-api: Other
+domain: Networking
 features:
-  - Multi-client connection management
+  - Concurrent multi-client connection management on a threaded server
   - Reliable packet delivery implementation
   - Broadcast messaging infrastructure
+  - Reconnection handling and client state synchronization
   - MySQL database integration
   - Plugin architecture support
-  - Client state synchronization
   - Position visualization
   - Comprehensive logging system
-performance_metrics:
-  - Deterministic network test scenarios
-  - Multi-threading server optimization
-  - Tested with 5+ local and remote clients
 external_url: https://github.com/AlexMollard/EnetPlayGround
-featured: true
 ---
 
-Experimental networking platform for investigating ENet protocol, multiplayer architecture patterns, and network performance limitations in game development contexts.
+Experimental networking platform for investigating ENet protocol, multiplayer architecture patterns, and network performance limitations in game development contexts. The playground is where I first wrestled with the problems a real game netcode has to solve - concurrent client handling, reliable delivery over UDP, and reconnection - and the architecture patterns proven here fed directly into AetherCore's owner-authoritative netcode.

@@ -3,7 +3,6 @@ import '../styles/global.css';
 import '@fontsource/space-grotesk/400.css';
 import '@fontsource/space-grotesk/500.css';
 import '@fontsource/space-grotesk/600.css';
-import '@fontsource/space-grotesk/700.css';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import { withBase } from '../utils/withBase';
@@ -17,9 +16,9 @@ interface Props {
 }
 
 const {
-	title = 'Alex Mollard | Graphics Engineer',
-	description = 'Graphics engineer building rendering, networking, and gameplay systems for shipped games and personal engine experiments.',
-	image = 'media/hobbies/aethercore/editor.webp',
+	title = 'Alex Mollard | Senior Generalist Programmer',
+	description = 'Senior Generalist Programmer at Big Ant Studios in Melbourne. Eight shipped console and PC titles, plus AetherCore, a Vulkan engine with an editor, C# scripting, and owner-authoritative netcode.',
+	image = 'media/og-cover.jpg',
 	type = 'website',
 	noindex = false
 } = Astro.props as Props;
@@ -54,12 +53,30 @@ const robots = noindex ? 'noindex, nofollow' : 'index, follow';
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:site_name" content={siteName} />
 		<meta property="og:image" content={resolvedImage} />
-		<meta property="og:image:alt" content="Preview image from Alex Mollard's portfolio" />
+		<meta property="og:image:alt" content="The AetherCore Vulkan editor showing a lit 3D scene alongside inspector and hierarchy panels" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={resolvedImage} />
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				'@context': 'https://schema.org',
+				'@type': 'Person',
+				name: 'Alex Mollard',
+				jobTitle: 'Senior Generalist Programmer',
+				worksFor: { '@type': 'Organization', name: 'Big Ant Studios', url: 'https://www.bigant.com/' },
+				url: canonicalURL,
+				image: resolvedImage,
+				email: 'mailto:alexmollard@protonmail.com',
+				address: { '@type': 'PostalAddress', addressLocality: 'Melbourne', addressCountry: 'AU' },
+				knowsAbout: ['Vulkan', 'Game engine architecture', 'Real-time rendering', 'Game networking', 'Engine tooling', 'C++', 'C#'],
+				sameAs: ['https://github.com/AlexMollard', 'https://au.linkedin.com/in/alex-mollard']
+			})}
+		/>
 		<title>{title}</title>
 	</head>
 	<body class="min-h-screen bg-ground text-paper">

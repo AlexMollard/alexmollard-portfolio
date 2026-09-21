@@ -222,6 +222,30 @@ h3 {
 	color: var(--color-ground);
 }
 
+.meta-chip {
+	color: color-mix(in oklab, var(--color-muted) 82%, transparent);
+	font-family: "IBM Plex Mono", "Consolas", monospace;
+	font-size: 10px;
+	letter-spacing: 0.08em;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.meta-chip + .meta-chip::before {
+	content: "/";
+	margin-right: 0.5rem;
+	color: color-mix(in oklab, var(--color-line) 90%, var(--color-muted));
+}
+
+[data-project-card] {
+	cursor: pointer;
+}
+
+:focus-visible {
+	outline: 2px solid var(--color-signal);
+	outline-offset: 2px;
+}
+
 .atlas-card-hidden {
 	display: none;
 }

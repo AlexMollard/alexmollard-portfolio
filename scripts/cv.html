@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Alex Mollard - Senior Generalist Programmer</title>
+		<style>
+			@page { size: A4; margin: 11mm 13mm; }
+			* { box-sizing: border-box; }
+			body {
+				margin: 0;
+				font-family: "Segoe UI", Arial, sans-serif;
+				font-size: 8.7pt;
+				line-height: 1.3;
+				color: #14181a;
+			}
+			h1 { margin: 0; font-size: 22pt; letter-spacing: -0.5px; }
+			.role { margin: 2px 0 0; font-size: 10.5pt; font-weight: 600; color: #c8402c; }
+			.contact { margin: 6px 0 0; font-size: 8.8pt; color: #4a5358; }
+			.contact a { color: #14181a; text-decoration: none; }
+			header { border-bottom: 2px solid #14181a; padding-bottom: 8px; }
+			h2 {
+				margin: 10px 0 4px;
+				font-size: 8pt;
+				letter-spacing: 1.4px;
+				text-transform: uppercase;
+				color: #c8402c;
+				border-bottom: 1px solid #d5dadd;
+				padding-bottom: 2px;
+			}
+			p { margin: 0 0 5px; }
+			ul { margin: 0; padding-left: 14px; }
+			li { margin-bottom: 2px; }
+			.job { margin-bottom: 6px; }
+			.job-head { display: flex; justify-content: space-between; gap: 10px; }
+			.job-title { font-weight: 700; }
+			.job-dates { color: #4a5358; white-space: nowrap; font-size: 8.8pt; }
+			.titles { column-count: 2; column-gap: 18px; margin: 0; padding-left: 14px; }
+			.skills { display: grid; grid-template-columns: 78px 1fr; gap: 2px 10px; }
+			.skills dt { font-weight: 700; color: #4a5358; }
+			.skills dd { margin: 0; }
+			.muted { color: #4a5358; }
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>Alex Mollard</h1>
+			<p class="role">Senior Generalist Programmer &middot; Big Ant Studios &middot; Melbourne, Australia</p>
+			<p class="contact">
+				alexmollard@protonmail.com &nbsp;&middot;&nbsp;
+				alexmollard.dev &nbsp;&middot;&nbsp;
+				github.com/AlexMollard &nbsp;&middot;&nbsp;
+				au.linkedin.com/in/alex-mollard
+			</p>
+		</header>
+
+		<h2>Profile</h2>
+		<p>
+			Game programmer with eight shipped console and PC titles since 2022, working across UI, gameplay, networking,
+			platform certification, and internal tooling. Outside work I build AetherCore, a Vulkan engine with an
+			editor-first workflow, hot-reloadable C# gameplay, and owner-authoritative multiplayer with full NAT traversal.
+		</p>
+
+		<h2>Experience</h2>
+		<div class="job">
+			<div class="job-head">
+				<span class="job-title">Big Ant Studios &mdash; Senior Generalist Programmer</span>
+				<span class="job-dates">2022 &ndash; present</span>
+			</div>
+			<ul>
+				<li>Implemented the client-side WebSocket stack for Cricket 26, including cross-platform TLS handshake support, and carried it through platform certification.</li>
+				<li>Built and maintained the UI backend behind every screen in AFL 23, and owned most of the UI implementation and several complete game modes in TIEBREAK, including the move to NoesisGUI.</li>
+				<li>Delivered TRC/platform certification work across Cricket 24, Rugby 25, Rugby League 26 and Cricket 26, taking builds through submission on PC, PlayStation and Xbox.</li>
+				<li>Ported and merged gameplay systems between studio titles and stabilised the resulting integrations across the AFL, Rugby and Rugby League codebases.</li>
+				<li>Integrated PlayFab and PlayGo online services, and handled client-to-server integration work across multiple titles.</li>
+				<li>Designed and built internal production tooling: a memory-analysis workflow, an automated crash-capture and triage pipeline built on Windows Error Reporting, a distributed QA orchestrator for unattended multi-instance testing, and a migration of internal Python automation to CSX.</li>
+			</ul>
+		</div>
+
+		<h2>Shipped titles</h2>
+		<ul class="titles">
+			<li>Cricket 26 (2025)</li>
+			<li>Rugby League 26 (2025)</li>
+			<li>AFL 26 (2025)</li>
+			<li>Rugby 25 (2025)</li>
+			<li>TIEBREAK (2024)</li>
+			<li>Cricket 24 (2023)</li>
+			<li>AFL 23 (2023)</li>
+			<li>Cricket 22 (2022)</li>
+		</ul>
+
+		<h2>Selected personal work</h2>
+		<div class="job">
+			<div class="job-head">
+				<span class="job-title">AetherCore &mdash; Vulkan game engine (C++ / C#)</span>
+				<span class="job-dates">github.com/AlexMollard/AetherCore</span>
+			</div>
+			<ul>
+				<li>GPU-driven Vulkan renderer with bindless descriptors, a render graph, tiled lighting, GTAO, screen-space reflections and a full post stack.</li>
+				<li>Editor-first 2D and 3D workflow with a standalone launcher, dockable inspectors, prefabs, undo, autosave and crash recovery.</li>
+				<li>Hot-reloadable .NET 10 C# gameplay SDK with collectible load contexts, inspector-exposed script fields and a managed immediate-mode editor GUI API.</li>
+				<li>Owner-authoritative multiplayer over ENet reached through a cheapest-first ladder: LAN broadcast, UPnP/NAT-PMP/PCP, STUN hole punching, rendezvous signalling and opt-in TURN relay, with no port forwarding at any rung.</li>
+				<li>Eight in-repo projects act as the acceptance test; CI runs static architecture checks and a Windows build-and-unit pass on every push.</li>
+			</ul>
+		</div>
+		<div class="job">
+			<div class="job-head">
+				<span class="job-title">Earlier engines and experiments</span>
+			</div>
+			<ul>
+				<li>SlimeProject &mdash; co-developed Vulkan 1.3 engine; Odyssean Engine &mdash; C++ OpenGL/Vulkan 2D/3D engine that preceded AetherCore.</li>
+				<li>Dreaded Escape &mdash; multiplayer Unreal Engine 5 horror game built with a small team; I handled project setup, menus, Steamworks and the multiplayer layer.</li>
+				<li>Crash Twinsanity Improved &mdash; PS2 reverse-engineering patch set; RS3 Analyzer &mdash; Rust desktop market analyzer; Fly &mdash; C++ audio player with real-time visualisation.</li>
+			</ul>
+		</div>
+
+		<h2>Technical</h2>
+		<dl class="skills">
+			<dt>Languages</dt>
+			<dd>C++, C#, Rust, Python, GLSL/HLSL, PowerShell</dd>
+			<dt>Graphics</dt>
+			<dd>Vulkan, OpenGL, render graphs, bindless rendering, PBR, post-processing, GPU profiling</dd>
+			<dt>Engines</dt>
+			<dd>Proprietary studio engine, Unreal Engine 5, own C++ engines</dd>
+			<dt>Systems</dt>
+			<dd>Netcode (ENet, WebSocket, TLS, NAT traversal), physics (Jolt, Box2D), ECS, asset pipelines</dd>
+			<dt>Platforms</dt>
+			<dd>PC, PlayStation, Xbox; TRC/platform certification, PlayFab, PlayGo, Steamworks</dd>
+			<dt>Tooling</dt>
+			<dd>Editor and debug tooling, Tracy instrumentation, crash reporting (WER), CI, CMake, Git</dd>
+		</dl>
+
+		<h2>Education</h2>
+		<div class="job">
+			<div class="job-head">
+				<span class="job-title">Advanced Diploma of Professional Game Development &mdash; AIE Melbourne</span>
+			</div>
+			<p class="muted">Fundamentals of engine architecture, mathematics, and game systems programming, extended by self-taught C++ and graphics work.</p>
+		</div>
+
+		<h2>More</h2>
+		<p class="muted">
+			Full case studies, screenshots and source: alexmollard.dev &nbsp;&middot;&nbsp; github.com/AlexMollard
+			&nbsp;&middot;&nbsp; career history and references: au.linkedin.com/in/alex-mollard
+		</p>
+	</body>
+</html>

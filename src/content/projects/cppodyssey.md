@@ -9,7 +9,7 @@ media_images:
   - /media/hobbies/cpp-odyssey/vulkan-devices.webp
   - /media/hobbies/cpp-odyssey/vulkan-code-structure.webp
 engine: Jekyll + GitHub Pages
-api: Other
+domain: Tools
 features:
   - C++ project setup guides
   - Step-by-step Vulkan tutorials
@@ -17,7 +17,6 @@ features:
   - Hosted on GitHub Pages with just-the-docs theme
 performance_metrics: []
 external_url: https://alexmollard.github.io/CppOdyssey/
-featured: true
 ---
 
 A self-hosted documentation site for learning C++ development, built with Jekyll and the just-the-docs theme. Covers everything from environment setup to writing Vulkan game engines.

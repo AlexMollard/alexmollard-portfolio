@@ -9,17 +9,13 @@ media_images:
   - /media/professional/afl-23/afl-23-steam-2.webp
   - /media/professional/afl-23/afl-23-steam-3.webp
 engine: Proprietary Studio Engine
-api: Other
 features:
   - Game feature implementation
   - Bug fixing and polish
   - Cross-team integration
   - Performance-conscious delivery
-performance_metrics:
-  - Commercial release pipeline
-  - Continuous production QA feedback loop
+domain: Gameplay
 external_url: https://store.steampowered.com/app/2337630/AFL_23/
-featured: false
 ---
 
 My first professional shipped title. I was handed ownership of a partially-built in-house UI system and tasked with designing and implementing the backend that drives every UI element in the game — code that runs in every single scene. Beyond the backend, I built many of the frontend screens myself and contributed to Academy systems for custom player creation. A deep end entry into the industry that shaped how I approach systems programming.

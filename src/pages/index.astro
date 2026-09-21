@@ -2,21 +2,12 @@
 import { getCollection, render } from 'astro:content';
 import ProjectCaseStudy from '../components/ProjectCaseStudy.astro';
 import Layout from '../layouts/Layout.astro';
+import { withBase } from '../utils/withBase';
 
-const projects = (await getCollection('projects')).sort(
-	(a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
-
-const inferDomain = (project: (typeof projects)[number]) => {
-	if (project.data.domain) return project.data.domain;
-	const corpus = `${project.data.title} ${project.data.summary} ${project.data.features.join(' ')}`.toLowerCase();
-	if (corpus.includes('network') || corpus.includes('enet') || corpus.includes('udp')) return 'Networking';
-	if (corpus.includes('audio') || corpus.includes('openal')) return 'Tools';
-	if (corpus.includes('vulkan') || corpus.includes('render') || corpus.includes('pbr') || corpus.includes('shader')) return 'Graphics';
-	if (corpus.includes('engine')) return 'Engine';
-	if (corpus.includes('noise') || corpus.includes('fluid') || corpus.includes('marching')) return 'Research';
-	return 'Gameplay';
-};
+const projects = (await getCollection('projects')).sort((a, b) => {
+	const byDate = b.data.date.getTime() - a.data.date.getTime();
+	return byDate !== 0 ? byDate : a.data.title.localeCompare(b.data.title);
+});
 
 const atlasProjects = await Promise.all(
 	projects.map(async (project) => {
@@ -24,16 +15,23 @@ const atlasProjects = await Promise.all(
 
 		return {
 			project,
-			domain: inferDomain(project),
+			domain: project.data.domain,
 			year: project.data.date.getFullYear(),
 			Content
 		};
 	})
 );
 
-const domains = [...new Set(atlasProjects.map((item) => item.domain))];
+const shippedTitles = atlasProjects.filter(
+	(item) => item.project.data.category === 'Professional' && item.domain !== 'Tools'
+);
+const shippedTitleCount = shippedTitles.length;
+const shippedSinceYear = Math.min(...shippedTitles.map((item) => item.year));
+
+const cvHref = withBase('/alex-mollard-cv.pdf', import.meta.env.BASE_URL);
+const domains = [...new Set(atlasProjects.map((item) => item.domain))].sort();
 const categories = [...new Set(atlasProjects.map((item) => item.project.data.category))];
-const apis = [...new Set(atlasProjects.map((item) => item.project.data.api))];
+const apis = [...new Set(atlasProjects.map((item) => item.project.data.api).filter(Boolean))].sort();
 const years = [...new Set(atlasProjects.map((item) => item.year))].sort((a, b) => b - a);
 const spotlightProjects = atlasProjects
 	.filter((item) => item.project.data.spotlight_order !== undefined)
@@ -41,8 +39,8 @@ const spotlightProjects = atlasProjects
 ---
 
 	<Layout
-		title="Alex Mollard | Graphics Engineer"
-		description="Portfolio of Alex Mollard, a game programmer working on rendering, engine systems, networking, and tools."
+		title="Alex Mollard | Senior Generalist Programmer"
+		description="Senior Generalist Programmer at Big Ant Studios in Melbourne. Eight shipped console and PC titles, plus AetherCore, a Vulkan engine with an editor, C# scripting, and owner-authoritative netcode."
 >
 	<header id="top" class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
 		<section class="hero-stage w-[100dvw] px-6 pb-12 pt-8 sm:px-10 md:pb-16 md:pt-10 lg:px-14">
@@ -58,17 +56,18 @@ const spotlightProjects = atlasProjects
 
 				<div class="hero-layout grid gap-10 py-14 md:py-18 lg:grid-cols-[minmax(0,0.92fr)_minmax(30rem,1.08fr)] lg:items-end lg:gap-16 lg:py-20">
 					<div class="hero-intro max-w-3xl">
-						<p class="mono text-[11px] uppercase tracking-[0.16em] text-signal">Game programmer · Melbourne</p>
+						<p class="mono text-[11px] uppercase tracking-[0.16em] text-signal">Senior Generalist Programmer · Big Ant Studios · Melbourne</p>
 						<h1 class="mt-6 text-[clamp(4.1rem,8vw,8.8rem)] font-medium leading-[0.8] text-paper">
 							Alex<br />Mollard
 						</h1>
 						<p class="mt-9 max-w-2xl text-lg leading-relaxed text-muted md:text-[1.35rem]">
-							I work on rendering, engine systems, networking, and tools for games.
+							I build the systems a game is made of — Vulkan rendering, engine architecture, netcode, and the tools the rest of the team works in.
 						</p>
 						<div class="mt-8 flex flex-wrap gap-3">
 							<a href="mailto:alexmollard@protonmail.com" class="hero-action hero-action-primary">Email me <span aria-hidden="true">↗</span></a>
+							<a href={cvHref} class="hero-action" download>Download CV <span aria-hidden="true">↓</span></a>
 							<a href="#selected-work" class="hero-action">Selected work <span aria-hidden="true">↓</span></a>
-							<a href="https://github.com/AlexMollard" target="_blank" rel="noreferrer" class="hero-action">GitHub <span aria-hidden="true">↗</span></a>
+							<a href="https://au.linkedin.com/in/alex-mollard" target="_blank" rel="noreferrer" class="hero-action">LinkedIn <span aria-hidden="true">↗</span></a>
 						</div>
 					</div>
 
@@ -78,7 +77,7 @@ const spotlightProjects = atlasProjects
 							<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">01</p>
 						</div>
 						<div class="hero-project-media">
-							<img src="/media/hobbies/aethercore/editor.webp" alt="AetherCore's Vulkan editor showing a lit 3D scene and debugging panels" />
+							<img src={withBase('/media/hobbies/aethercore/editor.webp', import.meta.env.BASE_URL)} alt="The AetherCore Vulkan editor showing a lit 3D scene and debugging panels" width="2560" height="1441" />
 						</div>
 						<figcaption class="grid gap-4 border-t border-line p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
 							<div>
@@ -91,9 +90,9 @@ const spotlightProjects = atlasProjects
 				</div>
 
 				<div class="hero-facts grid gap-px border border-line bg-line sm:grid-cols-3">
-					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Work</p><p class="mt-1 text-sm text-paper">Big Ant Studios</p></div>
-					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Main tools</p><p class="mt-1 text-sm text-paper">C++ · Vulkan · C#</p></div>
-					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Current project</p><p class="mt-1 text-sm text-paper">AetherCore</p></div>
+					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Now</p><p class="mt-1 text-sm text-paper">Senior Generalist Programmer, Big Ant Studios</p></div>
+					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Shipped</p><p class="mt-1 text-sm text-paper">{shippedTitleCount} console and PC titles since {shippedSinceYear}</p></div>
+					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Core</p><p class="mt-1 text-sm text-paper">C++ · Vulkan · C# · engine tooling</p></div>
 				</div>
 			</div>
 		</section>
@@ -106,20 +105,20 @@ const spotlightProjects = atlasProjects
 					<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Selected work / {spotlightProjects.length} case studies</p>
 					<div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.65fr)] md:items-end">
 						<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">Selected<br /> projects.</h2>
-						<p class="max-w-xl text-base leading-relaxed text-muted">Four projects with more detail on my role, the technical problems, and the result.</p>
+						<p class="max-w-xl text-base leading-relaxed text-muted">{spotlightProjects.length} projects with more detail on my role, the technical problems, and the result.</p>
 					</div>
 				</header>
 
 				<div class="spotlight-grid grid gap-5 lg:grid-cols-2">
 					{spotlightProjects.map(({ project, domain, year, Content }, projectIndex) => {
 						const previewImage = project.data.media_images?.[0];
-						const slug = project.data.title === 'AetherCore' ? 'aethercore' : undefined;
+						const slug = project.id;
 
 						return (
 							<article id={slug} class="spotlight-card soft-panel card-pop overflow-hidden border border-line bg-surface" data-project-card>
 								{previewImage ? (
 									<div class="spotlight-media overflow-hidden border-b border-line">
-										<img src={previewImage} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading={projectIndex === 0 ? 'eager' : 'lazy'} />
+										<img src={withBase(previewImage, import.meta.env.BASE_URL)} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading={projectIndex === 0 ? 'eager' : 'lazy'} />
 									</div>
 								) : (
 									<div class="spotlight-placeholder border-b border-line p-5">
@@ -130,9 +129,9 @@ const spotlightProjects = atlasProjects
 								<div class="p-5 md:p-6">
 									<div class="flex items-start justify-between gap-4">
 										<div class="flex flex-wrap gap-2">
-											<span class="atlas-chip">{domain}</span>
-											<span class="atlas-chip">{project.data.api}</span>
-											<span class="atlas-chip">{year}</span>
+											<span class="meta-chip">{domain}</span>
+											{project.data.api && <span class="meta-chip">{project.data.api}</span>}
+											<span class="meta-chip">{year}</span>
 										</div>
 										<p class="mono shrink-0 text-[10px] tracking-[0.12em] text-signal">/{String(projectIndex + 1).padStart(2, '0')}</p>
 									</div>
@@ -194,12 +193,12 @@ const spotlightProjects = atlasProjects
 					<div id="atlas-filters-panel" class="mt-4 hidden space-y-4 lg:mt-0 lg:block">
 						<div>
 							<label for="atlas-search" class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Search</label>
-							<input id="atlas-search" type="text" placeholder="title, feature, summary" class="mt-2 w-full border-1 border-line bg-ground px-3 py-2 text-sm text-paper placeholder:text-muted/60 focus:border-signal focus:outline-none" />
+							<input id="atlas-search" type="text" placeholder="title, feature, summary" class="mt-2 w-full border-1 border-line bg-ground px-3 py-2 text-sm text-paper placeholder:text-muted focus:border-signal" />
 						</div>
 
 						<div>
 							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Sort</p>
-							<select id="atlas-sort" class="atlas-select mt-2 w-full border-1 border-line bg-ground px-3 py-2 text-sm text-paper focus:border-signal focus:outline-none">
+							<select id="atlas-sort" class="atlas-select mt-2 w-full border-1 border-line bg-ground px-3 py-2 text-sm text-paper focus:border-signal">
 								<option value="newest">Newest</option>
 								<option value="oldest">Oldest</option>
 								<option value="title">Title A-Z</option>
@@ -256,22 +255,22 @@ const spotlightProjects = atlasProjects
 									data-features={project.data.features.join(' ').toLowerCase()}
 									data-domain={domain}
 									data-category={project.data.category}
-									data-api={project.data.api}
+									data-api={project.data.api ?? ''}
 									data-year={String(year)}
 									data-ts={String(project.data.date.getTime())}
 								>
 									{previewImage && (
 										<div class="relative h-44 overflow-hidden border-b border-line">
-											<img src={previewImage} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading="lazy" />
+											<img src={withBase(previewImage, import.meta.env.BASE_URL)} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading="lazy" />
 										</div>
 									)}
 									<div class="space-y-3 p-5">
 										<div class="flex items-start justify-between gap-3">
 											<div class="flex flex-wrap items-center gap-2">
-												<span class="atlas-chip">{domain}</span>
-												<span class="atlas-chip">{project.data.api}</span>
-												<span class="atlas-chip">{project.data.category}</span>
-												<span class="atlas-chip">{year}</span>
+												<span class="meta-chip">{domain}</span>
+												{project.data.api && <span class="meta-chip">{project.data.api}</span>}
+												<span class="meta-chip">{project.data.category}</span>
+												<span class="meta-chip">{year}</span>
 											</div>
 											<p class="mono shrink-0 text-[10px] tracking-[0.12em] text-signal">/{String(projectIndex + 1).padStart(2, '0')}</p>
 										</div>
@@ -317,8 +316,11 @@ const spotlightProjects = atlasProjects
 						})}
 					</div>
 
-					<div class="flex items-center justify-between gap-4">
-						<p id="atlas-empty" class="hidden text-sm text-muted">No projects match the current filter set.</p>
+					<div class="flex flex-wrap items-center justify-between gap-4">
+						<p id="atlas-empty" class="hidden text-sm text-muted">
+							No projects match the current filter set.
+							<button id="atlas-empty-reset" type="button" class="ml-2 underline decoration-signal underline-offset-4 hover:text-paper">Reset filters</button>
+						</p>
 						<button id="atlas-load-more" type="button" class="atlas-chip">Load More</button>
 					</div>
 				</div>
@@ -370,11 +372,23 @@ const spotlightProjects = atlasProjects
 					limit: 6
 				};
 
+				const allowedValues = (groupName) => {
+					const group = groups.find((node) => node.getAttribute('data-filter-group') === groupName);
+					if (!group) return [];
+					return Array.from(group.querySelectorAll('.atlas-chip')).map((chip) => chip.getAttribute('data-filter'));
+				};
+
 				const params = new URLSearchParams(window.location.search);
-				(['domain', 'category', 'api', 'year', 'sort', 'search']).forEach((key) => {
+				(['domain', 'category', 'api', 'year']).forEach((key) => {
 					const value = params.get(key);
-					if (value) state[key] = value;
+					if (value && allowedValues(key).includes(value)) state[key] = value;
 				});
+				const sortParam = params.get('sort');
+				if (sortParam && Array.from(sortSelect.options).some((option) => option.value === sortParam)) {
+					state.sort = sortParam;
+				}
+				const searchParam = params.get('search');
+				if (searchParam) state.search = searchParam;
 
 				searchInput.value = state.search;
 				sortSelect.value = state.sort;
@@ -404,6 +418,7 @@ const spotlightProjects = atlasProjects
 					group.querySelectorAll('.atlas-chip').forEach((chip) => {
 						const isActive = chip.getAttribute('data-filter') === value;
 						chip.classList.toggle('atlas-chip-active', isActive);
+						chip.setAttribute('aria-pressed', String(isActive));
 					});
 				};
 
@@ -552,7 +567,6 @@ const spotlightProjects = atlasProjects
 				});
 
 				document.querySelectorAll('[data-project-card]').forEach((card) => {
-					card.style.cursor = 'pointer';
 					card.addEventListener('click', (e) => {
 						if (e.target.closest('a, button')) return;
 						const toggle = card.querySelector('.case-study-toggle');
@@ -660,7 +674,7 @@ const spotlightProjects = atlasProjects
 					apply();
 				});
 
-				resetButton.addEventListener('click', () => {
+				const resetFilters = () => {
 					state.search = '';
 					state.domain = 'all';
 					state.category = 'all';
@@ -675,23 +689,20 @@ const spotlightProjects = atlasProjects
 					setActiveChip('api', 'all');
 					setActiveChip('year', 'all');
 					apply();
-				});
+				};
 
-				// Infinite scroll: detect when user scrolls near the end
+				resetButton.addEventListener('click', resetFilters);
+				document.getElementById('atlas-empty-reset')?.addEventListener('click', resetFilters);
+
+				// Infinite scroll: one sentinel, one observer, reused across every filter change.
 				const setupInfiniteScroll = () => {
 					const grid = document.getElementById('atlas-grid');
-					if (!grid) return;
+					if (!grid || document.getElementById('atlas-scroll-sentinel')) return;
 
-					// Remove old sentinel if exists
-					const oldSentinel = document.getElementById('atlas-scroll-sentinel');
-					if (oldSentinel) oldSentinel.remove();
-
-					// Create sentinel element
 					const sentinel = document.createElement('div');
 					sentinel.id = 'atlas-scroll-sentinel';
 					grid.parentNode?.insertBefore(sentinel, grid.nextSibling);
 
-					// Setup observer
 					const observer = new IntersectionObserver((entries) => {
 						entries.forEach((entry) => {
 							if (entry.isIntersecting && !loadMoreButton.classList.contains('hidden')) {
@@ -715,11 +726,14 @@ const spotlightProjects = atlasProjects
 				<div>
 					<p class="mono text-[10px] uppercase tracking-[0.16em] text-signal">Contact</p>
 					<a href="mailto:alexmollard@protonmail.com" class="footer-email mt-4 inline-block text-2xl font-medium leading-snug text-paper underline decoration-signal underline-offset-8 sm:text-3xl">alexmollard@protonmail.com</a>
+					<p class="mt-4 max-w-md text-sm leading-relaxed text-muted">Senior Generalist Programmer at Big Ant Studios, Melbourne. Open to talking about rendering, engine architecture, and tools work.</p>
 				</div>
 
 				<div class="border-t border-line pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-1">
 					<p class="mono text-[9px] uppercase tracking-[0.14em] text-muted">Links</p>
 					<div class="mt-3 grid grid-cols-2 gap-3">
+						<a href={cvHref} class="hero-action" download>Download CV <span aria-hidden="true">↓</span></a>
+						<a href="https://au.linkedin.com/in/alex-mollard" target="_blank" rel="noreferrer" class="hero-action">LinkedIn <span aria-hidden="true">↗</span></a>
 						<a href="https://github.com/AlexMollard" target="_blank" rel="noreferrer" class="hero-action">GitHub <span aria-hidden="true">↗</span></a>
 						<a href="#top" class="hero-action">Back to top <span aria-hidden="true">↑</span></a>
 					</div>

@@ -11,16 +11,13 @@ media_images:
   - /media/hobbies/2d-game/2d-game-3.webp
 engine: Custom 2D Engine
 api: OpenGL
+domain: Gameplay
 features:
   - 2D physics and collision systems
   - Sprite and text rendering pipeline
   - Texture atlas workflow
   - Input and gameplay loop prototyping
-performance_metrics:
-  - Interactive runtime iteration while developing core systems
-  - Built as a systems testbed for future engine work
 external_url: https://github.com/AlexMollard/SlimeCore2D
-featured: false
 ---
 
-A practical systems-focused 2D project used to validate rendering and gameplay architecture in a smaller scope.
+I built this project to validate rendering and gameplay architecture in a smaller scope before committing to a larger engine, and the systems I proved here carried directly into my later engine work.

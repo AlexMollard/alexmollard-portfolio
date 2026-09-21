@@ -8,17 +8,13 @@ media_images:
   - /media/hobbies/cvar-testing/cvar-1.webp
   - /media/hobbies/cvar-testing/cvar-2.webp
 engine: Custom C++ Application
-api: Other
+domain: Tools
 features:
   - Runtime command console integrated directly into the application loop
   - CVar-style command registration and parsing pipeline
   - Custom commands for driving behavior and triggering code paths at runtime
   - Lightweight workflow for debugging and iteration without building UI panels
-performance_metrics:
-  - Fast in-app iteration by executing commands without rebuilding interfaces
-  - Reduced debug friction for engine and gameplay style experiments
-external_url: https://github.com/AlexMollard/WindowsSDK-Cvar-Testing.git
-featured: true
+external_url: https://github.com/AlexMollard/WindowsSDK-Cvar-Testing
 ---
 
-Prototype project focused on how a developer console can control a running app. The goal was to test how custom text commands could execute code directly, similar to how you might interact with an engine or game at runtime, without needing dedicated GUI tooling.
+I prototyped how a developer console can control a running app. The goal was to test how custom text commands could execute code directly, similar to how you might interact with an engine or game at runtime, without needing dedicated GUI tooling.

@@ -1,7 +1,7 @@
 ---
 interface Props {
 	engine: string;
-	api: string;
+	api?: string;
 	features: string[];
 	performanceMetrics?: string[];
 }
@@ -15,10 +15,12 @@ const { engine, api, features, performanceMetrics = [] } = Astro.props as Props;
 			<dt class="case-study-label">Engine</dt>
 			<dd class="mt-1.5 text-sm text-paper">{engine}</dd>
 		</div>
-		<div>
-			<dt class="case-study-label">Graphics API</dt>
-			<dd class="mt-1.5 text-sm text-paper">{api}</dd>
-		</div>
+		{api && (
+			<div>
+				<dt class="case-study-label">Graphics API</dt>
+				<dd class="mt-1.5 text-sm text-paper">{api}</dd>
+			</div>
+		)}
 	</dl>
 
 	<div class="grid items-start gap-4 xl:grid-cols-2">

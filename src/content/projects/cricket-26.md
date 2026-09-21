@@ -3,33 +3,27 @@ title: Cricket 26
 date: 2025-10-01
 category: Professional
 summary: A multi-platform cricket game released on PC, PlayStation, and Xbox.
-role: Built in-house tooling, drove TRC certification work, and fully implemented the client-side websocket stack including cross-platform TLS handshake support.
+role: I fully implemented the title's client-side WebSocket stack, including cross-platform TLS handshake support, and took that networking work through TRC certification for release, alongside building in-house tooling.
 media_images:
   - /media/professional/cricket-26/cricket-26-1.webp
   - /media/professional/cricket-26/cricket-26-2.webp
   - /media/professional/cricket-26/cricket-26-3.webp
 engine: Proprietary Studio Engine
-api: Other
 features:
   - Cricket franchise systems support
   - Multi-platform release workflow
   - Client-side websocket implementation
   - Cross-platform TLS handshake implementation
-performance_metrics:
-  - Ongoing annualized release cadence support
-  - Stable performance and quality targets in production
-  - Reliable secure websocket connectivity across all target platforms
+domain: Networking
 problem: The title needed a production-ready websocket client with secure TLS behaviour that remained consistent across every supported platform and its different networking constraints.
 approach:
   - Implemented the client-side websocket stack and platform-specific TLS handshake path inside the studio engine.
   - Worked alongside certification and release requirements so the networking implementation was validated under the same constraints as the shipped game.
   - Continued improving in-house tooling around the release workflow rather than treating networking as an isolated feature.
 outcomes:
-  - The websocket client shipped on PC, PlayStation, and Xbox.
-  - Supported TRC certification and release work.
-  - The networking and tooling work can be reused on other titles.
-external_url: https://www.bigant.com/
-featured: false
+  - The websocket client and its TLS handshake paths shipped in the released game on PC, PlayStation, and Xbox.
+  - The title passed platform certification with the networking stack in place.
+  - The team kept in-house tooling improvements around the release workflow.
 spotlight_order: 3
 ---
 

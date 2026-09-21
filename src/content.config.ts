@@ -15,15 +15,14 @@ const projects = defineCollection({
 		youtube_url: z.string().url().optional(),
 		media_images: z.array(z.string()).default([]),
 		engine: z.string(),
-		api: z.enum(['Vulkan', 'OpenGL', 'DirectX', 'Metal', 'WebGPU', 'Other']),
+		api: z.enum(['Vulkan', 'OpenGL', 'DirectX', 'Metal', 'WebGPU']).optional(),
 		features: z.array(z.string()).min(1),
-		domain: z.enum(['Graphics', 'Networking', 'Gameplay', 'Tools', 'Engine', 'Research']).optional(),
+		domain: z.enum(['Graphics', 'Networking', 'Gameplay', 'Tools', 'Engine', 'Research']),
 		performance_metrics: z.array(z.string()).default([]),
 		problem: z.string().optional(),
 		approach: z.array(z.string()).default([]),
 		outcomes: z.array(z.string()).default([]),
 		external_url: z.string().url().optional(),
-		featured: z.boolean().default(false),
 		spotlight_order: z.number().int().positive().optional()
 	})
 });
