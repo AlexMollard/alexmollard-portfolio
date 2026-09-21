@@ -27,6 +27,7 @@ const shippedTitles = atlasProjects.filter(
 );
 const shippedTitleCount = shippedTitles.length;
 const shippedSinceYear = Math.min(...shippedTitles.map((item) => item.year));
+const agentDirectedCount = atlasProjects.filter((item) => item.project.data.build_mode === 'Agent-directed').length;
 
 const cvHref = withBase('/alex-mollard-cv.pdf', import.meta.env.BASE_URL);
 const domains = [...new Set(atlasProjects.map((item) => item.domain))].sort();
@@ -48,6 +49,7 @@ const spotlightProjects = atlasProjects
 				<nav class="hero-nav flex flex-wrap items-center justify-between gap-4 border-b border-line pb-4" aria-label="Primary navigation">
 					<a href="#top" class="mono text-[10px] uppercase tracking-[0.16em] text-paper">Alex Mollard / Portfolio</a>
 					<div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+						<a href="#how-i-work" class="hero-nav-link">How I work</a>
 						<a href="#selected-work" class="hero-nav-link">Selected work</a>
 						<a href="#archive" class="hero-nav-link">Archive</a>
 						<a href="https://github.com/AlexMollard" target="_blank" rel="noreferrer" class="hero-nav-link">GitHub ↗</a>
@@ -71,22 +73,36 @@ const spotlightProjects = atlasProjects
 						</div>
 					</div>
 
-					<figure class="hero-project soft-panel overflow-hidden border border-line bg-surface">
+					<div class="hero-board soft-panel overflow-hidden border border-line bg-surface">
 						<div class="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
-							<p class="mono text-[9px] uppercase tracking-[0.14em] text-muted">Current personal work / AetherCore</p>
-							<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">01</p>
+							<p class="mono text-[9px] uppercase tracking-[0.14em] text-muted">Shipped titles</p>
+							<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">{String(shippedTitleCount).padStart(2, '0')}</p>
 						</div>
-						<div class="hero-project-media">
-							<img src={withBase('/media/hobbies/aethercore/editor.webp', import.meta.env.BASE_URL)} alt="The AetherCore Vulkan editor showing a lit 3D scene and debugging panels" width="2560" height="1441" />
-						</div>
-						<figcaption class="grid gap-4 border-t border-line p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+						<ul class="hero-shipped">
+							{shippedTitles.map(({ project, year }, index) => (
+								<li class="hero-shipped-tile">
+									{project.data.media_images?.[0] && (
+										<img
+											src={withBase(project.data.media_images[0], import.meta.env.BASE_URL)}
+											alt={`${project.data.title} screenshot`}
+											loading={index < 4 ? 'eager' : 'lazy'}
+										/>
+									)}
+									<span class="hero-shipped-label">
+										<span class="truncate text-paper">{project.data.title}</span>
+										<span>{year}</span>
+									</span>
+								</li>
+							))}
+						</ul>
+						<div class="grid gap-3 border-t border-line p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
 							<div>
-								<p class="text-lg font-medium text-paper">AetherCore editor</p>
-								<p class="mt-1 max-w-xl text-sm leading-relaxed text-muted">Personal C++ and Vulkan engine with 2D and 3D editing, C# scripting, asset tools, profiling, and automation.</p>
+								<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">Current personal work</p>
+								<p class="mt-1.5 text-sm leading-relaxed text-muted"><span class="text-paper">AetherCore</span> - a Vulkan engine with an editor, hot-reloadable C# gameplay, and owner-authoritative netcode.</p>
 							</div>
-							<a href="#aethercore" class="mono text-[10px] uppercase tracking-[0.14em] text-paper underline decoration-signal underline-offset-4">Read case study</a>
-						</figcaption>
-					</figure>
+							<a href="#aethercore" class="mono shrink-0 text-[10px] uppercase tracking-[0.14em] text-paper underline decoration-signal underline-offset-4">Read case study</a>
+						</div>
+					</div>
 				</div>
 
 				<div class="hero-facts grid gap-px border border-line bg-line sm:grid-cols-3">
@@ -100,6 +116,31 @@ const spotlightProjects = atlasProjects
 
 	<main class="relative left-1/2 -mx-[50dvw] w-[100dvw] px-6 py-20 md:px-10 md:py-28 lg:px-14">
 		<div class="mx-auto max-w-[104rem]">
+			<section id="how-i-work" class="scroll-mt-8 pb-24 md:pb-32">
+				<header class="section-rule mb-10 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-end">
+					<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">How I work / {agentDirectedCount} agent-directed projects</p>
+					<div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.65fr)] md:items-end">
+						<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">Directing<br /> agent work.</h2>
+						<p class="max-w-xl text-base leading-relaxed text-muted">I architect and review; multi-model agent harnesses do most of the typing. Projects built that way carry an <span class="text-paper">Agent-directed</span> label below - I am not going to pretend otherwise.</p>
+					</div>
+				</header>
+
+				<div class="grid gap-5 lg:grid-cols-3">
+					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Design and constraints</p>
+						<p class="mt-3 text-sm leading-relaxed text-muted">I decide the architecture, the boundaries between systems, and the acceptance criteria before any agent runs. AetherCore's engine-facing GPU abstraction, its immutable render packets, and its owner-authoritative netcode model are design calls, not generated ones.</p>
+					</article>
+					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Verification floor</p>
+						<p class="mt-3 text-sm leading-relaxed text-muted">Agent output only counts once it survives a gate. AetherCore keeps 1,271 automated tests across 152 suites, an automated guard that fails the build when engine code reaches past the GPU abstraction, and CI architecture checks on every push. Nothing merges on vibes.</p>
+					</article>
+					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Throughput</p>
+						<p class="mt-3 text-sm leading-relaxed text-muted">Running several models in parallel through harnesses like omp and Claude Code, with work split so agents do not collide, turns subsystems that used to take weeks into days. A solo engine of this size is only tractable because of it.</p>
+					</article>
+				</div>
+			</section>
+
 			<section id="selected-work" class="scroll-mt-8">
 				<header class="section-rule mb-12 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-end">
 					<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Selected work / {spotlightProjects.length} case studies</p>
