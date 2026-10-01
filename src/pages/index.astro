@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import HeroGrid from '../components/HeroGrid.astro';
 import ProjectCaseStudy from '../components/ProjectCaseStudy.astro';
 import Layout from '../layouts/Layout.astro';
 import { withBase } from '../utils/withBase';
@@ -45,6 +46,7 @@ const spotlightProjects = atlasProjects
 >
 	<header id="top" class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
 		<section class="hero-stage w-[100dvw] px-6 pb-12 pt-8 sm:px-10 md:pb-16 md:pt-10 lg:px-14">
+			<HeroGrid />
 			<div class="mx-auto max-w-[104rem]">
 				<nav class="hero-nav flex flex-wrap items-center justify-between gap-4 border-b border-line pb-4" aria-label="Primary navigation">
 					<a href="#top" class="mono text-[10px] uppercase tracking-[0.16em] text-paper">Alex Mollard / Portfolio</a>
@@ -68,7 +70,7 @@ const spotlightProjects = atlasProjects
 						<div class="mt-8 flex flex-wrap gap-3">
 							<a href="mailto:alexmollard@protonmail.com" class="hero-action hero-action-primary">Email me <span aria-hidden="true">↗</span></a>
 							<a href={cvHref} class="hero-action" download>Download CV <span aria-hidden="true">↓</span></a>
-							<a href="#selected-work" class="hero-action">Selected work <span aria-hidden="true">↓</span></a>
+							<a href="https://github.com/AlexMollard" target="_blank" rel="noreferrer" class="hero-action">GitHub <span aria-hidden="true">↗</span></a>
 							<a href="https://au.linkedin.com/in/alex-mollard" target="_blank" rel="noreferrer" class="hero-action">LinkedIn <span aria-hidden="true">↗</span></a>
 						</div>
 					</div>
@@ -126,32 +128,32 @@ const spotlightProjects = atlasProjects
 				</header>
 
 				<div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
 						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Design</p>
 						<p class="mt-3 text-lg leading-snug text-paper">I decide the architecture.</p>
 						<p class="mt-2 text-sm leading-relaxed text-muted">GPU abstraction boundaries, immutable render packets, owner-authoritative netcode - design calls, not generated ones.</p>
 					</article>
-					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
 						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Verification</p>
 						<p class="mt-3 text-lg leading-snug text-paper">Nothing merges on vibes.</p>
 						<p class="mt-2 text-sm leading-relaxed text-muted">1,271 tests, a guard that fails the build on abstraction leaks, architecture checks every push.</p>
 					</article>
-					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
 						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Throughput</p>
 						<p class="mt-3 text-lg leading-snug text-paper">Weeks of work, done in days.</p>
 						<p class="mt-2 text-sm leading-relaxed text-muted">Several models running in parallel through omp and Claude Code, split so they do not collide.</p>
 					</article>
-					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
 						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Evaluation</p>
 						<p class="mt-3 text-lg leading-snug text-paper">I learn it before I add it.</p>
 						<p class="mt-2 text-sm leading-relaxed text-muted">New Vulkan extensions and NAT traversal - studied properly, then mostly left out. The connect ladder earned its place.</p>
 					</article>
-					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
 						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Tools for teammates</p>
 						<p class="mt-3 text-lg leading-snug text-paper">I build what they asked for.</p>
 						<p class="mt-2 text-sm leading-relaxed text-muted">Every in-house tool starts with the programmers and QA who will live in it. I write up what they need, then document the result so it is usable without me.</p>
 					</article>
-					<article class="soft-panel border-1 border-line bg-surface p-5 md:p-6">
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
 						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Release pressure</p>
 						<p class="mt-3 text-lg leading-snug text-paper">I take the tickets nobody else can finish.</p>
 						<p class="mt-2 text-sm leading-relaxed text-muted">Near submission I work directly with producers and clear the TRC tickets at risk of missing the date, including other seniors' queues when they are away. I was doing that before I had the title.</p>

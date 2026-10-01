@@ -88,6 +88,59 @@ h3 {
 	background: color-mix(in oklab, var(--color-raised) 84%, var(--color-signal));
 }
 
+.card-pop,
+.card-glow {
+	position: relative;
+}
+
+.card-glow {
+	transition: border-color 180ms ease;
+}
+
+.card-glow:hover {
+	border-color: color-mix(in oklab, var(--color-signal) 45%, var(--color-line));
+}
+
+.card-pop::after,
+.card-glow::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	pointer-events: none;
+	background: radial-gradient(22rem circle at var(--glow-x, 50%) var(--glow-y, 50%), color-mix(in oklab, var(--color-signal) 13%, transparent), transparent 70%);
+	opacity: 0;
+	transition: opacity 220ms ease;
+}
+
+.card-pop:hover::after,
+.card-glow:hover::after {
+	opacity: 1;
+}
+
+/* Transitions, not animations: the archive re-appends cards, which would restart an animation mid-reveal. */
+[data-reveal] {
+	opacity: 0;
+	translate: 0 14px;
+	transition: opacity 600ms ease, translate 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+	transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal].is-revealed {
+	opacity: 1;
+	translate: none;
+}
+
+.section-rule[data-reveal]::before {
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 900ms cubic-bezier(0.65, 0, 0.35, 1) calc(var(--reveal-delay, 0ms) + 220ms);
+}
+
+.section-rule[data-reveal].is-revealed::before {
+	transform: none;
+}
+
 .card-pop img {
 	filter: saturate(0.72) contrast(1.04);
 	transition: filter 220ms ease, transform 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -107,6 +160,19 @@ h3 {
 		var(--color-ground);
 	background-size: 5rem 5rem;
 	border-bottom: 1px solid var(--color-line);
+}
+
+.hero-stage.hero-grid-live {
+	background: var(--color-ground);
+}
+
+.hero-grid-canvas {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
 }
 
 .hero-nav,
@@ -601,6 +667,14 @@ body.atlas-island-open {
 
 	.card-pop,
 	.card-pop img {
+		transition: none;
+	}
+
+	[data-reveal],
+	.section-rule[data-reveal]::before {
+		opacity: 1;
+		translate: none;
+		transform: none;
 		transition: none;
 	}
 }

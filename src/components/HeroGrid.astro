@@ -1,0 +1,255 @@
+<canvas class="hero-grid-canvas" aria-hidden="true" data-hero-grid></canvas>
+
+<script is:inline>
+	(() => {
+		const canvas = document.querySelector('[data-hero-grid]');
+		const stage = canvas?.closest('.hero-stage');
+		const ctx = canvas?.getContext('2d');
+		if (!canvas || !stage || !ctx) return;
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+		const rootStyle = getComputedStyle(document.documentElement);
+		const readRgb = (name, fallback) => {
+			const value = rootStyle.getPropertyValue(name).trim();
+			const hex = /^#[0-9a-f]{6}$/i.test(value) ? value : fallback;
+			const n = parseInt(hex.slice(1), 16);
+			return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+		};
+		const lineRgb = readRgb('--color-line', '#30383d');
+		const signalRgb = readRgb('--color-signal', '#ff654f');
+		const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+
+		// Gravity well radius / pull, ripple shape, and line sampling step (px).
+		const SIGMA = 170;
+		const PULL = 0.15;
+		const STEP = 14;
+		const RIPPLE_SPEED = 520;
+		const RIPPLE_LIFE = 1.6;
+		const RIPPLE_AMP = 16;
+
+		const pointer = { tx: 0, ty: 0, x: 0, y: 0, inside: false, s: 0 };
+		const ripples = [];
+		const cells = new Map();
+		let width = 0;
+		let height = 0;
+		let cell = 80;
+		let raf = 0;
+		let last = 0;
+		let onScreen = true;
+		let live = false;
+
+		const isVisible = () => onScreen && document.visibilityState === 'visible';
+
+		const displace = (x, y, out) => {
+			let ox = 0;
+			let oy = 0;
+			if (pointer.s > 0) {
+				const dx = pointer.x - x;
+				const dy = pointer.y - y;
+				const f = pointer.s * PULL * Math.exp(-(dx * dx + dy * dy) / (2 * SIGMA * SIGMA));
+				ox += dx * f;
+				oy += dy * f;
+			}
+			for (const r of ripples) {
+				const dx = x - r.x;
+				const dy = y - r.y;
+				const d = Math.hypot(dx, dy) || 1;
+				const band = (d - r.radius) / 36;
+				const a = r.amp * Math.exp(-band * band);
+				ox += (dx / d) * a;
+				oy += (dy / d) * a;
+			}
+			out[0] = x + ox;
+			out[1] = y + oy;
+		};
+
+		const p = [0, 0];
+
+		const traceEdge = (path, x0, y0, x1, y1, move) => {
+			const steps = Math.max(1, Math.ceil(Math.hypot(x1 - x0, y1 - y0) / STEP));
+			for (let n = move ? 0 : 1; n <= steps; n++) {
+				const t = n / steps;
+				displace(x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, p);
+				if (n === 0) path.moveTo(p[0], p[1]);
+				else path.lineTo(p[0], p[1]);
+			}
+		};
+
+		const draw = () => {
+			ctx.clearRect(0, 0, width, height);
+			const cols = Math.ceil(width / cell);
+			const rows = Math.ceil(height / cell);
+
+			for (const c of cells.values()) {
+				const x0 = c.i * cell;
+				const y0 = c.j * cell;
+				const quad = new Path2D();
+				traceEdge(quad, x0, y0, x0 + cell, y0, true);
+				traceEdge(quad, x0 + cell, y0, x0 + cell, y0 + cell, false);
+				traceEdge(quad, x0 + cell, y0 + cell, x0, y0 + cell, false);
+				traceEdge(quad, x0, y0 + cell, x0, y0, false);
+				quad.closePath();
+				ctx.fillStyle = rgba(signalRgb, c.v * 0.14);
+				ctx.fill(quad);
+			}
+
+			const vertical = new Path2D();
+			const horizontal = new Path2D();
+			for (let i = 0; i <= cols; i++) traceEdge(vertical, i * cell + 0.5, 0, i * cell + 0.5, height, true);
+			for (let j = 0; j <= rows; j++) traceEdge(horizontal, 0, j * cell + 0.5, width, j * cell + 0.5, true);
+
+			ctx.lineWidth = 1;
+			ctx.strokeStyle = rgba(lineRgb, 0.13);
+			ctx.stroke(vertical);
+			ctx.strokeStyle = rgba(lineRgb, 0.08);
+			ctx.stroke(horizontal);
+
+			if (pointer.s > 0.01) {
+				const glow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, SIGMA * 1.7);
+				glow.addColorStop(0, rgba(signalRgb, 0.5 * pointer.s));
+				glow.addColorStop(1, rgba(signalRgb, 0));
+				ctx.strokeStyle = glow;
+				ctx.stroke(vertical);
+				ctx.stroke(horizontal);
+
+				const reach = SIGMA * 2.2;
+				const iMin = Math.max(0, Math.floor((pointer.x - reach) / cell));
+				const iMax = Math.min(cols, Math.ceil((pointer.x + reach) / cell));
+				const jMin = Math.max(0, Math.floor((pointer.y - reach) / cell));
+				const jMax = Math.min(rows, Math.ceil((pointer.y + reach) / cell));
+				for (let i = iMin; i <= iMax; i++) {
+					for (let j = jMin; j <= jMax; j++) {
+						const dx = i * cell - pointer.x;
+						const dy = j * cell - pointer.y;
+						const a = pointer.s * Math.exp(-(dx * dx + dy * dy) / (2 * SIGMA * SIGMA));
+						if (a < 0.03) continue;
+						displace(i * cell + 0.5, j * cell + 0.5, p);
+						ctx.fillStyle = rgba(signalRgb, a * 0.9);
+						ctx.fillRect(p[0] - 1.5, p[1] - 1.5, 3, 3);
+					}
+				}
+			}
+
+			if (!live) {
+				live = true;
+				stage.classList.add('hero-grid-live');
+			}
+		};
+
+		const frame = (t) => {
+			raf = 0;
+			const dt = last ? Math.min((t - last) / 1000, 0.05) : 1 / 60;
+			last = t;
+
+			const follow = 1 - Math.exp(-dt * 10);
+			pointer.x += (pointer.tx - pointer.x) * follow;
+			pointer.y += (pointer.ty - pointer.y) * follow;
+			pointer.s += ((pointer.inside ? 1 : 0) - pointer.s) * (1 - Math.exp(-dt * 4));
+			if (!pointer.inside && pointer.s < 0.002) pointer.s = 0;
+
+			for (let n = ripples.length - 1; n >= 0; n--) {
+				const r = ripples[n];
+				r.age += dt;
+				r.radius = r.age * RIPPLE_SPEED;
+				r.amp = RIPPLE_AMP * (1 - r.age / RIPPLE_LIFE);
+				if (r.age >= RIPPLE_LIFE) ripples.splice(n, 1);
+			}
+
+			for (const [key, c] of cells) {
+				c.v -= dt * c.decay;
+				if (c.v <= 0) cells.delete(key);
+			}
+
+			draw();
+
+			if (isVisible() && (pointer.inside || pointer.s > 0 || ripples.length || cells.size)) {
+				raf = requestAnimationFrame(frame);
+			} else {
+				last = 0;
+			}
+		};
+
+		const kick = () => {
+			if (!raf && isVisible()) raf = requestAnimationFrame(frame);
+		};
+
+		const light = (i, j, v, decay) => {
+			const key = `${i},${j}`;
+			const existing = cells.get(key);
+			if (existing && existing.v >= v) return;
+			cells.set(key, { i, j, v, decay });
+		};
+
+		const localPoint = (event) => {
+			const rect = stage.getBoundingClientRect();
+			return [event.clientX - rect.left, event.clientY - rect.top];
+		};
+
+		stage.addEventListener('pointermove', (event) => {
+			const [x, y] = localPoint(event);
+			if (!pointer.inside && pointer.s === 0) {
+				pointer.x = x;
+				pointer.y = y;
+			}
+			pointer.tx = x;
+			pointer.ty = y;
+			pointer.inside = true;
+			light(Math.floor(x / cell), Math.floor(y / cell), 1, 0.9);
+			kick();
+		}, { passive: true });
+
+		const release = () => {
+			pointer.inside = false;
+			kick();
+		};
+		stage.addEventListener('pointerleave', release);
+		stage.addEventListener('pointercancel', release);
+		stage.addEventListener('pointerup', (event) => {
+			if (event.pointerType !== 'mouse') release();
+		});
+
+		stage.addEventListener('pointerdown', (event) => {
+			if (event.button !== 0) return;
+			const [x, y] = localPoint(event);
+			if (ripples.length >= 4) ripples.shift();
+			ripples.push({ x, y, age: 0, radius: 0, amp: RIPPLE_AMP });
+			kick();
+		});
+
+		// Ambient pulses keep the grid alive for touch users and idle visitors.
+		const pulse = () => {
+			if (isVisible() && width && height) {
+				const cols = Math.ceil(width / cell);
+				const rows = Math.ceil(height / cell);
+				const count = pointer.inside ? 1 : 2;
+				for (let n = 0; n < count; n++) {
+					light(Math.floor(Math.random() * cols), Math.floor(Math.random() * rows), 0.6, 0.35);
+				}
+				kick();
+			}
+			window.setTimeout(pulse, 900 + Math.random() * 1300);
+		};
+
+		const resize = () => {
+			const rect = stage.getBoundingClientRect();
+			const dpr = Math.min(window.devicePixelRatio || 1, 2);
+			width = rect.width;
+			height = rect.height;
+			cell = 5 * parseFloat(rootStyle.fontSize);
+			canvas.width = Math.round(width * dpr);
+			canvas.height = Math.round(height * dpr);
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			draw();
+		};
+
+		new ResizeObserver(resize).observe(stage);
+		new IntersectionObserver((entries) => {
+			onScreen = entries[entries.length - 1].isIntersecting;
+			kick();
+		}).observe(stage);
+		document.addEventListener('visibilitychange', kick);
+
+		resize();
+		pulse();
+	})();
+</script>
