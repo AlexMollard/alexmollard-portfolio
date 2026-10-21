@@ -5,20 +5,15 @@
  *
  * PNG  → WebP quality 85, effort 6 (lossy, alpha preserved)
  * JPG  → WebP quality 85, effort 6
- * GIF  → re-compressed with gifsicle -O3 (kept as GIF — animated WebP is niche)
+ * GIF  → re-compressed with Sharp (animation and timing preserved)
  * WebP → skipped (already converted)
  */
 
 import sharp from 'sharp';
-import gifsicle from 'gifsicle';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
 import { readdir, stat, readFile, writeFile, rename, unlink } from 'node:fs/promises';
 import { join, extname, relative, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomBytes } from 'node:crypto';
-
-const execFileAsync = promisify(execFile);
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const MEDIA_DIR = join(ROOT, 'public', 'media');
@@ -63,7 +58,9 @@ for await (const filePath of walk(MEDIA_DIR)) {
 		const { size: before } = await stat(filePath);
 		const tmp = join(dirname(filePath), `_tmp-${randomBytes(6).toString('hex')}.gif`);
 		try {
-			await execFileAsync(gifsicle, ['--optimize=3', '--output', tmp, filePath]);
+			await sharp(await readFile(filePath), { animated: true })
+				.gif({ effort: 10, interPaletteMaxError: 0, keepDuplicateFrames: true })
+				.toFile(tmp);
 			const after = (await stat(tmp)).size;
 			const saved = before - after;
 			const rel = relative(ROOT, filePath);

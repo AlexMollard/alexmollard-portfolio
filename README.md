@@ -52,7 +52,7 @@ Each project file in `src/content/projects/` uses YAML frontmatter validated by 
 
 ## Commands
 
-All commands are run from the root of the project:
+Requires Node.js 22.22.0 or newer (Astro 7). All commands are run from the root of the project:
 
 | Command           | Action                                     |
 | :---------------- | :----------------------------------------- |
@@ -60,6 +60,7 @@ All commands are run from the root of the project:
 | `npm run dev`     | Start local dev server at `localhost:4321` |
 | `npm run build`   | Build production site to `./dist/`         |
 | `npm run preview` | Preview production build locally           |
+| `node scripts/test-optimize-images.mjs` | Check image conversion and animation preservation |
 
 ## Deploy To Deno Deploy
 
