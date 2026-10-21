@@ -95,7 +95,7 @@ nslookup www.alexmollard.dev
 
 The 32 project entries generate static case-study pages. Cards offer image carousels, compact previews and direct links to full pages. Galleries support arrows, keyboard navigation and dragging; labelled covers fill missing screenshots.
 
-Featured work includes AntHill, Ironvellum, memory/crash diagnostics, AetherCore, TIEBREAK and Cricket 26. The former tools-suite URL redirects to the diagnostics case study. Professional titles and project ownership remain distinct from broader software-engineering positioning.
+Featured work includes Ironvellum, AetherCore, TIEBREAK and Cricket 26. AntHill and the Big Ant tools remain in the archive. The former tools-suite URL redirects to the diagnostics case study. Professional titles and project ownership remain distinct from broader software-engineering positioning.
 
 The editable CV source is scripts/cv.html; public/alex-mollard-cv.pdf is the downloadable version. Review the rendered PDF whenever updating it.
 

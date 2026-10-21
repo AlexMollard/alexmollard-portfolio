@@ -21,7 +21,6 @@ approach:
   - "Use selective workspaces so artists bring only the assets they need locally."
   - "Transfer assets with their dependencies and history between shared and project workflows."
   - "Use claims to coordinate work, with notices and recovery for overlapping edits."
-spotlight_order: 1
 outcomes:
   - "Catalogue, indexing and desktop workflows are implemented; studio migration and rollout remain ongoing."
   - "Search source-derived facts and curated metadata across projects."

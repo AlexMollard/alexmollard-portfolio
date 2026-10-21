@@ -73,8 +73,8 @@ const spotlightProjects = atlasProjects
 							<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">Production engineering</p>
 							<ul class="mt-3 space-y-2 text-sm leading-relaxed text-paper">
 								<li><a href="#cricket-26" class="underline decoration-signal underline-offset-4">WebSocket/TLS networking shipped on PC, PlayStation and Xbox</a></li>
-								<li><a href="#bigant-diagnostics" class="underline decoration-signal underline-offset-4">Crash diagnostics and developer workflow automation</a></li>
-								<li><a href="#anthill" class="underline decoration-signal underline-offset-4">AntHill — studio asset management, in development</a></li>
+								<li><a href={withBase('/projects/bigant-diagnostics/', import.meta.env.BASE_URL)} class="underline decoration-signal underline-offset-4">Crash diagnostics and developer workflow automation</a></li>
+								<li><a href={withBase('/projects/anthill/', import.meta.env.BASE_URL)} class="underline decoration-signal underline-offset-4">AntHill — studio asset management, in development</a></li>
 							</ul>
 						</div>
 						<div class="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
@@ -155,7 +155,7 @@ const spotlightProjects = atlasProjects
 										</ul>
 									)}
 									<div class="project-card-actions mt-6 flex flex-wrap gap-3">
-                                        <a href={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} class="relative z-10 atlas-chip case-study-direct">Full case study <span aria-hidden="true">→</span></a>
+                                        <a href={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} class="relative z-10 case-study-direct"><span class="case-study-label">Full case study</span><span aria-hidden="true">→</span></a>
 									</div>
 								</div>
 								<ProjectPreview project={project} />
@@ -311,7 +311,7 @@ const spotlightProjects = atlasProjects
 										<p class="text-sm leading-relaxed text-muted">{project.data.summary}</p>
 										<div class="project-card-actions">
 											<div class="flex flex-wrap items-center gap-2">
-                                        <a href={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} class="relative z-10 atlas-chip case-study-direct">Full case study <span aria-hidden="true">→</span></a>
+                                        <a href={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} class="relative z-10 case-study-direct"><span class="case-study-label">Full case study</span><span aria-hidden="true">→</span></a>
 											</div>
 										</div>
 									</div>
@@ -341,13 +341,16 @@ const spotlightProjects = atlasProjects
       <div id="project-preview-content"></div>
     </dialog>
     <style>
-  .case-study-direct { border-color: var(--color-signal); gap: .5rem; min-height: 44px; padding: .65rem 1rem; }
+  .case-study-direct { display: inline-flex; align-items: center; gap: .65rem; min-height: 44px; padding: .35rem 0; color: var(--color-paper); font-size: .9rem; font-weight: 500; text-decoration: none; }
+  .case-study-direct [aria-hidden] { color: var(--color-signal); }
+  .case-study-direct .case-study-label { border-bottom: 1px solid var(--color-line); padding-bottom: .2rem; }
   .spotlight-card, .atlas-card:not(.atlas-card-hidden) { display: flex; flex-direction: column; }
   .project-card-copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; }
   .project-card-actions { margin-top: auto !important; padding-top: 1.25rem; width: 100%; }
   .project-card-copy > .flex { width: 100%; }
   @media (min-width: 1100px) { #atlas-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .case-study-direct:hover { background: var(--color-raised); }
+  .case-study-direct:hover .case-study-label { border-color: var(--color-signal); }
+  .case-study-direct:focus-visible { outline: 2px solid var(--color-signal); outline-offset: 4px; }
       #project-preview { width: min(42rem, calc(100% - 2rem)); overscroll-behavior: contain; scrollbar-gutter: auto; }
       #project-preview[data-has-image="true"] { width: min(60rem, calc(100% - 2rem)); }
       #project-preview::backdrop { background: rgb(0 0 0 / 70%); }

@@ -19,7 +19,6 @@ approach:
   - "Kept a local crash bundle when the network destination was unavailable."
   - "Moved symbol and callstack lookup off the UI thread."
   - "Grouped crash reports to help triage recurring signatures."
-spotlight_order: 3
 outcomes:
   - "Programmers can inspect engine allocations in a focused analysis tool."
   - "Crash dumps and logs are collected for investigation."

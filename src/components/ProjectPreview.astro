@@ -21,7 +21,7 @@ const href = withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL);
       </div>
     </div>
     </div>
-    <footer class="brief-actions"><a class="brief-primary-action" href={href}>View full case study <span aria-hidden="true">→</span></a></footer>
+    <footer class="brief-actions"><a class="brief-primary-action" href={href}><span class="case-study-label">View full case study</span><span aria-hidden="true">→</span></a></footer>
   </article>
 </template>
 <style is:global>
@@ -37,9 +37,11 @@ const href = withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL);
   .brief-story { display: grid; align-content: start; gap: 1.4rem; }
   .brief-story h3 { margin-bottom: .45rem; font-weight: 600; font-size: .85rem; }
   .brief-story p { color: var(--color-muted); font-size: .9rem; line-height: 1.7; }
-  .brief-primary-action { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; min-height: 44px; margin-top: 0; padding: .65rem 1.1rem; border: 1px solid var(--color-signal); border-radius: 0; background: transparent; color: var(--color-paper); font-family: "IBM Plex Mono", monospace; font-size: .75rem; letter-spacing: .04em; text-transform: uppercase; font-weight: 500; text-decoration: none; }
-  .brief-primary-action:hover { background: var(--color-raised); }
+  .brief-primary-action { display: inline-flex; align-items: center; gap: .65rem; min-height: 44px; padding: .35rem 0; color: var(--color-paper); font-size: .95rem; font-weight: 500; text-decoration: none; }
+  .brief-primary-action [aria-hidden] { color: var(--color-signal); }
+  .brief-primary-action .case-study-label { border-bottom: 1px solid var(--color-line); padding-bottom: .2rem; }
+  .brief-primary-action:hover .case-study-label { border-color: var(--color-signal); }
   .brief-primary-action:focus-visible { outline: 2px solid var(--color-paper); outline-offset: 4px; }
   @media (min-width: 700px) { .brief-with-image { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 1.75rem; } }
-  @media (max-width: 699px) { .brief-scroll { padding: 1.3rem; } .brief-actions { padding: 1rem 1.3rem; } .brief-primary-action { width: 100%; } .brief-with-image .brief-story { margin-top: 1.5rem; } }
+  @media (max-width: 699px) { .brief-scroll { padding: 1.3rem; } .brief-actions { padding: 1rem 1.3rem; }  .brief-with-image .brief-story { margin-top: 1.5rem; } }
 </style>
