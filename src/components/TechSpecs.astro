@@ -1,43 +1,18 @@
 ---
-interface Props {
-	engine: string;
-	api?: string;
-	features: string[];
-	performanceMetrics?: string[];
-}
-
+interface Props { engine: string; api?: string; features: string[]; performanceMetrics?: string[]; }
 const { engine, api, features, performanceMetrics = [] } = Astro.props as Props;
 ---
-
-<div class="space-y-4" aria-label="Technical profile">
-	<dl class="case-study-facts">
-		<div>
-			<dt class="case-study-label">Engine</dt>
-			<dd class="mt-1.5 text-sm text-paper">{engine}</dd>
-		</div>
-		{api && (
-			<div>
-				<dt class="case-study-label">Graphics API</dt>
-				<dd class="mt-1.5 text-sm text-paper">{api}</dd>
-			</div>
-		)}
-	</dl>
-
-	<div class="grid items-start gap-4 xl:grid-cols-2">
-		<section class="case-study-block">
-			<p class="case-study-label">Capabilities</p>
-			<ul class="case-study-list">
-				{features.map((feature) => <li>{feature}</li>)}
-			</ul>
-		</section>
-
-		{performanceMetrics.length > 0 && (
-			<section class="case-study-block">
-				<p class="case-study-label">Engineering signals</p>
-				<ul class="case-study-list">
-					{performanceMetrics.map((metric) => <li>{metric}</li>)}
-				</ul>
-			</section>
-		)}
-	</div>
+<div class="technical-profile" aria-label="Technical profile">
+  <p class="technical-stack">{engine}{api && api !== engine ? ` · ${api}` : ''}</p>
+  {features.length > 0 && <details><summary>Capabilities <span>{features.length}</span></summary><ul>{features.map(feature => <li>{feature}</li>)}</ul></details>}
+  {performanceMetrics.length > 0 && <details><summary>Validation and engineering notes <span>{performanceMetrics.length}</span></summary><ul>{performanceMetrics.map(metric => <li>{metric}</li>)}</ul></details>}
 </div>
+<style>
+  .technical-stack { color: var(--color-muted); font-size: .9rem; margin-bottom: 1rem; }
+  details { border-bottom: 1px solid var(--color-line); }
+  summary { padding: 1rem 0; cursor: pointer; font-weight: 500; font-size: .95rem; }
+  summary span { color: var(--color-muted); font-size: .75rem; margin-left: .5rem; }
+  ul { padding: 0 0 1.25rem 1.2rem; color: var(--color-muted); font-size: .9rem; line-height: 1.7; }
+  li + li { margin-top: .7rem; }
+  summary:focus-visible { outline: 2px solid var(--color-signal); outline-offset: 3px; }
+</style>

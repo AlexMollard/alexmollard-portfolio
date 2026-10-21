@@ -3,8 +3,10 @@ title: RS3 Grand Exchange Analyzer
 summary: A Rust desktop application that scores RuneScape 3 Grand Exchange market history to surface profitable item flips, backed by a Python data collection pipeline and SQLite.
 date: 2026-04-23
 category: Hobby
-role: Solo project. I designed the scoring model and the data pipeline and wrote the first version by hand, then moved the build to agent-directed development while keeping the design decisions and the review my own.
-media_images: []
+role: Solo project. I designed scoring and the data pipeline, wrote the first version by hand, then shifted implementation to agent direction while retaining design and review.
+media_images:
+  - /media/hobbies/rs3-analyzer/trading-desk.png
+  - /media/hobbies/rs3-analyzer/watchlist.png
 engine: None
 domain: Tools
 features:
@@ -13,16 +15,14 @@ features:
   - Item tiering from Diamond to Crash based on profitability
   - Persistent favourites and customisable budget, ROI, and profit filters
   - Python collector backfilling market history into SQLite from the Weirdgloop API
-problem: Flipping in the Grand Exchange means guessing which of thousands of items have enough liquidity and spread to be worth trading, from raw price history that gives no guidance.
+problem: With thousands of items, raw prices make it hard to find flips with enough liquidity and spread.
 approach:
-  - Scored each item with weighted factors, including a logarithmic volume score and a spread penalty, and filtered out data anomalies such as sub-100gp vendor trash.
-  - Shipped a Rust desktop UI with a Grand Exchange-inspired theme, backed by a Python pipeline that collects and compresses daily market history into SQLite.
+  - Scored ROI, log-scaled volume, profit, volatility and reliability; penalized spread and filtered price anomalies.
+  - Built a Rust desktop UI with a Python collector that stores compressed Weirdgloop API history in SQLite.
 outcomes:
-  - A working end-to-end pipeline from API collection through to a ranked, filterable list of flips.
+  - Collects market history into SQLite and presents ranked, filterable flip opportunities.
 external_url: https://github.com/AlexMollard/rs3_analyzer
 build_mode: Agent-directed
 build_note: >-
   I wrote the first version by hand and then shifted to directing agents through a harness once the shape of the scoring model was settled. The judgement calls that make it work - which factors to weight, how to log-scale volume, where to cut vendor trash out of the results - are mine; a lot of the implementation and the Rust UI plumbing was agent-written to my spec and reviewed by me.
 ---
-
-A Rust desktop application that turns RuneScape 3 Grand Exchange price history into a ranked list of flipping opportunities. Each item is scored on ROI, log-scaled trading volume, absolute profit, volatility, data reliability, spread, and price trend, then filtered to drop illiquid or anomalous results. A companion Python collector pulls history from the Weirdgloop API into a SQLite database, which the app reads at startup. I built the first version by hand and directed the rest through an agent harness - see "How it was built" for the split.

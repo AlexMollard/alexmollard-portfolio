@@ -2,7 +2,7 @@
 title: Tycoon
 date: 2025-01-05
 category: Hobby
-summary: Co-developed Lua/Love2D game project exploring what it is like to build a full game entirely in Lua, with Declan owning major AI agent systems while I handled gameplay systems, tools, integration, and art.
+summary: "Co-developed a Lua/LÖVE game: Declan led AI systems; I led gameplay, tools, integration and art."
 role: Co-developer with Declan. Declan led AI agent development and behaviour systems; I led gameplay systems, tools, integration, and art.
 media_images:
   - /media/hobbies/tycoon/tycoon-1.webp
@@ -19,5 +19,3 @@ features:
   - AI agent behaviour systems developed by Declan
 external_url: https://github.com/AlexMollard/Tycoon
 ---
-
-Tycoon was a collaboration project where we wanted to test how far we could push a game built only in Lua using LÖVE. Declan drove the AI side of the game, including core agent behaviour systems, while I focused on gameplay systems, tooling, integration work, and all art production. The scope grew significantly over time, covering progression, upgrades, regions, save systems, and platform features, and it became a strong exercise in structuring a larger Lua project together.

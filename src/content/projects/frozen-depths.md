@@ -18,4 +18,4 @@ features:
 external_url: https://github.com/AlexMollard/Frozen-Depths-Programmers
 ---
 
-I turned procedural mesh generation into tangible gameplay mechanics with responsive runtime updates, rebuilding world geometry as the simulation changed it.
+I used the prototype to explore how procedural mesh generation responds as the underlying simulation changes, and how those updates can become part of the gameplay loop.

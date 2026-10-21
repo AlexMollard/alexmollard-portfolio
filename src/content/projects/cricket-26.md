@@ -2,8 +2,8 @@
 title: Cricket 26
 date: 2025-10-01
 category: Professional
-summary: A multi-platform cricket game released on PC, PlayStation, and Xbox.
-role: I fully implemented the title's client-side WebSocket stack, including cross-platform TLS handshake support, and took that networking work through TRC certification for release, alongside building in-house tooling.
+summary: "A multi-platform cricket game where I implemented a client-side WebSocket stack and cross-platform TLS handshakes."
+role: "Implemented the client-side WebSocket stack and cross-platform TLS handshake support, and contributed to certification and release tooling."
 media_images:
   - /media/professional/cricket-26/cricket-26-1.webp
   - /media/professional/cricket-26/cricket-26-2.webp
@@ -15,16 +15,15 @@ features:
   - Client-side WebSocket implementation
   - Cross-platform TLS handshake implementation
 domain: Networking
-problem: The title needed a production-ready websocket client with secure TLS behaviour that remained consistent across every supported platform and its different networking constraints.
+problem: "The title needed a secure WebSocket client that worked consistently across supported platforms."
 approach:
-  - Implemented the client-side websocket stack and platform-specific TLS handshake path inside the studio engine.
-  - Worked alongside certification and release requirements so the networking implementation was validated under the same constraints as the shipped game.
-  - Continued improving in-house tooling around the release workflow rather than treating networking as an isolated feature.
+  - "Implemented the client-side WebSocket stack and platform-specific TLS handshake path."
+  - "Validated the networking work against platform certification and release requirements."
+  - "Improved in-house release tooling alongside the networking work."
+spotlight_order: 6
 outcomes:
-  - The websocket client and its TLS handshake paths shipped in the released game on PC, PlayStation, and Xbox.
-  - The title passed platform certification with the networking stack in place.
-  - The team kept in-house tooling improvements around the release workflow.
-spotlight_order: 3
+  - "The WebSocket client and TLS handshake paths shipped on PC, PlayStation and Xbox."
+  - "The title passed platform certification with the networking stack in place."
+  - "Release tooling was improved alongside the game work."
 ---
-
-My Cricket 26 work centred on in-house tooling and platform readiness, but the most recent major milestone was fully implementing the client-side websocket layer for the title. I also implemented proper TLS handshakes across all target platforms to ensure secure and consistent network connectivity in production. Alongside that networking work, I continued driving TRC certification and internal tool improvements for the wider team.
+Alongside the WebSocket and TLS implementation, I contributed to platform certification and in-house release tooling.

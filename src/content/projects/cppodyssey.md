@@ -19,4 +19,4 @@ performance_metrics: []
 external_url: https://alexmollard.github.io/CppOdyssey/
 ---
 
-A self-hosted documentation site for learning C++ development, built with Jekyll and the just-the-docs theme. Covers everything from environment setup to writing Vulkan game engines.
+The tutorials build from environment setup and core C++ concepts toward Vulkan development, with commented examples along the way.

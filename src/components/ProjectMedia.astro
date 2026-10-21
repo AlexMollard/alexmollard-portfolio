@@ -5,9 +5,10 @@ interface Props {
 	title: string;
 	youtubeUrl?: string;
 	images?: string[];
+	standalone?: boolean;
 }
 
-const { title, youtubeUrl, images = [] } = Astro.props as Props;
+const { title, youtubeUrl, images = [], standalone = false } = Astro.props as Props;
 
 const getYoutubeEmbedUrl = (url?: string) => {
 	if (!url) return undefined;
@@ -29,6 +30,7 @@ const getYoutubeEmbedUrl = (url?: string) => {
 	return undefined;
 };
 
+const ImageWrapper = standalone ? 'a' : 'div';
 const embedUrl = getYoutubeEmbedUrl(youtubeUrl);
 const resolvedImages = images.map((image) => withBase(image, import.meta.env.BASE_URL));
 ---
@@ -54,16 +56,18 @@ const resolvedImages = images.map((image) => withBase(image, import.meta.env.BAS
 			<div class="grid gap-3 sm:grid-cols-2">
 				{resolvedImages.map((image, index) => (
 					<figure class="soft-panel overflow-hidden border-1 border-line bg-raised">
+						<ImageWrapper href={standalone ? image : undefined} aria-label={standalone ? `View ${title} screenshot ${index + 1} at full size` : undefined}>
 						<img
 							src={image}
 							alt={`${title} screenshot ${index + 1}`}
 							loading="lazy"
 							class="aspect-video w-full object-cover"
 						/>
+						</ImageWrapper>
 					</figure>
 				))}
 			</div>
-			<p class="mono text-[10px] uppercase tracking-[0.14em] text-muted">Select an image to enlarge</p>
+			<p class="mono text-[10px] uppercase tracking-[0.14em] text-muted">{standalone ? 'Select an image to view it at full size' : 'Select an image to enlarge'}</p>
 		</div>
 	)}
 </div>

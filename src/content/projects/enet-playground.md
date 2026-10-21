@@ -22,4 +22,4 @@ features:
 external_url: https://github.com/AlexMollard/EnetPlayGround
 ---
 
-Experimental networking platform for investigating ENet protocol, multiplayer architecture patterns, and network performance limitations in game development contexts. The playground is where I first wrestled with the problems a real game netcode has to solve - concurrent client handling, reliable delivery over UDP, and reconnection - and the architecture patterns proven here fed directly into AetherCore's owner-authoritative netcode.
+I used this sandbox to explore how a threaded server manages concurrent clients and how reliable delivery and reconnection shape multiplayer sessions. The architecture patterns proven here fed directly into AetherCore's owner-authoritative netcode.

@@ -2,7 +2,7 @@
 title: Early Work (2019-2022)
 date: 2022-07-30
 category: Hobby
-summary: The learning projects that preceded my engine and graphics work, built alongside an Advanced Diploma of Professional Game Development at AIE Melbourne, plus a lot of self-taught C++ and Unity work in my own time.
+summary: Early learning projects in C++, Unity and OpenGL, built during an Advanced Diploma of Professional Game Development at AIE Melbourne and through self-directed work.
 domain: Gameplay
 engine: Unity, AIE Bootstrap, console C++, WinForms (.NET), and OpenGL
 features:

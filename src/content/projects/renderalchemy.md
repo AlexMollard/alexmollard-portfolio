@@ -18,4 +18,4 @@ features:
 external_url: https://github.com/AlexMollard/RenderAlchemy
 ---
 
-I built this laboratory to explore colour grading techniques and HDR rendering pipelines with real-time visual feedback.
+I built this lab to compare colour grading in real time, including 1D and 3D CLUTs, HDR output, and tone-mapping operators in the before/after split view.

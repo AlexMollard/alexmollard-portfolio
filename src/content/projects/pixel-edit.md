@@ -15,4 +15,4 @@ features:
 external_url: https://github.com/AlexMollard/PixelEdit
 ---
 
-PixelEdit was a WinForms project I made to learn how to build desktop applications in C#. While making basic image editing tools, I ended up learning a lot about algorithms, especially flood fill style logic and raster drawing techniques that are required for seemingly simple editor features. The delivered editor shipped pencil, brush, line, shape, and bucket tools with file open/save and drag-and-drop import.
+PixelEdit was a WinForms project I made to learn how to build desktop applications in C#. While making basic image editing tools, I ended up learning a lot about algorithms, especially flood fill style logic and raster drawing techniques that are required for seemingly simple editor features. The finished editor included pencil, brush, line, shape, and bucket tools, plus file open/save and drag-and-drop import.

@@ -1,6 +1,6 @@
 ---
-import ProjectMedia from './ProjectMedia.astro';
-import TechSpecs from './TechSpecs.astro';
+import ProjectGallery from './ProjectGallery.astro';
+import { withBase } from '../utils/withBase';
 
 interface Props {
 	title: string;
@@ -17,6 +17,10 @@ interface Props {
 	features: string[];
 	performanceMetrics?: string[];
 	externalUrl?: string;
+	externalLabel?: string;
+	evidenceLinks?: { label: string; url: string }[];
+	caseStudyHref?: string;
+	standalone?: boolean;
 	youtubeUrl?: string;
 	images?: string[];
 	buildMode?: string;
@@ -40,6 +44,10 @@ const {
 	features,
 	performanceMetrics = [],
 	externalUrl,
+	externalLabel,
+	evidenceLinks = [],
+	caseStudyHref,
+	standalone = false,
 	youtubeUrl,
 	images = [],
 	buildMode,
@@ -48,168 +56,72 @@ const {
 	Content
 } = Astro.props as Props;
 
-const hasMedia = Boolean(youtubeUrl) || images.length > 0;
-const hasStory = approach.length > 0 || hasNotes;
-const splitStory = approach.length > 0 && hasNotes;
-const splitOverview = Boolean(role || problem) && outcomes.length > 0;
+const Wrapper = standalone ? 'div' : 'template';
+const linkLabel = externalLabel ?? (externalUrl && new URL(externalUrl).hostname === 'github.com' ? 'Repository' : 'Project website');
 
-const tabs = [
-	{ id: 'overview', label: 'Overview', count: 0, show: true },
-	{ id: 'approach', label: approach.length > 0 ? 'Approach' : 'Notes', count: approach.length, show: hasStory },
-	{ id: 'technical', label: 'Technical', count: features.length, show: true },
-	{ id: 'media', label: 'Media', count: images.length + (youtubeUrl ? 1 : 0), show: hasMedia }
-].filter((tab) => tab.show);
 
-const activeTab = tabs[0].id;
+const hasTechnicalNotes = features.length > 0 || performanceMetrics.length > 0 || Boolean(buildNote) || hasNotes;
 ---
 
-<template class="atlas-island-template">
-	<article class="case-study" data-case-study data-case-title={title}>
-		<header class="case-study-head">
-			<div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
-				<div class="min-w-0">
-					<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Case study</p>
-					<h3 class="mt-1.5 text-2xl font-semibold leading-tight text-paper md:text-3xl">{title}</h3>
-				</div>
-				<div class="flex flex-wrap items-center gap-2">
-					<span class="atlas-chip">{domain}</span>
-					{api && <span class="atlas-chip">{api}</span>}
-					<span class="atlas-chip">{category}</span>
-					<span class="atlas-chip">{year}</span>
-					{buildMode === 'Agent-directed' && <span class="atlas-chip build-chip">Agent-directed</span>}
-					{externalUrl && (
-						<a href={externalUrl} target="_blank" rel="noreferrer" class="atlas-chip case-study-link">Repository ↗</a>
-					)}
-				</div>
-			</div>
-
-			<div class="case-study-tabs" role="tablist" aria-label={`${title} sections`}>
-				{tabs.map((tab) => (
-					<button
-						type="button"
-						role="tab"
-						id={`case-tab-${tab.id}`}
-						class="case-study-tab"
-						data-case-tab={tab.id}
-						aria-controls={`case-panel-${tab.id}`}
-						aria-selected={tab.id === activeTab ? 'true' : 'false'}
-						tabindex={tab.id === activeTab ? 0 : -1}
-					>
-						{tab.label}
-						{tab.count > 0 && <span class="case-study-tab-count">{tab.count}</span>}
-					</button>
-				))}
-			</div>
-		</header>
-
-		<div class="case-study-body">
-			<section
-				id="case-panel-overview"
-				class="case-study-panel"
-				role="tabpanel"
-				aria-labelledby="case-tab-overview"
-				data-case-panel="overview"
-				tabindex="0"
-				hidden={activeTab !== 'overview'}
-			>
-				<p class="case-study-lead">{summary}</p>
-
-				<div class:list={['mt-5 grid items-start gap-4', splitOverview && 'xl:grid-cols-2']}>
-					{(role || problem) && (
-						<div class="space-y-4">
-							{role && (
-								<section class="case-study-block">
-									<p class="case-study-label">Role</p>
-									<p class="mt-2 text-sm leading-relaxed text-paper">{role}</p>
-								</section>
-							)}
-							{problem && (
-								<section class="case-study-block">
-									<p class="case-study-label">Problem</p>
-									<p class="mt-2 text-sm leading-relaxed text-muted">{problem}</p>
-								</section>
-							)}
-						</div>
-					)}
-
-					{outcomes.length > 0 && (
-						<section class="case-study-block case-study-block-accent">
-							<p class="case-study-label">Outcome</p>
-							<ul class="case-study-list">
-								{outcomes.map((item) => <li>{item}</li>)}
-							</ul>
-						</section>
-					)}
-				</div>
-
-				{buildNote && (
-					<section class="case-study-block mt-4">
-						<p class="case-study-label">How it was built</p>
-						<p class="mt-2 text-sm leading-relaxed text-muted">{buildNote}</p>
-					</section>
-				)}
-			</section>
-
-			{hasStory && (
-				<section
-					id="case-panel-approach"
-					class="case-study-panel"
-					role="tabpanel"
-					aria-labelledby="case-tab-approach"
-					data-case-panel="approach"
-					tabindex="0"
-					hidden={activeTab !== 'approach'}
-				>
-					<div class:list={['grid items-start gap-4', splitStory && 'xl:grid-cols-[1.05fr_0.95fr]']}>
-						{approach.length > 0 && (
-							<section class="case-study-block">
-								<p class="case-study-label">Approach</p>
-								<ul class="case-study-list">
-									{approach.map((item) => <li>{item}</li>)}
-								</ul>
-							</section>
-						)}
-
-						{hasNotes && (
-							<section class="case-study-block atlas-expanded-body text-sm leading-relaxed text-muted">
-								<p class="case-study-label mb-3">Project notes</p>
-								<Content />
-							</section>
-						)}
-					</div>
-				</section>
-			)}
-
-			<section
-				id="case-panel-technical"
-				class="case-study-panel"
-				role="tabpanel"
-				aria-labelledby="case-tab-technical"
-				data-case-panel="technical"
-				tabindex="0"
-				hidden={activeTab !== 'technical'}
-			>
-				<TechSpecs
-					engine={engine}
-					api={api}
-					features={features}
-					performanceMetrics={performanceMetrics}
-				/>
-			</section>
-
-			{hasMedia && (
-				<section
-					id="case-panel-media"
-					class="case-study-panel"
-					role="tabpanel"
-					aria-labelledby="case-tab-media"
-					data-case-panel="media"
-					tabindex="0"
-					hidden={activeTab !== 'media'}
-				>
-					<ProjectMedia title={title} youtubeUrl={youtubeUrl} images={images} />
-				</section>
-			)}
-		</div>
-	</article>
-</template>
+<Wrapper class:list={[!standalone && 'atlas-island-template']}>
+  <article class="project-page" data-case-study data-case-title={title}>
+    <header class="project-heading">
+      <p class="project-meta">{domain} · {year}</p>
+      <h1>{title}</h1>
+    </header>
+    <ProjectGallery title={title} images={images} />
+    <div class="project-copy">
+      <p class="project-intro">{summary}</p>
+      {(youtubeUrl || externalUrl || evidenceLinks.length > 0) && <nav class="project-links" aria-label="Project links">
+        {youtubeUrl && <a href={youtubeUrl} target="_blank" rel="noreferrer">Watch demo ↗</a>}
+        {externalUrl && <a href={externalUrl} target="_blank" rel="noreferrer">{linkLabel} ↗</a>}
+        {evidenceLinks.map(link => <a href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a>)}
+      </nav>}
+      {role && <section class="copy-section"><h2>My role</h2><p>{role}</p></section>}
+      {problem && <section class="copy-section"><h2>What it solves</h2><p>{problem}</p></section>}
+      {outcomes.length > 0 && <section class="copy-section"><h2>What it delivers</h2><ul>{outcomes.slice(0,3).map(item => <li>{item}</li>)}</ul></section>}
+      {approach.length > 0 && <section class="copy-section"><h2>Key decisions</h2><ul>{approach.slice(0,3).map(item => <li>{item}</li>)}</ul></section>}
+      {hasTechnicalNotes && <details class="project-detail">
+        <summary>Explore the technical details</summary>
+        <div class="detail-content">
+          <p class="project-meta">{engine}{api && api !== engine ? ` · ${api}` : ''}</p>
+          {features.length > 0 && <section class="copy-section"><h2>Capabilities</h2><ul>{features.map(item => <li>{item}</li>)}</ul></section>}
+          {performanceMetrics.length > 0 && <section class="copy-section"><h2>Verification and engineering notes</h2><ul>{performanceMetrics.map(item => <li>{item}</li>)}</ul></section>}
+          {approach.length > 3 && <section class="copy-section"><h2>Further decisions</h2><ul>{approach.slice(3).map(item => <li>{item}</li>)}</ul></section>}
+          {outcomes.length > 3 && <section class="copy-section"><h2>Further outcomes</h2><ul>{outcomes.slice(3).map(item => <li>{item}</li>)}</ul></section>}
+          {buildNote && <section class="copy-section"><h2>Development workflow</h2><p>{buildNote}</p></section>}
+          {hasNotes && <div class="project-story"><Content /></div>}
+        </div>
+      </details>}
+      <footer class="project-links contact-links">
+        <a href={withBase('/alex-mollard-cv.pdf', import.meta.env.BASE_URL)} download>Download CV ↓</a>
+        <a href="mailto:alexmollard@protonmail.com">Email me ↗</a>
+        <a href="https://au.linkedin.com/in/alex-mollard" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+      </footer>
+    </div>
+  </article>
+</Wrapper>
+<style>
+  .project-page { max-width: 76rem; margin-inline: auto; color: var(--color-paper); }
+  .project-heading { padding: 1.5rem 0 .5rem; }
+  .project-meta { color: var(--color-muted); font-size: .8rem; line-height: 1.5; }
+  h1 { margin-top: .6rem; font-size: clamp(2.3rem, 5vw, 4rem); font-weight: 600; letter-spacing: -.045em; line-height: 1.1; overflow-wrap: anywhere; }
+  .project-copy { max-width: 48rem; margin: 2rem auto 0; }
+  .project-intro { font-size: 1.15rem; line-height: 1.65; color: var(--color-paper); }
+  .project-links { display: flex; flex-wrap: wrap; gap: .6rem 1.3rem; margin-top: 1rem; }
+  .project-links a { font-size: .85rem; color: var(--color-paper); text-decoration: underline; text-decoration-color: var(--color-signal); text-underline-offset: .25rem; }
+  .copy-section { margin-top: 1.65rem; }
+  .copy-section h2 { margin-bottom: .5rem; font-size: 1rem; font-weight: 600; line-height: 1.4; }
+  .copy-section p, .copy-section li { color: var(--color-muted); font-size: .95rem; line-height: 1.65; }
+  .copy-section ul { list-style: disc; padding-left: 1.15rem; display: grid; gap: .45rem; }
+  .copy-section li::marker { color: var(--color-signal); }
+  .project-detail { margin-top: 2rem; border-block: 1px solid var(--color-line); }
+  .project-detail > summary { padding: 1rem 0; cursor: pointer; font-size: .9rem; font-weight: 500; }
+  .detail-content { padding-bottom: 1.5rem; }
+  .project-story { color: var(--color-muted); font-size: .95rem; line-height: 1.65; margin-top: 1.5rem; }
+  .project-story :global(h2) { color: var(--color-paper); font-size: 1rem; font-weight: 600; margin: 1.5rem 0 .5rem; }
+  .project-story :global(p + p) { margin-top: .8rem; }
+  .contact-links { margin-top: 1.25rem; padding-bottom: 1rem; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--color-signal); outline-offset: 4px; }
+  @media (max-width: 640px) { .project-copy { margin-top: 1.25rem; } .project-intro { font-size: 1.05rem; } }
+</style>

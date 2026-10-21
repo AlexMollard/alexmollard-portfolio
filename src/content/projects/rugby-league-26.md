@@ -2,8 +2,8 @@
 title: Rugby League 26
 date: 2025-10-01
 category: Professional
-summary: A rugby league title where I contributed cross-title code integration, in-house tooling support, client-server integration, and certification work across the project lifecycle.
-role: I handled cross-title code integration, supported the team's in-house tooling, worked on client-server integration, and carried TRC certification work across the project lifecycle.
+summary: "A rugby league title where I contributed to cross-title integration, developer tooling, online features and platform certification."
+role: "Worked across cross-title integration, in-house tooling, client-server features and TRC certification."
 media_images:
   - /media/professional/rugby-league-26/rugby-league-26-1.webp
   - /media/professional/rugby-league-26/rugby-league-26-2.webp
@@ -16,5 +16,4 @@ features:
   - Ongoing franchise support
 domain: Networking
 ---
-
-My work followed the same pattern as other titles in this period - cross-title code integration, tooling support, client-server integration, and TRC certification work to clear platform requirements.
+I worked across integration, developer tools, online systems and platform requirements on Rugby League 26.

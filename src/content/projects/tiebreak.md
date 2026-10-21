@@ -2,8 +2,8 @@
 title: TIEBREAK
 date: 2024-08-22
 category: Professional
-summary: A multi-platform licensed tennis game with career modes, online play, and a large UI surface built across two interface systems.
-role: Owned most of the UI implementation, built complete game modes, and helped bridge the in-house widget system and NoesisGUI.
+summary: "UI delivery and client/server integration for a shipped tennis title, maintaining a legacy widget framework during a UI transition."
+role: "Owned most of the UI implementation, built complete game modes, and bridged the in-house widget system and NoesisGUI."
 media_images:
   - /media/professional/tiebreak/tiebreak-steam-1.webp
   - /media/professional/tiebreak/tiebreak-steam-2.webp
@@ -16,17 +16,15 @@ features:
   - Platform release support and adaptation
   - Production QA and optimisation for expansion content
 domain: Gameplay
-problem: TIEBREAK still depended on the studio's legacy widget framework while other programmers were moving to NoesisGUI, leaving a large amount of UI and entire game modes to be delivered under severe schedule pressure.
+problem: "TIEBREAK relied on a legacy widget system while the studio moved to NoesisGUI, leaving substantial UI and game-mode work to deliver."
 approach:
-  - Reverse-engineered the useful behaviours provided by NoesisGUI and reproduced them within the existing in-house widget system.
-  - Took practical ownership of the legacy UI stack so the rest of the team could move to newer projects without blocking TIEBREAK.
-  - Coordinated directly with server developers and implemented complete game-mode flows rather than stopping at individual screens.
+  - "Reproduced useful NoesisGUI behavior in the existing widget system."
+  - "Maintained the legacy UI so delivery could continue during the transition."
+  - "Coordinated with server developers on complete game-mode flows."
+spotlight_order: 5
 outcomes:
-  - Delivered the UI and complete game modes for the initial release and later platform work.
-  - Kept the existing UI working while the project moved to NoesisGUI.
-  - Became the main programmer responsible for the legacy widget system.
-external_url: https://store.steampowered.com/app/2264340/TIEBREAK_Official_game_of_the_ATP_and_WTA/
-spotlight_order: 4
+  - "Delivered UI and complete game modes for release and later platform work."
+  - "Kept the legacy UI working during the move to NoesisGUI."
+  - "Became the main programmer responsible for the legacy widget system."
 ---
-
-TIEBREAK was the culmination of my UI work at Big Ant. As the studio shifted to NoesisGUI for future titles, I was the team member with the deepest understanding of the legacy in-house widget system. Rather than block progress, I reverse-engineered what NoesisGUI provided and replicated it entirely using the existing widget framework - allowing other programmers to move to newer titles while I kept TIEBREAK's UI running. I effectively led UI delivery on the project, working under extreme timelines, including multi-day sprints to fully implement entire game modes end-to-end, coordinating directly with server developers to get data flowing in both directions.
+I led UI delivery while the studio moved to NoesisGUI, maintaining the legacy widget system and implementing complete game modes. I coordinated with server developers on end-to-end feature flows.

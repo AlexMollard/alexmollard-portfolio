@@ -1,0 +1,45 @@
+---
+import ProjectGallery from './ProjectGallery.astro';
+import { withBase } from '../utils/withBase';
+const { project } = Astro.props;
+const { title, summary, role, outcomes = [], media_images = [], domain, build_mode } = project.data;
+const href = withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL);
+---
+<template data-project-preview data-has-image="true">
+  <article class="project-brief">
+    <div class="brief-scroll">
+    <header class="brief-header">
+      <p class="brief-eyebrow">{domain}{build_mode === 'Agent-directed' ? ' · Agent-assisted' : ''}</p>
+      <h2 id="project-preview-title">{title}</h2>
+      <p class="brief-summary">{summary}</p>
+    </header>
+    <div class="brief-content brief-with-image">
+        <ProjectGallery title={title} images={media_images} compact />
+      <div class="brief-story">
+        {role && <section><h3>My role</h3><p>{role.match(/^.*?[.!?](?:\s|$)/)?.[0] ?? role}</p></section>}
+        {outcomes[0] && <section><h3>Result / current stage</h3><p>{outcomes[0]}</p></section>}
+      </div>
+    </div>
+    </div>
+    <footer class="brief-actions"><a class="brief-primary-action" href={href}>View full case study <span aria-hidden="true">→</span></a></footer>
+  </article>
+</template>
+<style is:global>
+  .project-brief { display: flex; flex-direction: column; max-height: calc(90dvh - 2px); }
+  .brief-scroll { min-height: 0; overflow-y: auto; scrollbar-width: thin; overscroll-behavior: contain; padding: 2rem; }
+  .brief-actions { flex: none; display: flex; justify-content: flex-end; padding: 1rem 2rem; border-top: 1px solid var(--color-line); background: var(--color-surface); }
+  .brief-header { padding-right: 0; }
+  .brief-header h2, .brief-eyebrow { padding-right: 2.5rem; }
+  .brief-eyebrow { color: var(--color-signal); font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; }
+  #project-preview-title { margin-top: .6rem; font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.12; font-weight: 600; }
+  .brief-summary { margin-top: 1rem; color: var(--color-muted); line-height: 1.65; max-width: 64ch; }
+  .brief-content { margin-top: 1.75rem; }
+  .brief-story { display: grid; align-content: start; gap: 1.4rem; }
+  .brief-story h3 { margin-bottom: .45rem; font-weight: 600; font-size: .85rem; }
+  .brief-story p { color: var(--color-muted); font-size: .9rem; line-height: 1.7; }
+  .brief-primary-action { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; min-height: 44px; margin-top: 0; padding: .65rem 1.1rem; border: 1px solid var(--color-signal); border-radius: 0; background: transparent; color: var(--color-paper); font-family: "IBM Plex Mono", monospace; font-size: .75rem; letter-spacing: .04em; text-transform: uppercase; font-weight: 500; text-decoration: none; }
+  .brief-primary-action:hover { background: var(--color-raised); }
+  .brief-primary-action:focus-visible { outline: 2px solid var(--color-paper); outline-offset: 4px; }
+  @media (min-width: 700px) { .brief-with-image { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 1.75rem; } }
+  @media (max-width: 699px) { .brief-scroll { padding: 1.3rem; } .brief-actions { padding: 1rem 1.3rem; } .brief-primary-action { width: 100%; } .brief-with-image .brief-story { margin-top: 1.5rem; } }
+</style>

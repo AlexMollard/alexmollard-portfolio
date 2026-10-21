@@ -16,8 +16,8 @@ features:
   - Multi-texture material system
   - Real-time lighting
   - Model rendering pipeline
-performance_metrics:
-  - Supports up to six textures per model
+  - Support for up to six textures per model
+performance_metrics: []
 ---
 
 I explored physically grounded shading models and asset workflows that better approximate real-world lighting behaviour.

@@ -3,10 +3,10 @@ title: Fly
 date: 2025-08-27
 category: Hobby
 summary: Modern audio player with real-time visualisation, spatial audio control, and advanced audio processing using OpenAL-Soft and ImGui.
-role: C++ audio systems developer.
+role: "Creator and sole programmer. I designed and built the C++ desktop audio player, including playback, playlists, real-time visualisation, spatial audio and effects controls."
 media_images:
-  - /media/hobbies/Fly/empty.webp
-  - /media/hobbies/Fly/full.webp
+  - /media/hobbies/fly/empty.webp
+  - /media/hobbies/fly/full.webp
 engine: Native C++ WinApp
 domain: Tools
 features:
@@ -18,5 +18,3 @@ features:
   - Presets (Chipmunk mode, Slowed mode)
 external_url: https://github.com/AlexMollard/Fly
 ---
-
-I built a systems-focused audio player combining ImGui UI with low-level OpenAL audio processing for real-time visualisation and spatial audio control.

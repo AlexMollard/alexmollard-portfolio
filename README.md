@@ -19,7 +19,7 @@ Live at: [alexmollard.dev](https://www.alexmollard.dev)
 │   │   ├── ProjectMedia.astro  # YouTube embed + image grid renderer
 │   │   └── TechSpecs.astro     # Tech stack / specs table for a project
 │   ├── content/
-│   │   └── projects/           # One .md file per project (21 total)
+│   │   └── projects/           # One .md file per project (32 total)
 │   ├── layouts/
 │   │   └── Layout.astro        # Base HTML layout
 │   ├── pages/
@@ -89,3 +89,13 @@ You can verify DNS propagation with:
 nslookup alexmollard.dev
 nslookup www.alexmollard.dev
 ```
+
+## Project presentation
+
+The 32 project entries generate static case-study pages. Cards offer image carousels, compact previews and direct links to full pages. Galleries support arrows, keyboard navigation and dragging; labelled covers fill missing screenshots.
+
+Featured work includes AntHill, Ironvellum, memory/crash diagnostics, AetherCore, TIEBREAK and Cricket 26. The former tools-suite URL redirects to the diagnostics case study. Professional titles and project ownership remain distinct from broader software-engineering positioning.
+
+The editable CV source is scripts/cv.html; public/alex-mollard-cv.pdf is the downloadable version. Review the rendered PDF whenever updating it.
+
+AntHill, diagnostics, developer automation, DreadedEscape and Early Work still use project covers. Employer screenshots require disclosure review before inclusion. The current personal-project images include repository screenshots for CSX-Forms and RS3 Analyzer.

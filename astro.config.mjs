@@ -10,6 +10,7 @@ const site = process.env.SITE_URL ?? 'https://alexmollard.dev';
 export default defineConfig({
 	site,
 	output: 'static',
+	redirects: { '/projects/bigant-in-house-tools/': '/projects/bigant-diagnostics/' },
 	integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]

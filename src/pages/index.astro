@@ -1,7 +1,8 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
+import ProjectGallery from '../components/ProjectGallery.astro';
+import ProjectPreview from '../components/ProjectPreview.astro';
 import HeroGrid from '../components/HeroGrid.astro';
-import ProjectCaseStudy from '../components/ProjectCaseStudy.astro';
 import Layout from '../layouts/Layout.astro';
 import { withBase } from '../utils/withBase';
 
@@ -10,25 +11,17 @@ const projects = (await getCollection('projects')).sort((a, b) => {
 	return byDate !== 0 ? byDate : a.data.title.localeCompare(b.data.title);
 });
 
-const atlasProjects = await Promise.all(
-	projects.map(async (project) => {
-		const { Content } = await render(project);
-
-		return {
-			project,
-			domain: project.data.domain,
-			year: project.data.date.getFullYear(),
-			Content
-		};
-	})
-);
+const atlasProjects = projects.map((project) => ({
+	project,
+	domain: project.data.domain,
+	year: project.data.date.getFullYear()
+}));
 
 const shippedTitles = atlasProjects.filter(
 	(item) => item.project.data.category === 'Professional' && item.domain !== 'Tools'
 );
 const shippedTitleCount = shippedTitles.length;
 const shippedSinceYear = Math.min(...shippedTitles.map((item) => item.year));
-const agentDirectedCount = atlasProjects.filter((item) => item.project.data.build_mode === 'Agent-directed').length;
 
 const cvHref = withBase('/alex-mollard-cv.pdf', import.meta.env.BASE_URL);
 const domains = [...new Set(atlasProjects.map((item) => item.domain))].sort();
@@ -41,8 +34,8 @@ const spotlightProjects = atlasProjects
 ---
 
 	<Layout
-		title="Alex Mollard | Senior Generalist Programmer"
-		description="Senior Generalist Programmer at Big Ant Studios in Melbourne. Eight shipped console and PC titles, plus AetherCore, a Vulkan engine with an editor, C# scripting, and owner-authoritative netcode."
+		title="Alex Mollard | Senior Software Engineer"
+		description="Software engineer in Melbourne building production tools, applications and cross-platform systems, with agent-assisted development using Oh my PI and Claude Code."
 >
 	<header id="top" class="reveal-in relative left-1/2 -mx-[50dvw] -mt-10 w-[100dvw] md:-mt-14">
 		<section class="hero-stage w-[100dvw] px-6 pb-12 pt-8 sm:px-10 md:pb-16 md:pt-10 lg:px-14">
@@ -51,8 +44,8 @@ const spotlightProjects = atlasProjects
 				<nav class="hero-nav flex flex-wrap items-center justify-between gap-4 border-b border-line pb-4" aria-label="Primary navigation">
 					<a href="#top" class="mono text-[10px] uppercase tracking-[0.16em] text-paper">Alex Mollard / Portfolio</a>
 					<div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-						<a href="#how-i-work" class="hero-nav-link">How I work</a>
 						<a href="#selected-work" class="hero-nav-link">Selected work</a>
+						<a href="#how-i-work" class="hero-nav-link">How I work</a>
 						<a href="#archive" class="hero-nav-link">Archive</a>
 						<a href="https://github.com/AlexMollard" target="_blank" rel="noreferrer" class="hero-nav-link">GitHub ↗</a>
 					</div>
@@ -60,12 +53,12 @@ const spotlightProjects = atlasProjects
 
 				<div class="hero-layout grid gap-10 py-14 md:py-18 lg:grid-cols-[minmax(0,0.92fr)_minmax(30rem,1.08fr)] lg:items-end lg:gap-16 lg:py-20">
 					<div class="hero-intro max-w-3xl">
-						<p class="mono text-[11px] uppercase tracking-[0.16em] text-signal">Senior Generalist Programmer · Big Ant Studios · Melbourne</p>
+						<p class="mono text-[11px] uppercase tracking-[0.16em] text-signal">Senior Software Engineer · Melbourne</p>
 						<h1 class="mt-6 text-[clamp(4.1rem,8vw,8.8rem)] font-medium leading-[0.8] text-paper">
 							Alex<br />Mollard
 						</h1>
 						<p class="mt-9 max-w-2xl text-lg leading-relaxed text-muted md:text-[1.35rem]">
-							I build the systems a game is made of - Vulkan rendering, engine architecture, netcode, and the tools the rest of the team works in.
+							I build production tools, applications and cross-platform systems. My work spans commercial software delivery, mobile development and AI-assisted engineering with Oh my PI and Claude Code.
 						</p>
 						<div class="mt-8 flex flex-wrap gap-3">
 							<a href="mailto:alexmollard@protonmail.com" class="hero-action hero-action-primary">Email me <span aria-hidden="true">↗</span></a>
@@ -76,6 +69,14 @@ const spotlightProjects = atlasProjects
 					</div>
 
 					<div class="hero-board soft-panel overflow-hidden border border-line bg-surface">
+						<div class="border-b border-line bg-raised p-4">
+							<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">Production engineering</p>
+							<ul class="mt-3 space-y-2 text-sm leading-relaxed text-paper">
+								<li><a href="#cricket-26" class="underline decoration-signal underline-offset-4">WebSocket/TLS networking shipped on PC, PlayStation and Xbox</a></li>
+								<li><a href="#bigant-diagnostics" class="underline decoration-signal underline-offset-4">Crash diagnostics and developer workflow automation</a></li>
+								<li><a href="#anthill" class="underline decoration-signal underline-offset-4">AntHill — studio asset management, in development</a></li>
+							</ul>
+						</div>
 						<div class="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
 							<p class="mono text-[9px] uppercase tracking-[0.14em] text-muted">Shipped at Big Ant Studios</p>
 							<p class="mono text-[9px] uppercase tracking-[0.14em] text-signal">{String(shippedTitleCount).padStart(2, '0')}</p>
@@ -99,10 +100,10 @@ const spotlightProjects = atlasProjects
 						</ul>
 						<div class="hero-board-aside grid gap-3 border-t border-line bg-raised p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
 							<div>
-								<p class="mono text-[9px] uppercase tracking-[0.14em] text-cool">Outside work / personal engine</p>
-								<p class="mt-1.5 text-sm leading-relaxed text-muted"><span class="text-paper">AetherCore</span> - a Vulkan engine with an editor, hot-reloadable C# gameplay, and owner-authoritative netcode.</p>
+								<p class="mono text-[9px] uppercase tracking-[0.14em] text-cool">Outside work / applications and agent tooling</p>
+								<p class="mt-1.5 text-sm leading-relaxed text-muted"><span class="text-paper">Ironvellum</span> - an offline-first Android application. <span class="text-paper">AetherCore</span> - an engine with MCP tools for live inspection and validation.</p>
 							</div>
-							<a href="#aethercore" class="mono shrink-0 text-[10px] uppercase tracking-[0.14em] text-paper underline decoration-signal underline-offset-4">Read case study</a>
+							<a href={withBase('/projects/ironvellum/', import.meta.env.BASE_URL)} class="mono shrink-0 text-[10px] uppercase tracking-[0.14em] text-paper underline decoration-signal underline-offset-4">Read case study</a>
 						</div>
 					</div>
 				</div>
@@ -110,7 +111,7 @@ const spotlightProjects = atlasProjects
 				<div class="hero-facts grid gap-px border border-line bg-line sm:grid-cols-3">
 					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Now</p><p class="mt-1 text-sm text-paper">Senior Generalist Programmer, Big Ant Studios</p></div>
 					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Shipped</p><p class="mt-1 text-sm text-paper">{shippedTitleCount} console and PC titles since {shippedSinceYear}</p></div>
-					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Core</p><p class="mt-1 text-sm text-paper">C++ · Vulkan · C# · engine tooling</p></div>
+					<div class="bg-ground p-4"><p class="mono text-[9px] uppercase tracking-[0.12em] text-muted">Core</p><p class="mt-1 text-sm text-paper">C++ · C# · networking · developer tools</p></div>
 				</div>
 			</div>
 		</section>
@@ -118,49 +119,6 @@ const spotlightProjects = atlasProjects
 
 	<main class="relative left-1/2 -mx-[50dvw] w-[100dvw] px-6 py-20 md:px-10 md:py-28 lg:px-14">
 		<div class="mx-auto max-w-[104rem]">
-			<section id="how-i-work" class="scroll-mt-8 pb-24 md:pb-32">
-				<header class="section-rule mb-10 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-end">
-					<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">How I work / {agentDirectedCount} agent-directed projects</p>
-					<div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.65fr)] md:items-end">
-						<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">How the<br /> work happens.</h2>
-						<p class="max-w-xl text-base leading-relaxed text-muted">I architect, evaluate, and review. Agent harnesses do most of the typing, and projects built that way are labelled below.</p>
-					</div>
-				</header>
-
-				<div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Design</p>
-						<p class="mt-3 text-lg leading-snug text-paper">I decide the architecture.</p>
-						<p class="mt-2 text-sm leading-relaxed text-muted">GPU abstraction boundaries, immutable render packets, owner-authoritative netcode - design calls, not generated ones.</p>
-					</article>
-					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Verification</p>
-						<p class="mt-3 text-lg leading-snug text-paper">Nothing merges on vibes.</p>
-						<p class="mt-2 text-sm leading-relaxed text-muted">1,271 tests, a guard that fails the build on abstraction leaks, architecture checks every push.</p>
-					</article>
-					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Throughput</p>
-						<p class="mt-3 text-lg leading-snug text-paper">Weeks of work, done in days.</p>
-						<p class="mt-2 text-sm leading-relaxed text-muted">Several models running in parallel through omp and Claude Code, split so they do not collide.</p>
-					</article>
-					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Evaluation</p>
-						<p class="mt-3 text-lg leading-snug text-paper">I learn it before I add it.</p>
-						<p class="mt-2 text-sm leading-relaxed text-muted">New Vulkan extensions and NAT traversal - studied properly, then mostly left out. The connect ladder earned its place.</p>
-					</article>
-					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Tools for teammates</p>
-						<p class="mt-3 text-lg leading-snug text-paper">I build what they asked for.</p>
-						<p class="mt-2 text-sm leading-relaxed text-muted">Every in-house tool starts with the programmers and QA who will live in it. I write up what they need, then document the result so it is usable without me.</p>
-					</article>
-					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
-						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Release pressure</p>
-						<p class="mt-3 text-lg leading-snug text-paper">I take the tickets nobody else can finish.</p>
-						<p class="mt-2 text-sm leading-relaxed text-muted">Near submission I work directly with producers and clear the TRC tickets at risk of missing the date, including other seniors' queues when they are away. I was doing that before I had the title.</p>
-					</article>
-				</div>
-			</section>
-
 			<section id="selected-work" class="scroll-mt-8">
 				<header class="section-rule mb-12 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-end">
 					<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Selected work / {spotlightProjects.length} case studies</p>
@@ -171,23 +129,15 @@ const spotlightProjects = atlasProjects
 				</header>
 
 				<div class="spotlight-grid grid gap-5 lg:grid-cols-2">
-					{spotlightProjects.map(({ project, domain, year, Content }, projectIndex) => {
+					{spotlightProjects.map(({ project, domain, year }, projectIndex) => {
 						const previewImage = project.data.media_images?.[0];
 						const slug = project.id;
 
 						return (
-							<article id={slug} class="spotlight-card soft-panel card-pop overflow-hidden border border-line bg-surface" data-project-card>
-								{previewImage ? (
-									<div class="spotlight-media overflow-hidden border-b border-line">
-										<img src={withBase(previewImage, import.meta.env.BASE_URL)} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading={projectIndex === 0 ? 'eager' : 'lazy'} />
-									</div>
-								) : (
-									<div class="spotlight-placeholder border-b border-line p-5">
-										<span class="mono text-[10px] uppercase tracking-[0.14em] text-muted">Internal tools / production systems</span>
-									</div>
-								)}
+							<article id={slug} class="spotlight-card relative soft-panel card-pop overflow-hidden border border-line bg-surface" data-project-card>
+								<ProjectGallery title={project.data.title} images={project.data.media_images} card previewHref={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} />
 
-								<div class="p-5 md:p-6">
+								<div class="project-card-copy p-5 md:p-6">
 									<div class="flex items-start justify-between gap-4">
 										<div class="flex flex-wrap gap-2">
 											<span class="meta-chip">{domain}</span>
@@ -197,42 +147,64 @@ const spotlightProjects = atlasProjects
 										</div>
 										<p class="mono shrink-0 text-[10px] tracking-[0.12em] text-signal">/{String(projectIndex + 1).padStart(2, '0')}</p>
 									</div>
-									<h3 class="mt-5 text-3xl font-semibold leading-tight text-paper md:text-4xl">{project.data.title}</h3>
+									<h3 class="mt-5 text-3xl font-semibold leading-tight text-paper md:text-4xl"><a href={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} data-preview-link class="after:absolute after:inset-0">{project.data.title}</a></h3>
 									<p class="mt-3 text-sm leading-relaxed text-muted md:text-base">{project.data.summary}</p>
-									{project.data.role && <p class="mt-4 text-sm leading-relaxed text-paper"><span class="mono mr-2 text-[9px] uppercase tracking-[0.12em] text-signal">Role</span> {project.data.role}</p>}
 									{project.data.outcomes.length > 0 && (
 										<ul class="spotlight-outcomes mt-5 space-y-2">
-											{project.data.outcomes.slice(0, 2).map((outcome) => <li>{outcome}</li>)}
+											{project.data.outcomes.slice(0, 1).map((outcome) => <li>{outcome}</li>)}
 										</ul>
 									)}
-									<button type="button" class="case-study-toggle atlas-chip mt-6" aria-expanded="false" data-closed-label="Read case study">Read case study</button>
+									<div class="project-card-actions mt-6 flex flex-wrap gap-3">
+                                        <a href={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} class="relative z-10 atlas-chip case-study-direct">Full case study <span aria-hidden="true">→</span></a>
+									</div>
 								</div>
-
-								<ProjectCaseStudy
-									title={project.data.title}
-									domain={domain}
-									api={project.data.api}
-									category={project.data.category}
-									year={year}
-									summary={project.data.summary}
-									role={project.data.role}
-									problem={project.data.problem}
-									approach={project.data.approach}
-									outcomes={project.data.outcomes}
-									engine={project.data.engine}
-									features={project.data.features}
-									performanceMetrics={project.data.performance_metrics}
-									externalUrl={project.data.external_url}
-									youtubeUrl={project.data.youtube_url}
-									images={project.data.media_images}
-									buildMode={project.data.build_mode}
-									buildNote={project.data.build_note}
-									hasNotes={Boolean(project.body?.trim())}
-									Content={Content}
-								/>
+								<ProjectPreview project={project} />
 							</article>
 						);
 					})}
+				</div>
+			</section>
+
+			<section id="how-i-work" class="scroll-mt-8 pt-24 md:pt-32">
+				<header class="section-rule mb-10 grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-end">
+					<p class="mono text-[10px] uppercase tracking-[0.16em] text-muted">Engineering workflow</p>
+					<div class="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.65fr)] md:items-end">
+						<h2 class="text-5xl font-medium leading-none text-paper md:text-7xl">How the<br /> work happens.</h2>
+						<p class="max-w-xl text-base leading-relaxed text-muted">I use Oh my PI extensively across multiple AI providers, alongside Claude Code. In my personal projects, I define requirements, divide implementation work, review changes and validate behaviour before integration.</p>
+					</div>
+				</header>
+
+				<div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Design</p>
+						<p class="mt-3 text-lg leading-snug text-paper">I decide the architecture.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">I define requirements, acceptance criteria and subsystem boundaries. In AetherCore that includes GPU abstractions; in Ironvellum it includes offline storage and cloud backup.</p>
+					</article>
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Verification</p>
+						<p class="mt-3 text-lg leading-snug text-paper">Tests, checks and review before integration.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">Automated tests exercise engine subsystems. Static architecture checks and a GPU abstraction guard check boundaries; local GPU smoke tests exercise the editor and runtime.</p>
+					</article>
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Implementation</p>
+						<p class="mt-3 text-lg leading-snug text-paper">Split implementation into bounded tasks.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">I use Oh my PI (omp) with multiple AI providers and Claude Code to work on bounded implementation tasks, then review changes against the design and acceptance criteria.</p>
+					</article>
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">MCP / Runtime inspection</p>
+						<p class="mt-3 text-lg leading-snug text-paper">Give agents access to running software.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">AetherCore's MCP interface lets agents inspect and control the live editor, capture screenshots and run validation with structured results.</p>
+					</article>
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Big Ant / Tools for teammates</p>
+						<p class="mt-3 text-lg leading-snug text-paper">I build what they asked for.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">I work with programmers and QA on new systems and improvements to established tools. Internal documentation is agent-assisted and peer-reviewed.</p>
+					</article>
+					<article class="soft-panel card-glow border-1 border-line bg-surface p-5 md:p-6">
+						<p class="mono text-[10px] uppercase tracking-[0.14em] text-signal">Big Ant / Release support</p>
+						<p class="mt-3 text-lg leading-snug text-paper">I help the team resolve release blockers.</p>
+						<p class="mt-2 text-sm leading-relaxed text-muted">Near submission I work with producers and other programmers to resolve certification issues, cover gaps and stabilise integrations for release.</p>
+					</article>
 				</div>
 			</section>
 
@@ -257,7 +229,7 @@ const spotlightProjects = atlasProjects
 					<div id="atlas-filters-panel" class="mt-4 hidden space-y-4 lg:mt-0 lg:block">
 						<div>
 							<label for="atlas-search" class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Search</label>
-							<input id="atlas-search" type="text" placeholder="title, feature, summary" class="mt-2 w-full border-1 border-line bg-ground px-3 py-2 text-sm text-paper placeholder:text-muted focus:border-signal" />
+							<input id="atlas-search" type="text" placeholder="project, technology, workflow" class="mt-2 w-full border-1 border-line bg-ground px-3 py-2 text-sm text-paper placeholder:text-muted focus:border-signal" />
 						</div>
 
 						<div>
@@ -286,7 +258,7 @@ const spotlightProjects = atlasProjects
 						</div>
 
 						<div>
-							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">API</p>
+							<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Graphics API</p>
 							<div class="mt-2 flex flex-wrap gap-2" data-filter-group="api">
 								<button class="atlas-chip atlas-chip-active" data-filter="all" type="button">All</button>
 								{apis.map((api) => <button class="atlas-chip" data-filter={api} type="button">{api}</button>)}
@@ -307,28 +279,24 @@ const spotlightProjects = atlasProjects
 
 				<div class="space-y-5">
 					<div id="atlas-grid" class="grid gap-5 xl:grid-cols-2">
-						{atlasProjects.map(({ project, domain, year, Content }, projectIndex) => {
+						{atlasProjects.map(({ project, domain, year }, projectIndex) => {
 							const previewImage = project.data.media_images?.[0];
 
 							return (
 								<article
-									class="atlas-card soft-panel card-pop overflow-hidden border-1 border-line bg-surface"
+									class="atlas-card relative soft-panel card-pop overflow-hidden border-1 border-line bg-surface"
 									data-project-card
 									data-title={project.data.title.toLowerCase()}
 									data-summary={project.data.summary.toLowerCase()}
-									data-features={project.data.features.join(' ').toLowerCase()}
+									data-features={[project.data.engine, ...project.data.features, project.data.build_note ?? ''].join(' ').toLowerCase()}
 									data-domain={domain}
 									data-category={project.data.category}
 									data-api={project.data.api ?? ''}
 									data-year={String(year)}
 									data-ts={String(project.data.date.getTime())}
 								>
-									{previewImage && (
-										<div class="relative h-44 overflow-hidden border-b border-line">
-											<img src={withBase(previewImage, import.meta.env.BASE_URL)} alt={`${project.data.title} preview`} class="h-full w-full object-cover" loading="lazy" />
-										</div>
-									)}
-									<div class="space-y-3 p-5">
+									<ProjectGallery title={project.data.title} images={project.data.media_images} card previewHref={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} />
+									<div class="project-card-copy space-y-3 p-5">
 										<div class="flex items-start justify-between gap-3">
 											<div class="flex flex-wrap items-center gap-2">
 												<span class="meta-chip">{domain}</span>
@@ -339,45 +307,15 @@ const spotlightProjects = atlasProjects
 											</div>
 											<p class="mono shrink-0 text-[10px] tracking-[0.12em] text-signal">/{String(projectIndex + 1).padStart(2, '0')}</p>
 										</div>
-										<h3 class="text-2xl font-semibold leading-tight text-paper">{project.data.title}</h3>
+										<h3 class="text-2xl font-semibold leading-tight text-paper"><a href={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} data-preview-link class="after:absolute after:inset-0">{project.data.title}</a></h3>
 										<p class="text-sm leading-relaxed text-muted">{project.data.summary}</p>
-										<div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-start">
-											<p class="text-sm leading-relaxed text-muted/85">{project.data.features.slice(0, 3).join(' · ')}</p>
-											<div class="flex items-center justify-end gap-2">
-											<button
-												type="button"
-												class="case-study-toggle atlas-expand-toggle atlas-chip"
-												aria-expanded="false"
-												data-closed-label="More Info"
-											>
-												More Info
-												</button>
+										<div class="project-card-actions">
+											<div class="flex flex-wrap items-center gap-2">
+                                        <a href={withBase(`/projects/${project.id}/`, import.meta.env.BASE_URL)} class="relative z-10 atlas-chip case-study-direct">Full case study <span aria-hidden="true">→</span></a>
 											</div>
 										</div>
 									</div>
-
-									<ProjectCaseStudy
-										title={project.data.title}
-										domain={domain}
-										api={project.data.api}
-										category={project.data.category}
-										year={year}
-										summary={project.data.summary}
-										role={project.data.role}
-										problem={project.data.problem}
-										approach={project.data.approach}
-										outcomes={project.data.outcomes}
-										engine={project.data.engine}
-										features={project.data.features}
-										performanceMetrics={project.data.performance_metrics}
-										externalUrl={project.data.external_url}
-										youtubeUrl={project.data.youtube_url}
-										images={project.data.media_images}
-										buildMode={project.data.build_mode}
-										buildNote={project.data.build_note}
-										hasNotes={Boolean(project.body?.trim())}
-										Content={Content}
-									/>
+								<ProjectPreview project={project} />
 								</article>
 							);
 						})}
@@ -393,23 +331,55 @@ const spotlightProjects = atlasProjects
 				</div>
 			</section>
 
-			<div id="atlas-island-overlay" class="atlas-island-overlay hidden" aria-hidden="true">
-				<div class="atlas-island-shell soft-panel border-1 border-line bg-surface" role="dialog" aria-modal="true" aria-label="Project detail">
-					<div class="flex shrink-0 items-center justify-between gap-3 border-b border-line px-4 py-3 md:px-5">
-						<p class="mono text-[11px] uppercase tracking-[0.14em] text-muted">Project detail</p>
-						<button id="atlas-island-close" type="button" class="atlas-chip">Close</button>
-					</div>
-					<div id="atlas-island-content" class="atlas-island-scroll"></div>
-				</div>
-				<div id="atlas-image-preview" class="atlas-image-preview hidden" aria-hidden="true">
-					<button id="atlas-image-preview-close" type="button" class="atlas-chip atlas-image-preview-close">Close Preview</button>
-					<img id="atlas-image-preview-img" src="" alt="Project media preview" class="atlas-image-preview-img" />
-				</div>
-			</div>
 		</div>
 
+    <dialog id="project-preview" aria-labelledby="project-preview-title" class="m-auto max-h-[90dvh] overflow-hidden rounded-sm border border-line bg-surface p-0 text-paper shadow-2xl">
+      <form method="dialog" class="absolute right-3 top-3 z-20">
+        <button class="atlas-chip flex h-11 w-11 items-center justify-center text-xl" autofocus aria-label="Close project preview">×</button>
+      </form>
+      <div id="project-preview-content"></div>
+    </dialog>
+    <style>
+  .case-study-direct { border-color: var(--color-signal); gap: .5rem; min-height: 44px; padding: .65rem 1rem; }
+  .spotlight-card, .atlas-card:not(.atlas-card-hidden) { display: flex; flex-direction: column; }
+  .project-card-copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; }
+  .project-card-actions { margin-top: auto !important; padding-top: 1.25rem; width: 100%; }
+  .project-card-copy > .flex { width: 100%; }
+  @media (min-width: 1100px) { #atlas-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .case-study-direct:hover { background: var(--color-raised); }
+      #project-preview { width: min(42rem, calc(100% - 2rem)); overscroll-behavior: contain; scrollbar-gutter: auto; }
+      #project-preview[data-has-image="true"] { width: min(60rem, calc(100% - 2rem)); }
+      #project-preview::backdrop { background: rgb(0 0 0 / 70%); }
+    </style>
+
+		<script>import '../scripts/project-gallery';</script>
 		<script is:inline>
 			(() => {
+        const preview = document.getElementById('project-preview');
+        const previewContent = document.getElementById('project-preview-content');
+        let previousOverflow = '';
+        document.addEventListener('click', (event) => {
+          const link = event.target.closest('[data-preview-link]');
+          if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+          const template = link.closest('[data-project-card]')?.querySelector('[data-project-preview]');
+          if (!template || !preview || !previewContent) return;
+          event.preventDefault();
+          previewContent.replaceChildren(template.content.cloneNode(true));
+          previousOverflow = document.documentElement.style.overflow;
+          document.documentElement.style.overflow = 'hidden';
+          preview.dataset.hasImage = template.dataset.hasImage;
+          preview.showModal();
+          preview.scrollTop = 0;
+        });
+        preview?.addEventListener('close', () => {
+          document.documentElement.style.overflow = previousOverflow;
+          previewContent.replaceChildren();
+        });
+        preview?.addEventListener('click', (event) => {
+          if (event.target !== preview) return;
+          const rect = preview.getBoundingClientRect();
+          if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) preview.close();
+        });
 				const cards = Array.from(document.querySelectorAll('#atlas-grid .atlas-card'));
 				const searchInput = document.getElementById('atlas-search');
 				const sortSelect = document.getElementById('atlas-sort');
@@ -419,13 +389,6 @@ const spotlightProjects = atlasProjects
 				const filtersToggle = document.getElementById('atlas-filters-toggle');
 				const filtersPanel = document.getElementById('atlas-filters-panel');
 				const groups = Array.from(document.querySelectorAll('[data-filter-group]'));
-				const expandToggles = Array.from(document.querySelectorAll('.case-study-toggle'));
-				const islandOverlay = document.getElementById('atlas-island-overlay');
-				const islandContent = document.getElementById('atlas-island-content');
-				const islandClose = document.getElementById('atlas-island-close');
-				const imagePreview = document.getElementById('atlas-image-preview');
-				const imagePreviewImg = document.getElementById('atlas-image-preview-img');
-				const imagePreviewClose = document.getElementById('atlas-image-preview-close');
 
 				if (!cards.length || !searchInput || !sortSelect || !emptyState || !loadMoreButton || !resetButton) return;
 
@@ -498,7 +461,7 @@ const spotlightProjects = atlasProjects
 					if (state.year !== 'all') nextParams.set('year', state.year);
 					if (state.sort !== 'newest') nextParams.set('sort', state.sort);
 					const query = nextParams.toString();
-					window.history.replaceState({}, '', query ? `?${query}` : window.location.pathname);
+					window.history.replaceState({}, '', `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`);
 				};
 
 				const apply = () => {
@@ -535,181 +498,6 @@ const spotlightProjects = atlasProjects
 					updateURL();
 					setupInfiniteScroll();
 				};
-
-				let islandReturnFocus = null;
-
-				const activateCaseTab = (tab) => {
-					const root = tab.closest('[data-case-study]');
-					if (!root) return;
-
-					const target = tab.getAttribute('data-case-tab');
-					root.querySelectorAll('[data-case-tab]').forEach((item) => {
-						const selected = item === tab;
-						item.setAttribute('aria-selected', selected ? 'true' : 'false');
-						item.tabIndex = selected ? 0 : -1;
-					});
-					root.querySelectorAll('[data-case-panel]').forEach((panel) => {
-						panel.hidden = panel.getAttribute('data-case-panel') !== target;
-					});
-
-					if (islandContent) islandContent.scrollTop = 0;
-				};
-
-				const trapIslandFocus = (event) => {
-					if (event.key !== 'Tab' || !islandOverlay || islandOverlay.classList.contains('hidden')) return;
-					const shell = islandOverlay.querySelector('.atlas-island-shell');
-					if (!shell) return;
-
-					const focusable = Array.from(
-						shell.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
-					).filter((element) => element.offsetParent !== null);
-					if (!focusable.length) return;
-
-					const first = focusable[0];
-					const last = focusable[focusable.length - 1];
-					if (event.shiftKey && document.activeElement === first) {
-						event.preventDefault();
-						last.focus();
-					} else if (!event.shiftKey && document.activeElement === last) {
-						event.preventDefault();
-						first.focus();
-					}
-				};
-
-				const closeIsland = () => {
-					if (!islandOverlay || !islandContent) return;
-					if (imagePreview && imagePreviewImg) {
-						imagePreview.classList.add('hidden');
-						imagePreview.setAttribute('aria-hidden', 'true');
-						imagePreviewImg.setAttribute('src', '');
-					}
-					islandOverlay.classList.add('hidden');
-					islandOverlay.setAttribute('aria-hidden', 'true');
-					islandContent.innerHTML = '';
-					document.body.classList.remove('atlas-island-open');
-					expandToggles.forEach((toggle) => {
-						toggle.setAttribute('aria-expanded', 'false');
-						toggle.textContent = toggle.dataset.closedLabel || 'Project detail';
-					});
-					if (islandReturnFocus) {
-						islandReturnFocus.focus();
-						islandReturnFocus = null;
-					}
-				};
-
-				const closeImagePreview = () => {
-					if (!imagePreview || !imagePreviewImg) return;
-					imagePreview.classList.add('hidden');
-					imagePreview.setAttribute('aria-hidden', 'true');
-					imagePreviewImg.setAttribute('src', '');
-				};
-
-				expandToggles.forEach((toggle) => {
-					toggle.addEventListener('click', (e) => {
-						e.stopPropagation();
-						if (!islandOverlay || !islandContent) return;
-						const card = toggle.closest('[data-project-card]');
-						if (!card) return;
-						const template = card.querySelector('.atlas-island-template');
-						if (!template) return;
-
-						expandToggles.forEach((chip) => {
-							chip.setAttribute('aria-expanded', 'false');
-							chip.textContent = chip.dataset.closedLabel || 'Project detail';
-						});
-
-						islandContent.innerHTML = '';
-						islandContent.appendChild(template.content.cloneNode(true));
-						islandOverlay.classList.remove('hidden');
-						islandOverlay.setAttribute('aria-hidden', 'false');
-						document.body.classList.add('atlas-island-open');
-
-						toggle.setAttribute('aria-expanded', 'true');
-						toggle.textContent = 'Opened';
-						islandReturnFocus = toggle;
-
-						const activeTab = islandContent.querySelector('[data-case-tab][aria-selected="true"]');
-						(activeTab || islandClose)?.focus();
-					});
-				});
-
-				document.querySelectorAll('[data-project-card]').forEach((card) => {
-					card.addEventListener('click', (e) => {
-						if (e.target.closest('a, button')) return;
-						const toggle = card.querySelector('.case-study-toggle');
-						if (toggle) toggle.click();
-					});
-				});
-
-				if (islandClose) {
-					islandClose.addEventListener('click', closeIsland);
-				}
-
-				if (islandContent && imagePreview && imagePreviewImg) {
-					islandContent.addEventListener('click', (event) => {
-						const target = event.target;
-						if (!(target instanceof HTMLImageElement)) return;
-						const source = target.getAttribute('src');
-						if (!source) return;
-
-						imagePreviewImg.setAttribute('src', source);
-						imagePreviewImg.setAttribute('alt', target.getAttribute('alt') || 'Project media preview');
-						imagePreview.classList.remove('hidden');
-						imagePreview.setAttribute('aria-hidden', 'false');
-					});
-				}
-
-				if (islandContent) {
-					islandContent.addEventListener('click', (event) => {
-						const tab = event.target.closest('[data-case-tab]');
-						if (tab) activateCaseTab(tab);
-					});
-
-					islandContent.addEventListener('keydown', (event) => {
-						const tab = event.target.closest('[data-case-tab]');
-						if (!tab) return;
-
-						const tabs = Array.from(tab.parentElement.querySelectorAll('[data-case-tab]'));
-						const index = tabs.indexOf(tab);
-						let next = null;
-						if (event.key === 'ArrowRight') next = tabs[(index + 1) % tabs.length];
-						else if (event.key === 'ArrowLeft') next = tabs[(index - 1 + tabs.length) % tabs.length];
-						else if (event.key === 'Home') next = tabs[0];
-						else if (event.key === 'End') next = tabs[tabs.length - 1];
-						if (!next) return;
-
-						event.preventDefault();
-						activateCaseTab(next);
-						next.focus();
-					});
-				}
-
-				document.addEventListener('keydown', trapIslandFocus);
-
-				if (imagePreviewClose) {
-					imagePreviewClose.addEventListener('click', closeImagePreview);
-				}
-
-				if (imagePreview) {
-					imagePreview.addEventListener('click', (event) => {
-						if (event.target === imagePreview) closeImagePreview();
-					});
-				}
-
-				if (islandOverlay) {
-					islandOverlay.addEventListener('click', (event) => {
-						if (event.target === islandOverlay) closeIsland();
-					});
-				}
-
-				document.addEventListener('keydown', (event) => {
-					if (event.key !== 'Escape') return;
-					if (imagePreview && !imagePreview.classList.contains('hidden')) {
-						closeImagePreview();
-						return;
-					}
-					closeIsland();
-				});
 
 				groups.forEach((group) => {
 					const key = group.getAttribute('data-filter-group');
@@ -793,7 +581,7 @@ const spotlightProjects = atlasProjects
 				<div>
 					<p class="mono text-[10px] uppercase tracking-[0.16em] text-signal">Contact</p>
 					<a href="mailto:alexmollard@protonmail.com" class="footer-email mt-4 inline-block text-2xl font-medium leading-snug text-paper underline decoration-signal underline-offset-8 sm:text-3xl">alexmollard@protonmail.com</a>
-					<p class="mt-4 max-w-md text-sm leading-relaxed text-muted">Senior Generalist Programmer at Big Ant Studios, Melbourne. Open to talking about rendering, engine architecture, and tools work.</p>
+					<p class="mt-4 max-w-md text-sm leading-relaxed text-muted">Senior Generalist Programmer at Big Ant Studios, Melbourne. Open to software engineering roles across applications, developer tools, automation and systems.</p>
 				</div>
 
 				<div class="border-t border-line pt-5 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-1">
