@@ -1,6 +1,6 @@
 # Alex Mollard — Portfolio
 
-Personal portfolio site built with [Astro](https://astro.build), showcasing game development, rendering engine, and software engineering projects.
+Personal portfolio site built with [Astro](https://astro.build), showcasing C++ systems, developer tools, game development, and software engineering projects.
 
 Live at: [alexmollard.dev](https://www.alexmollard.dev)
 
